@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+// Import Route Controllers
+const userRoutes = require("./routes/userRoutes");
+
 // Initiate our application
 const app = express();
 
@@ -20,5 +23,7 @@ app.use("/", (req, res, next) => {
     msg: "Welcome to my messenger app",
   });
 });
+
+app.use("/user", userRoutes);
 
 module.exports = app;
