@@ -1,0 +1,15 @@
+# Dependencies
+/api/node_modules
+/client/node_modules
+
+# Environment Variables
+/api/.env
+
+# misc
+/api/.DS_STORE
+/client/.DS_STORE
+.DS_STORE
+
+# Workspace Settings
+/api/.vscode
+/client/.vscode
