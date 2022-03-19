@@ -9,6 +9,3 @@ const User = new Schema({
 
 //Export model
 module.exports = mongoose.model("User", User);
-
-// 41tb4vHtHxq7wBUX
-// zTWnLK1R8IhOD5cr
