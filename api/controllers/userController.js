@@ -68,11 +68,13 @@ exports.create_user_post = [
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
       if (err) next(err);
 
+      // Create new user with defaulted values
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
         friends: [],
       });
+
       newUser.save((err) => {
         if (err) next(err);
 
@@ -85,7 +87,7 @@ exports.create_user_post = [
           },
           process.env.SECRET_STRING,
           {
-            expiresIn: "1h",
+            expiresIn: "48h",
           },
           (err, token) => {
             if (err) next(err);

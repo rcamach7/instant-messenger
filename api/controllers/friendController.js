@@ -26,11 +26,17 @@ exports.friends_get = [
       } else {
         // Token validated, user details obtained
         User.findById(authData._id)
-          .populate("friends")
+          .populate({
+            path: "friends",
+            populate: {
+              path: "friend",
+              model: "User",
+              select: "username",
+            },
+          })
           .exec((err, user) => {
             if (err) next(err);
 
-            console.log(user);
             res.json(user);
           });
       }
@@ -66,27 +72,72 @@ exports.add_friend_post = [
           (err, newFriendUser) => {
             if (err) next(err);
 
-            // Create new friend instance using the ID of the friend's user profile
-            const newFriend = new Friend({
+            const newFriend = {
               friend: newFriendUser._id,
               messages: [],
-            });
-
+            };
             // If friend found, add friend to user friends list
-            if (newFriendUser) {
-              User.updateOne(
-                { _id: authData._id },
-                { $push: { friends: newFriend } }
-              ).exec((err, result) => {
-                if (err) next(err);
+            User.updateOne(
+              { _id: authData._id },
+              { $push: { friends: newFriend } }
+            ).exec((err) => {
+              if (err) next(err);
 
-                res.status(201).json({
-                  message: "Friend Added",
-                });
+              res.status(201).json({
+                message: "Friend Added",
               });
-            } else {
-              res.status(404).json({ msg: "Friend not found" });
-            }
+            });
+          }
+        );
+      }
+    });
+  },
+];
+
+// * Message(s) controller
+// Send message to a friend. We will need token to get user info, and friend username along with message to process request.
+exports.message_friends_post = [
+  // Verify token exists. Then, pull the token received and add it to the request.
+  (req, res, next) => {
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  // Verify token is valid, and corresponds to a user, then process request.
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) {
+        res.status(403).json({ msg: "Failed authentication" });
+      } else {
+        //  We will be provided their token, and friendUsername of friend along with the content of the message.
+        User.findOne({ username: req.body.friendUsername }).exec(
+          (err, userFriend) => {
+            if (err) next(err);
+
+            // Create new message object to be added.
+            const newMessage = {
+              from: authData._id,
+              to: userFriend._id,
+              message: req.body.message,
+              timestamp: new Date(),
+            };
+
+            User.updateOne(
+              { _id: authData._id, "friends.friend": userFriend._id },
+              { $push: { "friends.$.messages": newMessage } }
+            ).exec((err, result) => {
+              if (err) next(err);
+
+              res.json(result);
+            });
           }
         );
       }

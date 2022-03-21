@@ -21,14 +21,14 @@ router.delete("/", userController.user_delete);
 router.get("/protected", userController.protected_get);
 
 // * Friend(s) controller
-// Creates a new friend by using user token and provided friend username through body.
-router.post("/friends/", friendController.add_friend_post);
-
 // Will return the list of friends and relevant data to user
 router.get("/friends/", friendController.friends_get);
 
+// Creates a new friend by using user token and provided friend username through body.
+router.post("/friends/", friendController.add_friend_post);
+
 // * Messages(s) controller
 // Will send a message to one of their friends. We will be provided their token, and username of friend along with the content of the message.
-// router.post("/friends/messages", friendController.message_friends_post);
+router.post("/friends/messages/", friendController.message_friends_post);
 
 module.exports = router;
