@@ -79,7 +79,11 @@ exports.create_user_post = [
         // Create our JWT token and return to user, to be saved locally.
         // All tokens expire after an hour
         jwt.sign(
-          { username: newUser.username, password: newUser.password },
+          {
+            username: newUser.username,
+            password: newUser.password,
+            _id: newUser._id,
+          },
           process.env.SECRET_STRING,
           {
             expiresIn: "1h",
