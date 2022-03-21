@@ -3,6 +3,8 @@ const app = require("../app");
 const router = express.Router();
 
 const userController = require("../controllers/userController");
+const messageController = require("../controllers/messageController");
+const friendController = require("../controllers/friendController");
 
 // Retrieves user by providing body fields
 router.get("/", userController.login_user_get);
@@ -18,5 +20,8 @@ router.delete("/", userController.user_delete);
 
 // * Protected route test
 router.get("/protected", userController.protected_get);
+
+// * Friend(s) controller
+router.post("/friends/", friendController.add_friend_post);
 
 module.exports = router;
