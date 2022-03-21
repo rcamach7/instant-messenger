@@ -26,10 +26,10 @@ exports.login_user_get = [
   // Return JWT token upon validation
   (req, res, next) => {
     jwt.sign(
-      { username: req.user.username, password: req.user.password },
+      { username: req.user.username, _id: req.user._id },
       process.env.SECRET_STRING,
       {
-        expiresIn: "1h",
+        expiresIn: "48h",
       },
       (err, token) => {
         if (err) next(err);
@@ -81,7 +81,6 @@ exports.create_user_post = [
         jwt.sign(
           {
             username: newUser.username,
-            password: newUser.password,
             _id: newUser._id,
           },
           process.env.SECRET_STRING,
