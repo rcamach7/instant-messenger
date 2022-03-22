@@ -23,6 +23,35 @@ app.set("port", port);
 var server = http.createServer(app);
 
 /**
+ * Set up socket connection.
+ */
+
+const io = require("socket.io")(server);
+app.set("socketio", io);
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+
+  // // Intercept our chat message, and send it to everyone connected
+  // socket.on("chat message", (message) => {
+  //   io.emit("chat message", message);
+  // });
+
+  // Have users join a room of the current person they're chatting with
+  socket.on("join", (data) => {
+    socket.join(data._id);
+    console.log(`User has joined room: ${data._id}`);
+
+    // io.to(data._id).on("chat message", (message) => {
+    //   io.emit("chat message", message);
+    // });
+  });
+});
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 

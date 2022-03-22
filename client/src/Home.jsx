@@ -1,6 +1,7 @@
 import "./scss/Home.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import io from "socket.io-client";
 import SignIn from "./components/forms/SignIn";
 import MessagesContainer from "./components/MessagesContainer";
 
@@ -10,13 +11,17 @@ axios.interceptors.request.use(
     if (token) {
       config.headers.authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
+
+// Connect to our server
+const socket = io.connect("http://localhost:2000", {
+  transports: ["websocket"],
+});
 
 function Home() {
   const storedJwt = localStorage.getItem("token");
@@ -25,6 +30,7 @@ function Home() {
   // State on current messages we are viewing
   const [messagesView, setMessagesView] = useState([]);
   const [friend, setFriend] = useState("");
+  const [roomID, setRoomID] = useState(null);
 
   const [showSignInForm, setShowSignInForm] = useState(false);
 
@@ -51,6 +57,7 @@ function Home() {
       if (friend.friend._id === friend_id) {
         setMessagesView(friend.messages);
         setFriend(friendUsername);
+        setRoomID(friend._id);
       }
     });
   };
@@ -58,7 +65,7 @@ function Home() {
   return (
     <div className="Home">
       <header>
-        <h1>Members Only</h1>
+        <h1>Messenger</h1>
       </header>
       <main>
         <aside className="sideBar">
@@ -82,6 +89,9 @@ function Home() {
             <button onClick={() => console.log(messagesView)}>
               Print Messages
             </button>
+          ) : null}
+          {user ? (
+            <button onClick={() => console.log(roomID)}>Print RoomID</button>
           ) : null}
 
           <p style={{ textAlign: "center" }}>Friends</p>
@@ -107,6 +117,8 @@ function Home() {
               messagesView={messagesView}
               friend={friend}
               user={user ? user : null}
+              socket={socket}
+              roomID={roomID}
             />
           </div>
         </aside>
