@@ -142,13 +142,22 @@ exports.message_friends_post = [
               timestamp: new Date(),
             };
 
+            // First update the user's profile with the new message
             User.updateOne(
               { _id: authData._id, "friends.friend": userFriend._id },
               { $push: { "friends.$.messages": newMessage } }
-            ).exec((err, result) => {
+            ).exec((err) => {
               if (err) next(err);
 
-              res.json(result);
+              // Second update the friends profile with the new message
+              User.updateOne(
+                { _id: userFriend._id, "friends.friend": authData._id },
+                { $push: { "friends.$.messages": newMessage } }
+              ).exec((err) => {
+                if (err) next(err);
+
+                res.status(201).json({ msg: "Message saved" });
+              });
             });
           }
         );
