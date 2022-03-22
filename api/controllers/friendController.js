@@ -156,6 +156,8 @@ exports.message_friends_post = [
               ).exec((err) => {
                 if (err) next(err);
 
+                // Now we will emit a socket connection, to notify users of a new message and update their client.
+                req.app.get("socketio").emit("chat message", newMessage);
                 res.status(201).json(newMessage);
               });
             });
