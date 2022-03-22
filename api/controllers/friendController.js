@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const Friend = require("../models/Friend");
 const jwt = require("jsonwebtoken");
 
 // Returns the users friends and any data stored, such as messages.
@@ -37,7 +36,7 @@ exports.friends_get = [
           .exec((err, user) => {
             if (err) next(err);
 
-            res.json(user);
+            res.json(user.friends);
           });
       }
     });
@@ -76,15 +75,28 @@ exports.add_friend_post = [
               friend: newFriendUser._id,
               messages: [],
             };
-            // If friend found, add friend to user friends list
+
+            // If friend found, add friend
             User.updateOne(
               { _id: authData._id },
               { $push: { friends: newFriend } }
             ).exec((err) => {
               if (err) next(err);
 
-              res.status(201).json({
-                message: "Friend Added",
+              const newFriendTwo = {
+                friend: authData._id,
+                messages: [],
+              };
+              // Now we need to add the user to their friends list
+              User.updateOne(
+                { _id: newFriendUser._id },
+                { $push: { friends: newFriendTwo } }
+              ).exec((err) => {
+                if (err) next(err);
+
+                res.status(201).json({
+                  message: "Friend Added",
+                });
               });
             });
           }
@@ -130,13 +142,22 @@ exports.message_friends_post = [
               timestamp: new Date(),
             };
 
+            // First update the user's profile with the new message
             User.updateOne(
               { _id: authData._id, "friends.friend": userFriend._id },
               { $push: { "friends.$.messages": newMessage } }
-            ).exec((err, result) => {
+            ).exec((err) => {
               if (err) next(err);
 
-              res.json(result);
+              // Second update the friends profile with the new message
+              User.updateOne(
+                { _id: userFriend._id, "friends.friend": authData._id },
+                { $push: { "friends.$.messages": newMessage } }
+              ).exec((err) => {
+                if (err) next(err);
+
+                res.status(201).json(newMessage);
+              });
             });
           }
         );
