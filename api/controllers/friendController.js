@@ -156,7 +156,7 @@ exports.message_friends_post = [
               ).exec((err) => {
                 if (err) next(err);
 
-                res.status(201).json({ msg: "Message saved" });
+                res.status(201).json(newMessage);
               });
             });
           }

@@ -103,6 +103,7 @@ function Home() {
           <div>{user ? <h1>Hello {user.username}</h1> : null}</div>
           <div className="messageContainer">
             <MessagesContainer
+              setMessagesView={setMessagesView}
               messagesView={messagesView}
               friend={friend}
               user={user ? user : null}
