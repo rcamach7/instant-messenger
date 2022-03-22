@@ -26,10 +26,10 @@ exports.login_user_get = [
   // Return JWT token upon validation
   (req, res, next) => {
     jwt.sign(
-      { username: req.user.username, password: req.user.password },
+      { username: req.user.username, _id: req.user._id },
       process.env.SECRET_STRING,
       {
-        expiresIn: "1h",
+        expiresIn: "48h",
       },
       (err, token) => {
         if (err) next(err);
@@ -68,21 +68,26 @@ exports.create_user_post = [
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
       if (err) next(err);
 
+      // Create new user with defaulted values
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
         friends: [],
       });
+
       newUser.save((err) => {
         if (err) next(err);
 
         // Create our JWT token and return to user, to be saved locally.
         // All tokens expire after an hour
         jwt.sign(
-          { username: newUser.username, password: newUser.password },
+          {
+            username: newUser.username,
+            _id: newUser._id,
+          },
           process.env.SECRET_STRING,
           {
-            expiresIn: "1h",
+            expiresIn: "48h",
           },
           (err, token) => {
             if (err) next(err);
