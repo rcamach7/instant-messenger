@@ -7,6 +7,7 @@
 ### Semi-Severe
 
 - Before adding a friend, make sure the friends isn't already added in the users friend array.
+- Update method of storing JWT token client-side.
 
 #### Important
 

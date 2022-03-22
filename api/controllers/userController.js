@@ -5,7 +5,35 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
 // ! Endpoint(s) for "/user/"
-// Retrieves user by providing body fields and sends token
+exports.user_get = [
+  // Pull the token received and add it to the request.
+  (req, res, next) => {
+    // Pull the bearerHeader
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) {
+        res.status(403).json({ msg: "Failed authentication" });
+      } else {
+        // Only gets hit if user is authorized
+        res.json({ authData });
+      }
+    });
+  },
+];
+
+// Retrieves user by providing body fields and sends token back.
 exports.login_user_get = [
   // Data Validation and sanitation.
   check("username").exists().bail().trim().isLength({ min: 4 }),
@@ -34,7 +62,7 @@ exports.login_user_get = [
       (err, token) => {
         if (err) next(err);
 
-        res.json({ token });
+        res.json({ token, user: req.user });
       }
     );
   },

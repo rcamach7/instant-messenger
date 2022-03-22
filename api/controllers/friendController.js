@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const Friend = require("../models/Friend");
 const jwt = require("jsonwebtoken");
 
 // Returns the users friends and any data stored, such as messages.

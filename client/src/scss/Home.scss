@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Home {
+  height: 100vh;
+  width: 100vw;
+
+  header {
+    height: 100px;
+
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    display: flex;
+
+    .sideBar {
+      height: calc(100vh - 100px);
+      flex: 1;
+
+      padding: 5px;
+      background-color: aliceblue;
+
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      button {
+        background-color: white;
+        border: solid black 1px;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px;
+
+        transition: transform 1s;
+      }
+      button:hover {
+        transform: scale(1.05);
+      }
+    }
+    .mainContent {
+      height: calc(100vh - 100px);
+      flex: 5;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .messageContainer {
+        width: 100%;
+        padding: 20px;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        .Post {
+          width: 300px;
+          height: 100px;
+          background-color: antiquewhite;
+          border-radius: 5px;
+          border: solid black 2px;
+          padding: 5px;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // Form Styling
+  .formBackdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(189, 189, 189, 0.8);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .SignUp,
+    .SignIn,
+    .AccessForm,
+    .PostForm {
+      width: fit-content;
+      height: 275px;
+
+      padding: 10px;
+      text-align: center;
+      background-color: white;
+      border-radius: 5px;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .close-icon {
+      cursor: pointer;
+      margin-left: auto;
+    }
+    .btn {
+      background-color: rgb(113, 113, 255);
+      color: white;
+      padding: 3px;
+      border: none;
+      margin-top: auto;
+    }
+  }
+}
