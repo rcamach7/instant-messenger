@@ -15,6 +15,7 @@ const User = new Schema({
           timestamp: { type: Date },
         },
       ],
+      _id: { type: String, required: true },
     },
   ],
 });

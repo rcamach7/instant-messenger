@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const v4 = require("uuid").v4;
 
 // Returns the users friends and any data stored, such as messages.
 exports.friends_get = [
@@ -71,9 +72,11 @@ exports.add_friend_post = [
           (err, newFriendUser) => {
             if (err) next(err);
 
+            const friendshipId = v4();
             const newFriend = {
               friend: newFriendUser._id,
               messages: [],
+              _id: friendshipId,
             };
 
             // If friend found, add friend
@@ -86,6 +89,7 @@ exports.add_friend_post = [
               const newFriendTwo = {
                 friend: authData._id,
                 messages: [],
+                _id: friendshipId,
               };
               // Now we need to add the user to their friends list
               User.updateOne(
@@ -153,11 +157,15 @@ exports.message_friends_post = [
               User.updateOne(
                 { _id: userFriend._id, "friends.friend": authData._id },
                 { $push: { "friends.$.messages": newMessage } }
-              ).exec((err) => {
+              ).exec((err, user) => {
                 if (err) next(err);
 
                 // Now we will emit a socket connection, to notify users of a new message and update their client.
-                req.app.get("socketio").emit("chat message", newMessage);
+                // req.app.get("socketio").emit("chat message", newMessage);
+                req.app
+                  .get("socketio")
+                  .sockets.in(`${req.body.roomID}`)
+                  .emit("chat message", newMessage);
                 res.status(201).json(newMessage);
               });
             });

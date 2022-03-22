@@ -14,7 +14,7 @@ export default function MessagesContainer(props) {
     if (props.roomID !== null) {
       props.socket.emit("join", { _id: props.roomID });
     }
-  }, []);
+  }, [props.roomID]);
 
   useEffect(() => {
     messages.sort((a, b) => b.timestamp - a.timestamp);
@@ -49,6 +49,7 @@ export default function MessagesContainer(props) {
       .post("/users/friends/messages", {
         friendUsername: friend,
         message: newMessage,
+        roomID: props.roomID,
       })
       .then(() => {
         setNewMessage("");
