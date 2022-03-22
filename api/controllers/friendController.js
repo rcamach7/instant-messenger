@@ -36,7 +36,7 @@ exports.friends_get = [
           .exec((err, user) => {
             if (err) next(err);
 
-            res.json(user);
+            res.json(user.friends);
           });
       }
     });

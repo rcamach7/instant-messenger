@@ -119,3 +119,20 @@
     }
   }
 }
+
+.MessagesContainer {
+  width: 100%;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .myMessage {
+    margin-left: auto;
+    color: blue;
+  }
+  .receivedMessage {
+    color: green;
+  }
+}
