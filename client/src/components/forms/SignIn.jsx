@@ -13,8 +13,13 @@ function SignIn(props) {
       // Set user information to state and save token locally
       props.setUser(results.data.user);
       localStorage.setItem("token", results.data.token);
-      // Remove sign in form
-      props.setShowSignInForm(false);
+      // Retrieve friends
+      axios.get("/users/friends").then((result) => {
+        props.setFriends(result.data);
+
+        // Remove sign in form
+        props.setShowSignInForm(false);
+      });
     });
   };
 
@@ -36,7 +41,7 @@ function SignIn(props) {
           onChange={(e) =>
             setAccount({ ...account, [e.target.id]: e.target.value })
           }
-          minLength="5"
+          minLength="4"
           maxLength="100"
           required
         />
@@ -48,7 +53,7 @@ function SignIn(props) {
           onChange={(e) =>
             setAccount({ ...account, [e.target.id]: e.target.value })
           }
-          minLength="5"
+          minLength="4"
           maxLength="100"
           required
         />

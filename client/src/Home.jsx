@@ -112,7 +112,11 @@ function Home() {
       </main>
       {/* Form Components */}
       {showSignInForm ? (
-        <SignIn setShowSignInForm={setShowSignInForm} setUser={setUser} />
+        <SignIn
+          setShowSignInForm={setShowSignInForm}
+          setUser={setUser}
+          setFriends={setFriends}
+        />
       ) : null}
     </div>
   );

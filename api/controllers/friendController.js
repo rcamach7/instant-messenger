@@ -75,15 +75,28 @@ exports.add_friend_post = [
               friend: newFriendUser._id,
               messages: [],
             };
-            // If friend found, add friend to user friends list
+
+            // If friend found, add friend
             User.updateOne(
               { _id: authData._id },
               { $push: { friends: newFriend } }
             ).exec((err) => {
               if (err) next(err);
 
-              res.status(201).json({
-                message: "Friend Added",
+              const newFriendTwo = {
+                friend: authData._id,
+                messages: [],
+              };
+              // Now we need to add the user to their friends list
+              User.updateOne(
+                { _id: newFriendUser._id },
+                { $push: { friends: newFriendTwo } }
+              ).exec((err) => {
+                if (err) next(err);
+
+                res.status(201).json({
+                  message: "Friend Added",
+                });
               });
             });
           }
