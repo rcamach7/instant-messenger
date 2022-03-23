@@ -1,0 +1,9 @@
+.MessagesViewport {
+  display: none;
+}
+
+@media (min-width: 450px) {
+  .MessagesViewport {
+    display: block;
+  }
+}
