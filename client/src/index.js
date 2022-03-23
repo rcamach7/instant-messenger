@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./routes/Home";
+import RouteSwitch from "./RouteSwitch";
 import "./scss/index.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <RouteSwitch />
   </React.StrictMode>,
   document.getElementById("root")
 );

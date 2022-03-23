@@ -1,0 +1,63 @@
+$fb-blue: rgb(26, 115, 228);
+
+.LandingPage {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-flow: wrap;
+  gap: 10px;
+  aside {
+    width: 350px;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+    p {
+      font-weight: bold;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+  }
+
+  form {
+    width: 300px;
+    height: 275px;
+
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input,
+    button {
+      width: 90%;
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    button {
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-btn {
+      color: white;
+      background-color: $fb-blue;
+    }
+    .newAccount-btn {
+      width: 50%;
+
+      color: white;
+      background-color: rgb(66, 183, 41);
+    }
+  }
+}

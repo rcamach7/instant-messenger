@@ -1,8 +1,14 @@
+import { useState, useEffect } from "react";
+import MenuBar from "../components/MenuBar";
+import MessagesViewport from "../components/MessagesViewport";
+import axios from "axios";
+
 function Home() {
   return (
-    <div className="Home">
-      <h1>Hello World</h1>
-    </div>
+    <main className="Home">
+      <MenuBar />
+      <MessagesViewport />
+    </main>
   );
 }
 

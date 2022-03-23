@@ -1,0 +1,42 @@
+// Form Styling
+.formBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(189, 189, 189, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .CreateAccountForm {
+    width: fit-content;
+    height: 275px;
+
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .close-icon {
+    cursor: pointer;
+    margin-left: auto;
+    color: rgb(255, 129, 129);
+  }
+  .btn {
+    background-color: rgb(66, 183, 41);
+    color: white;
+    padding: 3px;
+    margin-top: auto;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
