@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
-import logo from "../assets/fbLoginLogo.svg";
+import logo from "../assets/logo.png";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 
 function LandingPage(props) {
@@ -23,7 +22,9 @@ function LandingPage(props) {
     <div className="LandingPage">
       <aside>
         <img src={logo} alt="" />
-        <p>Connect with friends and the world around you on Messenger.</p>
+        <p className="logo-text">
+          Connect with friends and the world around you on Messenger.
+        </p>
       </aside>
 
       <form onSubmit={(e) => handleLogin(e)}>
