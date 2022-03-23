@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function CreateAccountForm(props) {
   const [account, setAccount] = useState({
@@ -9,9 +10,22 @@ function CreateAccountForm(props) {
     password: "",
   });
 
+  // Store token, and refresh page.
+  const handleCreateAccount = (e) => {
+    e.preventDefault(e);
+    axios.post("/users/", account).then((results) => {
+      localStorage.setItem("token", results.data.token);
+      window.location.reload();
+    });
+  };
+
   return (
     <div className="formBackdrop">
-      <form action="" className="CreateAccountForm">
+      <form
+        action=""
+        className="CreateAccountForm"
+        onSubmit={(e) => handleCreateAccount(e)}
+      >
         <p
           className="close-icon"
           onClick={() => props.setCreateAccountForm(false)}
