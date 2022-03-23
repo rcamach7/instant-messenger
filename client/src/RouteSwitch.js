@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
@@ -18,6 +19,17 @@ axios.interceptors.request.use(
 );
 
 const RouteSwitch = () => {
+  const [user, setUser] = useState(null);
+
+  // Sign users in on page refresh if JWT token exists.
+  useEffect(() => {
+    if (storedJwt) {
+      axios.get("/users/").then((results) => {
+        setUser(results.data.authData);
+      });
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -33,7 +45,7 @@ const RouteSwitch = () => {
           path="/home"
           element={
             <RequireAuth>
-              <Home />
+              <Home user={user} />
             </RequireAuth>
           }
         />
@@ -45,12 +57,12 @@ const RouteSwitch = () => {
 
 // Protects routes that require authentication
 function RequireAuth({ children }) {
-  return storedJwt !== null ? children : <Navigate to="/" replace />;
+  return storedJwt === null ? <Navigate to="/" replace /> : children;
 }
 
-// Once authenticated, we don't want our users to continue in the landing page / sign in page.
+// // Once authenticated, we don't want our users to continue in the landing page / sign in page.
 function NotAuthenticated({ children }) {
-  return storedJwt !== null ? <Navigate to="/" replace /> : children;
+  return storedJwt === null ? children : <Navigate to="/home" replace />;
 }
 
 export default RouteSwitch;

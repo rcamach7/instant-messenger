@@ -34,7 +34,7 @@ exports.user_get = [
 ];
 
 // Retrieves user by providing body fields and sends token back.
-exports.login_user_get = [
+exports.login_user_post = [
   // Data Validation and sanitation.
   check("username").exists().bail().trim().isLength({ min: 4 }),
   check("password").exists().bail().trim().isLength({ min: 4 }),
@@ -48,7 +48,6 @@ exports.login_user_get = [
     next();
   },
   passport.authenticate("local", {
-    failureMessage: true,
     session: false,
   }),
   // Return JWT token upon validation
@@ -69,6 +68,7 @@ exports.login_user_get = [
 ];
 
 // Creates a user by providing body fields.
+// * implement sanitation and validation for fullName field
 exports.create_user_post = [
   // Data Validation and sanitation.
   check("username")
@@ -100,17 +100,18 @@ exports.create_user_post = [
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
+        fullName: req.body.fullName,
         friends: [],
       });
 
       newUser.save((err) => {
         if (err) next(err);
 
-        // Create our JWT token and return to user, to be saved locally.
-        // All tokens expire after an hour
+        // Create our JWT token with user information
         jwt.sign(
           {
             username: newUser.username,
+            fullName: newUser.fullName,
             _id: newUser._id,
           },
           process.env.SECRET_STRING,
@@ -120,7 +121,15 @@ exports.create_user_post = [
           (err, token) => {
             if (err) next(err);
 
-            res.json({ token });
+            res.json({
+              token,
+              user: {
+                username: newUser.username,
+                fullName: newUser.fullName,
+                _id: newUser._id,
+              },
+              msg: "Account created",
+            });
           }
         );
       });

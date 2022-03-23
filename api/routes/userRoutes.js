@@ -17,7 +17,7 @@ router.put("/", userController.update_user_put);
 router.delete("/", userController.user_delete);
 
 // Retrieves user by providing body fields.
-router.post("/log-in", userController.login_user_get);
+router.post("/log-in", userController.login_user_post);
 
 // * Protected route test
 router.get("/protected", userController.protected_get);
