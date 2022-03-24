@@ -31,13 +31,13 @@ exports.friends_get = [
             populate: {
               path: "friend",
               model: "User",
-              select: "username",
+              select: ["username", "fullName"],
             },
           })
           .exec((err, user) => {
             if (err) next(err);
 
-            res.json(user.friends);
+            res.json({ friends: user.friends });
           });
       }
     });
@@ -164,9 +164,9 @@ exports.message_friends_post = [
                 // req.app.get("socketio").emit("chat message", newMessage);
                 req.app
                   .get("socketio")
-                  .sockets.in(`${req.body.roomID}`)
+                  .sockets.in(`${req.body._id}`)
                   .emit("chat message", newMessage);
-                res.status(201).json(newMessage);
+                res.status(201).json({ message: newMessage });
               });
             });
           }

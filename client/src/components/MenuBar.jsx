@@ -1,42 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUserPlus,
-  faUserGear,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import testData from "../assets/testData.json";
+import { faUserPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
+import { v4 } from "uuid";
+import ChatRow from "./subComponents/ChatRow";
 
-function MenuBar() {
-  const [friendsList, setFriendsList] = useState(testData);
-  const friendsSquares = friendsList.map((friend, i) => {
-    return <FriendSquare key={i} friend={friend} />;
+function MenuBar(props) {
+  // Generate a collection of chat rows given the users friends.
+  const chatRows = props.friends.map((chat) => {
+    return (
+      <ChatRow
+        key={v4()}
+        chat={chat}
+        setMobileSwapSection={props.setMobileSwapSection}
+        setActiveFriendChat={props.setActiveFriendChat}
+      />
+    );
   });
 
   return (
-    <aside className="MenuBar">
+    <aside className="MenuBar" style={props.style}>
       <nav className="navbar">
         <ul>
-          <li>{<FontAwesomeIcon icon={faUserGear} />}</li>
-          <li style={{ fontWeight: "bold" }}>Friends</li>
-          <li>{<FontAwesomeIcon icon={faUserPlus} />}</li>
+          <li>{<FontAwesomeIcon className="icon" icon={faUserGear} />}</li>
+          <li>Friends</li>
+          <li>{<FontAwesomeIcon className="icon" icon={faUserPlus} />}</li>
         </ul>
       </nav>
 
-      <div className="friendsSquareContainer">{friendsSquares}</div>
+      <div className="chatRowsContainer">{chatRows}</div>
     </aside>
-  );
-}
-
-function FriendSquare(props) {
-  return (
-    <section className="FriendSquare">
-      <span>{<FontAwesomeIcon icon={faCircle} className="userIcon" />}</span>
-      <div className="contactInfo">
-        <p className="friendName">{props.friend.fullName}</p>
-        <p className="messagePreview">{props.friend.lastMessage}</p>
-      </div>
-    </section>
   );
 }
 
