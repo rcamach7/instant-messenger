@@ -1,5 +1,5 @@
 .MenuBar {
-  width: 100vw;
+  width: clamp(320px, 100vw, 415px);
   height: 100vh;
 
   .navbar {
@@ -17,15 +17,21 @@
       align-items: center;
       li {
         list-style: none;
+        font-size: 20px;
+        font-weight: bold;
+
+        .icon {
+          font-size: 23px;
+        }
       }
     }
   }
-  .friendsSquareContainer {
+  .chatRowsContainer {
     height: calc(100vh - 50px);
   }
 }
 
-.FriendSquare {
+.ChatRow {
   height: 70px;
 
   box-shadow: rgba(17, 17, 26, 0.2) 0px 1px 0px;

@@ -2,6 +2,8 @@
 
 ## Severe
 
+- When users log in and we return their token and user details - exclude the hashed password from being included. It is a security risk.
+
 ### Semi-Severe
 
 - Before adding a friend, make sure the friends isn't already added in the users friend array.
