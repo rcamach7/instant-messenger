@@ -38,3 +38,27 @@ a {
     width: 0px;
   }
 }
+
+@keyframes spring {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.075);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes drop-in {
+  0% {
+    transform: scaleX(0.5);
+  }
+  90% {
+    transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
