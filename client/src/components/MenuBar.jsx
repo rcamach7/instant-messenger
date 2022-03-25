@@ -42,7 +42,11 @@ function MenuBar(props) {
 
       {/* Hidden Profile Tab */}
       {showProfile ? (
-        <Profile setShowProfile={setShowProfile} user={props.user} />
+        <Profile
+          setShowProfile={setShowProfile}
+          user={props.user}
+          setUser={props.setUser}
+        />
       ) : null}
     </aside>
   );

@@ -5,10 +5,14 @@ import {
   faMoon,
   faXmark,
   faHeartCrack,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
+import { useState } from "react";
+import UpdateNameForm from "../forms/UpdateNameForm";
 
 function Profile(props) {
+  const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -28,7 +32,23 @@ function Profile(props) {
           <p className="profileImage">
             <FontAwesomeIcon icon={faCircle} style={{ fontSize: "150px" }} />
           </p>
-          <p>{props.user.fullName}</p>
+          {/* <p>{props.user.fullName}</p> */}
+          <section className="profileName">
+            {showEditNameForm ? (
+              <UpdateNameForm
+                user={props.user}
+                setUser={props.setUser}
+                setShowEditNameForm={setShowEditNameForm}
+              />
+            ) : (
+              <p>{props.user.fullName}</p>
+            )}
+            <FontAwesomeIcon
+              icon={faPenToSquare}
+              className="editNameIcon"
+              onClick={() => setShowEditNameForm(!showEditNameForm)}
+            />
+          </section>
           <p>({props.user.username})</p>
         </div>
 

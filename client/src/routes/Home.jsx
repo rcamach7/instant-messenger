@@ -38,6 +38,7 @@ function Home(props) {
         friends={friends}
         setActiveFriendChat={setActiveFriendChat}
         setRoomSocket={setRoomSocket}
+        setUser={props.setUser}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
@@ -47,20 +48,6 @@ function Home(props) {
         setActiveFriendChat={setActiveFriendChat}
         roomSocket={roomSocket}
       />
-
-      {/* Buttons for testing purposes */}
-      {/* <div
-        className="testButtons"
-        style={{
-          position: "absolute",
-          top: "5px",
-          right: "5px",
-        }}
-      >
-        <button onClick={() => handleSignOut()}>LogOut</button>
-        <button onClick={() => console.log(props.user)}>User</button>
-        <button onClick={() => console.log(friends)}>Friends</button>
-      </div> */}
     </main>
   );
 }

@@ -34,6 +34,7 @@
       justify-content: flex-end;
       align-items: center;
       li {
+        padding-top: 5px;
         list-style: none;
         .iconClose {
           color: white;
@@ -49,10 +50,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      .profileImage {
+        padding-bottom: 10px;
+      }
+      .profileName {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .editNameIcon {
+          cursor: pointer;
+        }
+      }
     }
 
     .profileButtons {
-      width: clamp(200px, 30vw, 300px);
+      width: clamp(200px, 28vw, 300px);
       background-color: rgb(214, 216, 218);
       border-radius: 10px;
       padding: 10px 10px 10px 10px;
@@ -98,6 +111,7 @@
         list-style: none;
         .socialIcon {
           font-size: 23px;
+          cursor: pointer;
         }
       }
     }
