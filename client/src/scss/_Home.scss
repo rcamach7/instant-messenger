@@ -1,3 +1,51 @@
 .Home {
   display: flex;
 }
+
+// Indicates our viewport is too small and makes adjustments for our app to swap between components.
+@media (max-width: 415px) {
+  .Home {
+    .MenuBar {
+      display: block;
+      border-right: solid rgba(30, 30, 30, 0.4) 2px;
+    }
+
+    .MessagesViewport {
+      display: none;
+
+      .navbar {
+        ul {
+          .mobileSwitch {
+            pointer-events: all;
+            opacity: 100;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Indicates we can show our components side by side and makes the proper adjustments.
+@media (min-width: 416px) {
+  .Home {
+    .MenuBar {
+      flex: 1.5;
+      border-right: solid rgba(30, 30, 30, 0.4) 2px;
+    }
+    .MessagesViewport {
+      display: block !important;
+      // width: clamp(clamp(200px, 30vw, 400px), 100vw, 100vw - 400px);
+      flex: 5;
+      border-right: solid rgba(30, 30, 30, 0.4) 2px;
+
+      .navbar {
+        ul {
+          .mobileSwitch {
+            pointer-events: none;
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}

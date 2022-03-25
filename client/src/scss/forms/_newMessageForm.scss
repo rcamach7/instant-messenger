@@ -1,0 +1,26 @@
+.NewMessageForm {
+  height: 50px;
+
+  padding: 10px;
+  background-color: rgba(30, 30, 30, 0.2);
+
+  display: flex;
+  .textBox {
+    flex: 8;
+
+    border-radius: 10px;
+    border: none;
+
+    padding-left: 10px;
+  }
+  .submitBtn {
+    flex: 1;
+    color: rgb(72, 72, 235);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    .icon {
+      font-size: 25px;
+    }
+  }
+}

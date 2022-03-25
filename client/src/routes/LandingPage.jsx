@@ -10,6 +10,8 @@ function LandingPage(props) {
   });
   const [showCreateAccountForm, setCreateAccountForm] = useState(false);
 
+  // Upon login - we will save the token we receive (if successful) and store it in local memory.
+  // Upon page reload, our main component will detect the auth token and route the user to the home page.
   const handleLogin = (e) => {
     e.preventDefault();
     axios.post("/users/log-in", account).then((results) => {

@@ -1,0 +1,23 @@
+.Message {
+  list-style: none;
+  padding: 5px;
+
+  display: flex;
+  .messageContent {
+    border-radius: 15px;
+    font-weight: bold;
+    padding: 6px;
+  }
+  // Styling based on sender
+  .myMessage {
+    margin-left: auto;
+    text-align: right;
+
+    color: white;
+    background-color: rgb(72, 72, 235);
+  }
+
+  .friendMessage {
+    background-color: rgb(143, 252, 143);
+  }
+}

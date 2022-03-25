@@ -10,7 +10,6 @@ function Home(props) {
     friendUsername: "",
     fullName: "",
     messages: [],
-    _id: null,
   });
   const [roomSocket, setRoomSocket] = useState(null);
 
@@ -54,7 +53,7 @@ function Home(props) {
       />
 
       {/* Buttons for testing purposes */}
-      <div
+      {/* <div
         className="testButtons"
         style={{
           position: "absolute",
@@ -63,9 +62,9 @@ function Home(props) {
         }}
       >
         <button onClick={() => handleSignOut()}>LogOut</button>
-        {/* <button onClick={() => console.log(props.user)}>User</button>
-        <button onClick={() => console.log(friends)}>Friends</button> */}
-      </div>
+        <button onClick={() => console.log(props.user)}>User</button>
+        <button onClick={() => console.log(friends)}>Friends</button>
+      </div> */}
     </main>
   );
 }
