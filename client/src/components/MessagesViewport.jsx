@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { v4 } from "uuid";
 import io from "socket.io-client";
 import NewMessageForm from "./forms/NewMessageForm";
+import Message from "./subComponents/Message";
 
 // Create a live socket connection to our server to listen to events.
 const socket = io.connect("http://localhost:2000", {
@@ -58,19 +59,7 @@ function MessagesViewport(props) {
         <div className="messagesContainer" id="messagesContainer">
           <ul>
             {messages.map((message) => {
-              return (
-                <li
-                  key={v4()}
-                  className={
-                    "message " +
-                    (message.from === props.user._id
-                      ? "myMessage"
-                      : "friendMessage")
-                  }
-                >
-                  <span>{message.message}</span>
-                </li>
-              );
+              return <Message key={v4()} message={message} user={props.user} />;
             })}
           </ul>
         </div>
