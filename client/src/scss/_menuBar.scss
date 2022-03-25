@@ -1,5 +1,5 @@
 .MenuBar {
-  width: clamp(320px, 100vw, 415px);
+  width: clamp(320px, 100vw, 500px);
   height: 100vh;
 
   .navbar {
@@ -33,7 +33,6 @@
 
 .ChatRow {
   height: 70px;
-
   box-shadow: rgba(17, 17, 26, 0.2) 0px 1px 0px;
 
   display: flex;

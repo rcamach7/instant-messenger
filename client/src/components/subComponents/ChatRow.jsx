@@ -19,7 +19,14 @@ function ChatRow(props) {
       _id: props.chat._id,
     });
     props.setRoomSocket(props.chat._id);
-    props.setMobileSwapSection(true);
+
+    const viewportWidth = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
+    if (viewportWidth <= 415) {
+      props.setMobileSwapSection(true);
+    }
   };
 
   return (

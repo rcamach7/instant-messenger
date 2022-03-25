@@ -1,3 +1,49 @@
 .Home {
   display: flex;
 }
+
+@media (max-width: 415px) {
+  .Home {
+    .MenuBar {
+      display: block;
+      border-right: solid rgba(30, 30, 30, 0.2) 2px;
+    }
+
+    .MessagesViewport {
+      display: none;
+
+      .navbar {
+        ul {
+          .mobileSwitch {
+            pointer-events: all;
+            opacity: 100;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 416px) {
+  .Home {
+    .MenuBar {
+      flex: 1.5;
+      border-right: solid rgba(30, 30, 30, 0.2) 2px;
+    }
+    .MessagesViewport {
+      display: block !important;
+      // width: clamp(clamp(200px, 30vw, 400px), 100vw, 100vw - 400px);
+      flex: 5;
+      border-right: solid rgba(30, 30, 30, 0.2) 2px;
+
+      .navbar {
+        ul {
+          .mobileSwitch {
+            pointer-events: none;
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -55,7 +55,10 @@ function MessagesViewport(props) {
     <aside className="MessagesViewport" style={props.style}>
       <nav className="navbar">
         <ul>
-          <li onClick={() => props.setMobileSwapSection(false)}>
+          <li
+            className="mobileSwitch"
+            onClick={() => props.setMobileSwapSection(false)}
+          >
             {<FontAwesomeIcon className="icon" icon={faCaretLeft} />}
           </li>
           <li>{props.activeFriendChat.fullName}</li>
