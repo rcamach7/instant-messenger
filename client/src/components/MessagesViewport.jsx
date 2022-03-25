@@ -56,7 +56,10 @@ function MessagesViewport(props) {
       </nav>
 
       <div className="chatContainer">
-        <div className="messagesContainer" id="messagesContainer">
+        <div
+          className="messagesContainer disable-scrollbars"
+          id="messagesContainer"
+        >
           <ul>
             {messages.map((message) => {
               return <Message key={v4()} message={message} user={props.user} />;

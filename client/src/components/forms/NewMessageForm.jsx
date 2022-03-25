@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 function NewMessageForm(props) {
   const [newMessage, setNewMessage] = useState("");
@@ -32,7 +34,9 @@ function NewMessageForm(props) {
         minLength="2"
         required
       />
-      <input className="submitBtn" id="submit-btn" type="submit" />
+      <button className="submitBtn" id="submit-btn" type="submit">
+        <FontAwesomeIcon icon={faPlay} className="icon" />
+      </button>
     </form>
   );
 }

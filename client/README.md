@@ -9,3 +9,4 @@
 #### Important
 
 - Change color theme for buttons on log in and sign up pages/forms.
+- Add time stamps to messages to indicate when they were sent
