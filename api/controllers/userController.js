@@ -53,7 +53,11 @@ exports.login_user_post = [
   // Return JWT token upon validation
   (req, res, next) => {
     jwt.sign(
-      { username: req.user.username, _id: req.user._id },
+      {
+        username: req.user.username,
+        _id: req.user._id,
+        fullName: req.user.fullName,
+      },
       process.env.SECRET_STRING,
       {
         expiresIn: "48h",

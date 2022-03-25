@@ -38,6 +38,7 @@ function Home(props) {
     <main className="Home">
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "block" }}
+        user={props.user}
         setMobileSwapSection={setMobileSwapSection}
         friends={friends}
         setActiveFriendChat={setActiveFriendChat}
@@ -45,11 +46,11 @@ function Home(props) {
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
+        user={props.user}
         activeFriendChat={activeFriendChat}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
         roomSocket={roomSocket}
-        user={props.user}
       />
 
       {/* Buttons for testing purposes */}
