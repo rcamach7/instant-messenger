@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faUserGear } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { v4 } from "uuid";
 import io from "socket.io-client";
+import NewMessageForm from "./forms/NewMessageForm";
 
 // Create a live socket connection to our server to listen to events.
 const socket = io.connect("http://localhost:2000", {
@@ -11,12 +11,15 @@ const socket = io.connect("http://localhost:2000", {
 });
 
 function MessagesViewport(props) {
-  const [newMessage, setNewMessage] = useState("");
   const messages = props.activeFriendChat.messages;
 
   // Sort messages whenever a new one comes in.
   useEffect(() => {
     messages.sort((a, b) => b.timestamp - a.timestamp);
+
+    // Scroll user to the bottom every time they load a chat or receive a message.
+    const element = document.getElementById("messagesContainer");
+    element.scrollTop = element.scrollHeight;
   }, [messages]);
 
   // If friendship ID exists for the active chat, we will join a specific room to listen for messages between this friend
@@ -25,21 +28,6 @@ function MessagesViewport(props) {
       socket.emit("join", { _id: props.roomSocket });
     }
   }, [props.roomSocket]);
-
-  // Create a new message after form submission.
-  const handleNewMessage = (e) => {
-    e.preventDefault();
-    axios
-      .post("/users/friends/messages", {
-        friendUsername: props.activeFriendChat.friendUsername,
-        message: newMessage,
-        // _id field is passed to emit a socket signal to any users in a room with this identifier.
-        _id: props.roomSocket,
-      })
-      .then(() => {
-        setNewMessage("");
-      });
-  };
 
   // When our message, or a message from a friends is saved on DB, it will emit a signal to both us us (if connected) to save our new message.
   useEffect(() => {
@@ -67,7 +55,7 @@ function MessagesViewport(props) {
       </nav>
 
       <div className="chatContainer">
-        <div className="messagesContainer">
+        <div className="messagesContainer" id="messagesContainer">
           <ul>
             {messages.map((message) => {
               return (
@@ -87,19 +75,10 @@ function MessagesViewport(props) {
           </ul>
         </div>
 
-        <form className="newMessageForm" onSubmit={(e) => handleNewMessage(e)}>
-          <input
-            id="message"
-            className="textBox"
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Send message"
-            autoComplete="off"
-            minLength="2"
-          />
-          <input className="submitBtn" id="submit-btn" type="submit" />
-        </form>
+        <NewMessageForm
+          activeFriendChat={props.activeFriendChat}
+          roomSocket={props.roomSocket}
+        />
       </div>
     </aside>
   );

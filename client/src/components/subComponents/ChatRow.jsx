@@ -12,18 +12,20 @@ function ChatRow(props) {
       : "start conversation";
 
   const handleInitiateChat = () => {
+    // Will this particular friends information to initiate a chatroom with a socket connection.
     props.setActiveFriendChat({
       friendUsername: props.chat.friend.username,
       fullName: props.chat.friend.fullName,
       messages: props.chat.messages,
-      _id: props.chat._id,
     });
     props.setRoomSocket(props.chat._id);
 
+    // Retrieve the current width of our viewport.
     const viewportWidth = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
+    // If viewport still in mobile size, we will hide one component and display another.
     if (viewportWidth <= 415) {
       props.setMobileSwapSection(true);
     }

@@ -10,7 +10,6 @@ function Home(props) {
     friendUsername: "",
     fullName: "",
     messages: [],
-    _id: null,
   });
   const [roomSocket, setRoomSocket] = useState(null);
 

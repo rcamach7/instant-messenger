@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+
 // Send message to a friend. We will need token to get user info, and friend username along with message to process request.
 exports.message_friends_post = [
   // Verify token exists. Then, pull the token received and add it to the request.

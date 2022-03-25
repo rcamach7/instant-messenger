@@ -38,7 +38,11 @@
     flex-direction: column;
 
     .messagesContainer {
+      max-height: calc(100vh - 80px);
       margin-top: auto;
+      padding: 0 15px 0 10px;
+
+      overflow: scroll;
       ul {
         padding-bottom: 10px;
 
@@ -62,16 +66,6 @@
         .friendMessage {
           background-color: rgb(143, 252, 143);
         }
-      }
-    }
-    .newMessageForm {
-      display: flex;
-      .textBox {
-        flex: 5;
-        padding-left: 5px;
-      }
-      .submitBtn {
-        flex: 1;
       }
     }
   }

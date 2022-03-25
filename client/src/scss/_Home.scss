@@ -2,6 +2,7 @@
   display: flex;
 }
 
+// Indicates our viewport is too small and makes adjustments for our app to swap between components.
 @media (max-width: 415px) {
   .Home {
     .MenuBar {
@@ -24,6 +25,7 @@
   }
 }
 
+// Indicates we can show our components side by side and makes the proper adjustments.
 @media (min-width: 416px) {
   .Home {
     .MenuBar {
