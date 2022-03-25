@@ -30,8 +30,14 @@
   .Home {
     .MenuBar {
       min-width: 225px;
+      max-width: 400px;
       flex: 1.9;
       border-right: solid rgba(30, 30, 30, 0.4) 1px;
+
+      .Profile {
+        min-width: 225px;
+        width: clamp(225px, 30vw, 400px);
+      }
     }
     .MessagesViewport {
       display: block !important;

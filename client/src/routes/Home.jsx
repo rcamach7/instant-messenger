@@ -29,42 +29,25 @@ function Home(props) {
     }
   }, [mobileSwapSection]);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
-  };
-
   return (
     <main className="Home">
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "block" }}
+        user={props.user}
         setMobileSwapSection={setMobileSwapSection}
         friends={friends}
         setActiveFriendChat={setActiveFriendChat}
         setRoomSocket={setRoomSocket}
+        setUser={props.setUser}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
+        user={props.user}
         activeFriendChat={activeFriendChat}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
         roomSocket={roomSocket}
-        user={props.user}
       />
-
-      {/* Buttons for testing purposes */}
-      {/* <div
-        className="testButtons"
-        style={{
-          position: "absolute",
-          top: "5px",
-          right: "5px",
-        }}
-      >
-        <button onClick={() => handleSignOut()}>LogOut</button>
-        <button onClick={() => console.log(props.user)}>User</button>
-        <button onClick={() => console.log(friends)}>Friends</button>
-      </div> */}
     </main>
   );
 }

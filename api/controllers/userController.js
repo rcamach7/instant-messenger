@@ -53,7 +53,11 @@ exports.login_user_post = [
   // Return JWT token upon validation
   (req, res, next) => {
     jwt.sign(
-      { username: req.user.username, _id: req.user._id },
+      {
+        username: req.user.username,
+        _id: req.user._id,
+        fullName: req.user.fullName,
+      },
       process.env.SECRET_STRING,
       {
         expiresIn: "48h",
@@ -138,9 +142,70 @@ exports.create_user_post = [
 ];
 
 // Updates user by providing body fields.
-exports.update_user_put = (req, res, next) => {
-  res.json("KK");
-};
+// At this point we only support updating name field.
+// In the end we need to sign a new token, and have user replace the old one with the one we sent, since the old token is signed with old name.
+// Possibly break it down to another middleware for easier maintainability
+exports.update_user_put = [
+  // Pull the token received and add it to the request.
+  (req, res, next) => {
+    // Pull the bearerHeader
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) {
+        res.status(403).json({ msg: "Failed authentication" });
+      } else {
+        if (req.body.fullName.length >= 4) {
+          User.findByIdAndUpdate(authData._id, {
+            $set: { fullName: req.body.fullName },
+          }).exec((err, updatedUser) => {
+            if (err) next(err);
+
+            // Create new token for our user and send it back
+            jwt.sign(
+              {
+                username: updatedUser.username,
+                fullName: updatedUser.fullName,
+                _id: updatedUser._id,
+              },
+              process.env.SECRET_STRING,
+              {
+                expiresIn: "48h",
+              },
+              (err, token) => {
+                if (err) next(err);
+
+                res.json({
+                  token,
+                  user: {
+                    username: updatedUser.username,
+                    fullName: updatedUser.fullName,
+                    _id: updatedUser._id,
+                  },
+                  msg: "Account updated",
+                });
+              }
+            );
+          });
+        } else {
+          res.status(400).json({ msg: "Name too short" });
+        }
+        // res.json({ authData, msg: "Name updated" });
+      }
+    });
+  },
+];
 
 // Deletes user by providing body fields
 exports.user_delete = (req, res, next) => {

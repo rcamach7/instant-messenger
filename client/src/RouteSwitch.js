@@ -45,7 +45,7 @@ const RouteSwitch = () => {
           path="/home"
           element={
             <RequireAuth>
-              <Home user={user} />
+              <Home user={user} setUser={setUser} />
             </RequireAuth>
           }
         />
