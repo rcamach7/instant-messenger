@@ -146,32 +146,3 @@ exports.update_user_put = (req, res, next) => {
 exports.user_delete = (req, res, next) => {
   res.json("OK");
 };
-
-// * Protected test
-exports.protected_get = [
-  // Pull the token received and add it to the request.
-  (req, res, next) => {
-    // Pull the bearerHeader
-    const bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== "undefined") {
-      const bearer = bearerHeader.split(" ");
-      const bearerToken = bearer[1];
-      req.token = bearerToken;
-      next();
-    } else {
-      res.status(403).json({
-        message: "Protected route - not authorized",
-      });
-    }
-  },
-  (req, res, next) => {
-    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
-      if (err) {
-        res.status(403).json({ msg: "Failed authentication" });
-      } else {
-        // Only gets hit if user is authorized
-        res.json({ msg: "Accessed protected route - success", authData });
-      }
-    });
-  },
-];
