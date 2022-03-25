@@ -29,11 +29,6 @@ function Home(props) {
     }
   }, [mobileSwapSection]);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
-  };
-
   return (
     <main className="Home">
       <MenuBar
