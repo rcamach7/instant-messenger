@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require("../controllers/userController");
 const friendController = require("../controllers/friendController");
+const messageController = require("../controllers/messageController");
 
 // Get user data if token is provided
 router.get("/", userController.user_get);
@@ -19,9 +20,6 @@ router.delete("/", userController.user_delete);
 // Retrieves user by providing body fields.
 router.post("/log-in", userController.login_user_post);
 
-// * Protected route test
-router.get("/protected", userController.protected_get);
-
 // * Friend(s) controller
 // Will return the list of friends and relevant data to user
 router.get("/friends/", friendController.friends_get);
@@ -31,6 +29,6 @@ router.post("/friends/", friendController.add_friend_post);
 
 // * Messages(s) controller
 // Will send a message to one of their friends. We will be provided their token, and username of friend along with the content of the message.
-router.post("/friends/messages/", friendController.message_friends_post);
+router.post("/friends/messages/", messageController.message_friends_post);
 
 module.exports = router;

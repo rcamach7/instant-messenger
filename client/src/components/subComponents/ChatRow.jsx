@@ -18,6 +18,7 @@ function ChatRow(props) {
       messages: props.chat.messages,
       _id: props.chat._id,
     });
+    props.setRoomSocket(props.chat._id);
     props.setMobileSwapSection(true);
   };
 
