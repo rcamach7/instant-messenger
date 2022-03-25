@@ -12,6 +12,7 @@ function Home(props) {
     messages: [],
     _id: null,
   });
+  const [roomSocket, setRoomSocket] = useState(null);
 
   // On component mount, retrieve the users friends and subset data.
   useEffect(() => {
@@ -41,12 +42,14 @@ function Home(props) {
         setMobileSwapSection={setMobileSwapSection}
         friends={friends}
         setActiveFriendChat={setActiveFriendChat}
+        setRoomSocket={setRoomSocket}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
         activeFriendChat={activeFriendChat}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
+        roomSocket={roomSocket}
         user={props.user}
       />
 

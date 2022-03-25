@@ -12,6 +12,7 @@ function MenuBar(props) {
         chat={chat}
         setMobileSwapSection={props.setMobileSwapSection}
         setActiveFriendChat={props.setActiveFriendChat}
+        setRoomSocket={props.setRoomSocket}
       />
     );
   });
