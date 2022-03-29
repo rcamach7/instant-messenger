@@ -13,6 +13,9 @@ export default function AddFriends(props) {
       .post("/users/friends/", { friendUsername: friendUsername })
       .then((results) => {
         console.log(results);
+      })
+      .catch((errors) => {
+        console.log(errors.response);
       });
   };
 
@@ -51,6 +54,9 @@ export default function AddFriends(props) {
                   <FontAwesomeIcon
                     icon={faSquareCheck}
                     className="friendIcon"
+                    onClick={() =>
+                      handleAcceptRequest(receivedRequest._id.username)
+                    }
                   />
                   <FontAwesomeIcon icon={faX} className="friendIcon" />
                 </span>

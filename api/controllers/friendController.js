@@ -89,12 +89,16 @@ exports.add_friend_post = [
       if (err) {
         res.status(403).json({ msg: "Failed authentication" });
       } else {
-        // Token validated, user details obtained
-        // Look got the friend the user wants to add
+        // Look for the friend the user wants to add to see if he exists
         User.findOne({ username: req.body.friendUsername }).exec(
           (err, newFriendUser) => {
             if (err) next(err);
 
+            if (newFriendUser === null) {
+              return res.status(400).json({ msg: "User not found" });
+            }
+
+            // Create new friend object
             const friendshipId = v4();
             const newFriend = {
               friend: newFriendUser._id,
@@ -102,10 +106,17 @@ exports.add_friend_post = [
               _id: friendshipId,
             };
 
-            // If friend found, add friend
+            // If friend found, add friend to main user. Then remove requested user from the requested array
             User.updateOne(
               { _id: authData._id },
-              { $push: { friends: newFriend } }
+              {
+                // Add new friend to main user and initiate a shared message history.
+                $push: { friends: newFriend },
+                // Remove the received request now that user has accepted request.
+                $pullAll: {
+                  receivedFriendRequests: [{ _id: newFriendUser._id }],
+                },
+              }
             ).exec((err) => {
               if (err) next(err);
 
@@ -117,10 +128,18 @@ exports.add_friend_post = [
               // Now we need to add the user to their friends list
               User.updateOne(
                 { _id: newFriendUser._id },
-                { $push: { friends: newFriendTwo } }
+                {
+                  // Add friend to friends list an initiate a message history
+                  $push: { friends: newFriendTwo },
+                  // Remove the previously sent request now that user has accepted request.
+                  $pullAll: {
+                    sentFriendRequests: [{ _id: authData._id }],
+                  },
+                }
               ).exec((err) => {
                 if (err) next(err);
 
+                // Respond with successful message.
                 res.status(201).json({
                   message: "Friend Added",
                 });
