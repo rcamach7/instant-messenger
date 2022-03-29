@@ -63,6 +63,7 @@ function MenuBar(props) {
           setShowAddFriends={setShowAddFriends}
           receivedFriendRequests={props.receivedFriendRequests}
           sentFriendRequests={props.sentFriendRequests}
+          refreshFriendsInformation={props.refreshFriendsInformation}
         />
       ) : null}
     </aside>

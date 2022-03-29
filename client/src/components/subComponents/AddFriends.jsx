@@ -11,8 +11,9 @@ export default function AddFriends(props) {
   const handleAcceptRequest = (friendUsername) => {
     axios
       .post("/users/friends/", { friendUsername: friendUsername })
-      .then((results) => {
-        console.log(results);
+      .then(() => {
+        // Query up to date friend information and update state.
+        props.refreshFriendsInformation();
       })
       .catch((errors) => {
         console.log(errors.response);
@@ -29,7 +30,9 @@ export default function AddFriends(props) {
         </ul>
 
         <h1>Friend Requests</h1>
-        <RequestFriendForm />
+        <RequestFriendForm
+          refreshFriendsInformation={props.refreshFriendsInformation}
+        />
 
         <p>Sent Requests</p>
         <ul className="sentRequests">
@@ -37,8 +40,6 @@ export default function AddFriends(props) {
             return (
               <li key={i}>
                 <span>{sentRequest._id.fullName}</span>
-                <FontAwesomeIcon icon={faSquareCheck} />
-                <FontAwesomeIcon icon={faX} />
               </li>
             );
           })}

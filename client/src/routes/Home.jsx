@@ -37,6 +37,16 @@ function Home(props) {
     }
   }, [mobileSwapSection]);
 
+  // Whenever user changes friend information (accept friend request - or send a friend request) we need to reflect that change real-time
+  // by fetching from the DB again.
+  const refreshFriendsInformation = () => {
+    axios.get("/users/friends").then((results) => {
+      setFriends(results.data.friends);
+      setReceivedFriendRequests(results.data.receivedFriendRequests);
+      setSentFriendRequests(results.data.sentFriendRequests);
+    });
+  };
+
   return (
     <main className="Home">
       <MenuBar
@@ -49,6 +59,7 @@ function Home(props) {
         setUser={props.setUser}
         receivedFriendRequests={receivedFriendRequests}
         sentFriendRequests={sentFriendRequests}
+        refreshFriendsInformation={refreshFriendsInformation}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}

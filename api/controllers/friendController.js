@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const { populate } = require("../models/User");
 const v4 = require("uuid").v4;
 
 // Returns the users friends and any data stored, such as messages.
