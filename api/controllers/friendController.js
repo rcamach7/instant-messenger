@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const { populate } = require("../models/User");
 const v4 = require("uuid").v4;
 
 // Returns the users friends and any data stored, such as messages.
@@ -26,6 +27,7 @@ exports.friends_get = [
       } else {
         // Token validated, user details obtained
         User.findById(authData._id)
+          // Populate all fields that reference other users
           .populate({
             path: "friends",
             populate: {
@@ -34,10 +36,30 @@ exports.friends_get = [
               select: ["username", "fullName"],
             },
           })
+          .populate({
+            path: "receivedFriendRequests",
+            populate: {
+              path: "_id",
+              model: "User",
+              select: ["username", "fullName"],
+            },
+          })
+          .populate({
+            path: "sentFriendRequests",
+            populate: {
+              path: "_id",
+              model: "User",
+              select: ["username", "fullName"],
+            },
+          })
           .exec((err, user) => {
             if (err) next(err);
 
-            res.json({ friends: user.friends });
+            res.json({
+              friends: user.friends,
+              receivedFriendRequests: user.receivedFriendRequests,
+              sentFriendRequests: user.sentFriendRequests,
+            });
           });
       }
     });
@@ -45,6 +67,7 @@ exports.friends_get = [
 ];
 
 // ! Sanitation to be implemented afterwards
+// Needs to remove the pending request from the current user, and the "sent" request from the original user as well.
 exports.add_friend_post = [
   // Verify token exists. Then, pull the token received and add it to the request.
   (req, res, next) => {
@@ -142,13 +165,13 @@ exports.request_friend_post = [
             // First, update logged in user's requested list.
             User.updateOne(
               { _id: authData._id },
-              { $push: { sentFriendRequests: { user: foundUser._id } } }
+              { $push: { sentFriendRequests: { _id: foundUser._id } } }
             ).exec((err) => {
               if (err) next(err);
               // Update other user to alert them of the request sent
               User.updateOne(
                 { _id: foundUser._id },
-                { $push: { receivedFriendRequests: { user: authData._id } } }
+                { $push: { receivedFriendRequests: { _id: authData._id } } }
               ).exec((err) => {
                 if (err) next(err);
                 // Notify user of successful friend request

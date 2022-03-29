@@ -4,8 +4,13 @@ import MessagesViewport from "../components/MessagesViewport";
 import axios from "axios";
 
 function Home(props) {
-  const [mobileSwapSection, setMobileSwapSection] = useState(false);
+  // User friend information
   const [friends, setFriends] = useState([]);
+  const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
+  const [sentFriendRequests, setSentFriendRequests] = useState([]);
+
+  // App functions
+  const [mobileSwapSection, setMobileSwapSection] = useState(false);
   const [activeFriendChat, setActiveFriendChat] = useState({
     friendUsername: "",
     fullName: "",
@@ -16,7 +21,10 @@ function Home(props) {
   // On component mount, retrieve the users friends and subset data.
   useEffect(() => {
     axios.get("/users/friends").then((results) => {
+      // Set all user friend info
       setFriends(results.data.friends);
+      setReceivedFriendRequests(results.data.receivedFriendRequests);
+      setSentFriendRequests(results.data.sentFriendRequests);
     });
   }, []);
 
@@ -39,6 +47,8 @@ function Home(props) {
         setActiveFriendChat={setActiveFriendChat}
         setRoomSocket={setRoomSocket}
         setUser={props.setUser}
+        receivedFriendRequests={receivedFriendRequests}
+        sentFriendRequests={sentFriendRequests}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}

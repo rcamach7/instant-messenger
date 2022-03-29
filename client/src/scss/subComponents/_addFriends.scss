@@ -46,7 +46,26 @@
       }
     }
 
-    .myRequests {
+    .receivedRequests {
+      li {
+        list-style: none;
+        border: solid black 2px;
+        padding: 2px;
+
+        display: flex;
+        flex-direction: column;
+        .iconContainer {
+          display: flex;
+          .friendIcon {
+            flex: 1;
+            font-size: 25px;
+            cursor: pointer;
+          }
+          .friendIcon:hover {
+            background-color: red;
+          }
+        }
+      }
     }
   }
 }

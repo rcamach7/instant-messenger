@@ -59,7 +59,11 @@ function MenuBar(props) {
         />
       ) : null}
       {showAddFriends ? (
-        <AddFriends setShowAddFriends={setShowAddFriends} />
+        <AddFriends
+          setShowAddFriends={setShowAddFriends}
+          receivedFriendRequests={props.receivedFriendRequests}
+          sentFriendRequests={props.sentFriendRequests}
+        />
       ) : null}
     </aside>
   );
