@@ -9,9 +9,11 @@
 @import "./subComponents/message";
 @import "./subComponents/chatRow";
 @import "./subComponents/profile";
+@import "./subComponents/addFriends";
 // Forms styling
 @import "./forms/createAccountForm";
 @import "./forms/newMessageForm";
+@import "./forms/requestFriendForm";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Roboto+Mono:wght@300;400;700&display=swap");
 
@@ -57,6 +59,15 @@ a {
   }
   90% {
     transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: scaleX(0);
   }
   100% {
     transform: scaleX(1);

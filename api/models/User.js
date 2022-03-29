@@ -19,6 +19,12 @@ const User = new Schema({
       _id: { type: String, required: true },
     },
   ],
+  receivedFriendRequests: [
+    { user: { type: Schema.Types.ObjectId, ref: "User", required: true } },
+  ],
+  sentFriendRequests: [
+    { user: { type: Schema.Types.ObjectId, ref: "User", required: true } },
+  ],
 });
 
 //Export model

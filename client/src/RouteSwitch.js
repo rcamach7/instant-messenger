@@ -30,6 +30,15 @@ const RouteSwitch = () => {
     }
   }, []);
 
+  // Get user data is JWT token exists but we haven't requested user data (possibly re-opened tab)
+  useEffect(() => {
+    if (storedJwt && user === null) {
+      axios.get("/users/").then((results) => {
+        setUser(results.data.authData);
+      });
+    }
+  }, [user]);
+
   return (
     <BrowserRouter>
       <Routes>

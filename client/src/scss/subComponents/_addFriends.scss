@@ -1,0 +1,71 @@
+@use "../variables" as v;
+
+.AddFriendsBackdrop {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0, 0.4);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .AddFriends {
+    // Matches menuBar as to not let it spill underneath
+    width: clamp(320px, 100vw, 500px);
+    height: 100vh;
+
+    // Animation properties
+    animation: slide-in ease-in-out 300ms forwards;
+    transform-origin: left;
+
+    padding: 0 10px 0 10px;
+    background-color: rgb(214, 216, 218);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .topBar {
+      height: 50px;
+      padding-right: 10px;
+      margin-left: auto;
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      li {
+        padding-top: 5px;
+        list-style: none;
+        .iconClose {
+          color: white;
+          background-color: black;
+          border-radius: 50%;
+          font-size: 25px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .receivedRequests {
+      li {
+        list-style: none;
+        border: solid black 2px;
+        padding: 2px;
+
+        display: flex;
+        flex-direction: column;
+        .iconContainer {
+          display: flex;
+          .friendIcon {
+            flex: 1;
+            font-size: 25px;
+            cursor: pointer;
+          }
+          .friendIcon:hover {
+            background-color: red;
+          }
+        }
+      }
+    }
+  }
+}

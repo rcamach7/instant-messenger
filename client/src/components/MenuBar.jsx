@@ -4,9 +4,11 @@ import { faUserPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { v4 } from "uuid";
 import ChatRow from "./subComponents/ChatRow";
 import Profile from "./subComponents/Profile";
+import AddFriends from "./subComponents/AddFriends";
 
 function MenuBar(props) {
   const [showProfile, setShowProfile] = useState(false);
+  const [showAddFriends, setShowAddFriends] = useState(false);
   // Generate a collection of chat rows given the users friends.
   const chatRows = props.friends.map((chat) => {
     return (
@@ -34,18 +36,34 @@ function MenuBar(props) {
             }
           </li>
           <li>Friends</li>
-          <li>{<FontAwesomeIcon className="icon" icon={faUserPlus} />}</li>
+          <li>
+            {
+              <FontAwesomeIcon
+                className="icon"
+                icon={faUserPlus}
+                onClick={() => setShowAddFriends(true)}
+              />
+            }
+          </li>
         </ul>
       </nav>
 
       <div className="chatRowsContainer">{chatRows}</div>
 
-      {/* Hidden Profile Tab */}
+      {/* Hidden Tabs */}
       {showProfile ? (
         <Profile
           setShowProfile={setShowProfile}
           user={props.user}
           setUser={props.setUser}
+        />
+      ) : null}
+      {showAddFriends ? (
+        <AddFriends
+          setShowAddFriends={setShowAddFriends}
+          receivedFriendRequests={props.receivedFriendRequests}
+          sentFriendRequests={props.sentFriendRequests}
+          refreshFriendsInformation={props.refreshFriendsInformation}
         />
       ) : null}
     </aside>

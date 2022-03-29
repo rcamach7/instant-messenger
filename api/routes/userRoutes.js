@@ -27,6 +27,9 @@ router.get("/friends/", friendController.friends_get);
 // Creates a new friend by using user token and provided friend username through body.
 router.post("/friends/", friendController.add_friend_post);
 
+// Requests to add another user by providing us the user's username
+router.post("/friends/request/", friendController.request_friend_post);
+
 // * Messages(s) controller
 // Will send a message to one of their friends. We will be provided their token, and username of friend along with the content of the message.
 router.post("/friends/messages/", messageController.message_friends_post);
