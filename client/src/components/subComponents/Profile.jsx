@@ -6,9 +6,10 @@ import {
   faXmark,
   faHeartCrack,
   faPenToSquare,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
 
 function Profile(props) {
@@ -29,9 +30,10 @@ function Profile(props) {
         </ul>
 
         <div className="profileInformation">
-          <p className="profileImage">
+          <div className="profileImage">
             <FontAwesomeIcon icon={faCircle} style={{ fontSize: "150px" }} />
-          </p>
+            <ChangeProfileImage />
+          </div>
           {/* <p>{props.user.fullName}</p> */}
           <section className="profileName">
             {showEditNameForm ? (
@@ -79,6 +81,31 @@ function Profile(props) {
         </ul>
       </div>
     </div>
+  );
+}
+
+function ChangeProfileImage() {
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    if (image !== null) {
+      console.log(image);
+    }
+  }, [image]);
+
+  return (
+    <form className="ChangeProfileImage">
+      <label htmlFor="fileUpload" className="fileUploadLabel">
+        <FontAwesomeIcon icon={faImage} />
+      </label>
+      <input
+        className="fileUpload"
+        id="fileUpload"
+        type="file"
+        accept=".jpg, .jpeg, .png"
+        onChange={(e) => setImage(e.target.files[0])}
+      />
+    </form>
   );
 }
 

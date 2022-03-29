@@ -56,6 +56,8 @@
       align-items: center;
       .profileImage {
         padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
       }
       .profileName {
         display: flex;
@@ -119,5 +121,14 @@
         }
       }
     }
+  }
+}
+
+.ChangeProfileImage {
+  .fileUploadLabel {
+    cursor: pointer;
+  }
+  .fileUpload {
+    display: none;
   }
 }

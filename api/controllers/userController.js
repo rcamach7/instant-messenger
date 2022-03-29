@@ -57,6 +57,7 @@ exports.login_user_post = [
         username: req.user.username,
         _id: req.user._id,
         fullName: req.user.fullName,
+        profilePicture: req.user.profilePicture,
       },
       process.env.SECRET_STRING,
       {
@@ -105,6 +106,7 @@ exports.create_user_post = [
         username: req.body.username,
         password: hashedPassword,
         fullName: req.body.fullName,
+        profilePicture: "",
         friends: [],
       });
 
@@ -116,6 +118,7 @@ exports.create_user_post = [
           {
             username: newUser.username,
             fullName: newUser.fullName,
+            profilePicture: newUser.profilePicture,
             _id: newUser._id,
           },
           process.env.SECRET_STRING,
@@ -130,6 +133,7 @@ exports.create_user_post = [
               user: {
                 username: newUser.username,
                 fullName: newUser.fullName,
+                profilePicture: newUser.profilePicture,
                 _id: newUser._id,
               },
               msg: "Account created",
@@ -177,6 +181,7 @@ exports.update_user_put = [
               {
                 username: updatedUser.username,
                 fullName: updatedUser.fullName,
+                profilePicture: updatedUser.profilePicture,
                 _id: updatedUser._id,
               },
               process.env.SECRET_STRING,
@@ -191,6 +196,7 @@ exports.update_user_put = [
                   user: {
                     username: updatedUser.username,
                     fullName: updatedUser.fullName,
+                    profilePicture: updatedUser.profilePicture,
                     _id: updatedUser._id,
                   },
                   msg: "Account updated",
