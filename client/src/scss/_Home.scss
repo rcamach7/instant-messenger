@@ -34,7 +34,8 @@
       flex: 1.9;
       border-right: solid rgba(30, 30, 30, 0.4) 1px;
 
-      .Profile {
+      .Profile,
+      .AddFriends {
         min-width: 225px;
         width: clamp(225px, 30vw, 400px);
       }

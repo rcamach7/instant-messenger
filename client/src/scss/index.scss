@@ -9,6 +9,7 @@
 @import "./subComponents/message";
 @import "./subComponents/chatRow";
 @import "./subComponents/profile";
+@import "./subComponents/addFriends";
 // Forms styling
 @import "./forms/createAccountForm";
 @import "./forms/newMessageForm";
@@ -57,6 +58,15 @@ a {
   }
   90% {
     transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: scaleX(0);
   }
   100% {
     transform: scaleX(1);

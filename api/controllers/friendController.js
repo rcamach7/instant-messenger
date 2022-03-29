@@ -109,3 +109,57 @@ exports.add_friend_post = [
     });
   },
 ];
+
+exports.request_friend_post = [
+  // Verify token exists. Then, pull the token received and add it to the request.
+  (req, res, next) => {
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  // Verify token is valid, and corresponds to a user, then pull user information from it.
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) {
+        res.status(403).json({ msg: "Failed authentication" });
+      } else {
+        // Look got the friend the user wants to add
+        User.findOne({ username: req.body.friendUsername }).exec(
+          (err, foundUser) => {
+            if (err) next(err);
+
+            if (foundUser === null) {
+              return res.status(400).json({ msg: "User does not exist" });
+            }
+            // First, update logged in user's requested list.
+            User.updateOne(
+              { _id: authData._id },
+              { $push: { sentFriendRequests: { user: foundUser._id } } }
+            ).exec((err) => {
+              if (err) next(err);
+              // Update other user to alert them of the request sent
+              User.updateOne(
+                { _id: foundUser._id },
+                { $push: { receivedFriendRequests: { user: authData._id } } }
+              ).exec((err) => {
+                if (err) next(err);
+                // Notify user of successful friend request
+                res
+                  .status(202)
+                  .json({ msg: "Successfully sent friend request" });
+              });
+            });
+          }
+        );
+      }
+    });
+  },
+];
