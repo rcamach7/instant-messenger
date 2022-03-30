@@ -59,11 +59,19 @@ function Profile(props) {
         <nav className="profileButtons">
           <ul className="buttonList">
             <li>
-              <FontAwesomeIcon className="buttonIcon" icon={faMoon} />
+              <FontAwesomeIcon
+                className="buttonIcon"
+                icon={faMoon}
+                style={{ color: "rgb(72,72,235)" }}
+              />
               <button>Toggle Dark Mode</button>
             </li>
             <li>
-              <FontAwesomeIcon className="buttonIcon" icon={faHeartCrack} />
+              <FontAwesomeIcon
+                className="buttonIcon"
+                icon={faHeartCrack}
+                style={{ color: "red" }}
+              />
               <button>Report A Problem</button>
             </li>
             <li>
