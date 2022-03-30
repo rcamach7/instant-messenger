@@ -32,7 +32,7 @@ exports.friends_get = [
             populate: {
               path: "friend",
               model: "User",
-              select: ["username", "fullName"],
+              select: ["username", "fullName", "profilePicture"],
             },
           })
           .populate({
@@ -40,7 +40,7 @@ exports.friends_get = [
             populate: {
               path: "_id",
               model: "User",
-              select: ["username", "fullName"],
+              select: ["username", "fullName", "profilePicture"],
             },
           })
           .populate({
@@ -48,7 +48,7 @@ exports.friends_get = [
             populate: {
               path: "_id",
               model: "User",
-              select: ["username", "fullName"],
+              select: ["username", "fullName", "profilePicture"],
             },
           })
           .exec((err, user) => {
