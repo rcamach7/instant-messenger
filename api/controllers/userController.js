@@ -3,6 +3,26 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
+// Image Uploading Dependencies
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// Configure Cloudinary to our account information
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD,
+  api_key: process.env.CLOUDINARY_API,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+// Configure storage information of the image we are saving
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "messages",
+  },
+});
+const upload = multer({ storage: storage });
 
 // ! Endpoint(s) for "/user/"
 exports.user_get = [
@@ -94,7 +114,7 @@ exports.create_user_post = [
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json(errors);
+      return res.status(400).json(errors);
     }
 
     // Hash password for user security
@@ -106,7 +126,8 @@ exports.create_user_post = [
         username: req.body.username,
         password: hashedPassword,
         fullName: req.body.fullName,
-        profilePicture: "",
+        profilePicture:
+          "https://res.cloudinary.com/de2ymful4/image/upload/v1648592585/messenger/blue_default_pnbhvr.jpg",
         friends: [],
       });
 
@@ -209,6 +230,38 @@ exports.update_user_put = [
         }
         // res.json({ authData, msg: "Name updated" });
       }
+    });
+  },
+];
+
+// Update users profilePicture by providing file
+exports.update_profilePicture_put = [
+  // Pull the token received and add it to the request.
+  (req, res, next) => {
+    // Pull the bearerHeader
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  upload.single("image"),
+  // Intercepts image and adds it to the request parameter.
+  async (req, res, next) => {
+    // Authenticate user with provided
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) next(err);
+
+      if (req.file) {
+        console.log(req.file);
+      }
+      return res.json({ msg: "yee" });
     });
   },
 ];

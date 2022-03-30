@@ -11,6 +11,7 @@ import {
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
+import axios from "axios";
 
 function Profile(props) {
   const [showEditNameForm, setShowEditNameForm] = useState(false);
@@ -89,7 +90,17 @@ function ChangeProfileImage() {
 
   useEffect(() => {
     if (image !== null) {
-      console.log(image);
+      const formData = new FormData();
+      formData.append("image", image);
+
+      axios({
+        method: "put",
+        url: "/users/profilePicture",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then((result) => {
+        console.log(result);
+      });
     }
   }, [image]);
 
