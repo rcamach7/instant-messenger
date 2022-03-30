@@ -20,6 +20,9 @@ router.delete("/", userController.user_delete);
 // Retrieves user by providing body fields.
 router.post("/log-in", userController.login_user_post);
 
+// Sets profile picture for user by providing file
+router.put("/profilePicture", userController.update_profilePicture_put);
+
 // * Friend(s) controller
 // Will return the list of friends and relevant data to user
 router.get("/friends/", friendController.friends_get);

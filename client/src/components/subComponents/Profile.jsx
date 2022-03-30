@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
-  faCircle,
   faMoon,
   faXmark,
   faHeartCrack,
@@ -10,6 +9,7 @@ import {
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
+import ChangeProfileImage from "../forms/ChangeProfileImage";
 
 function Profile(props) {
   const [showEditNameForm, setShowEditNameForm] = useState(false);
@@ -29,10 +29,14 @@ function Profile(props) {
         </ul>
 
         <div className="profileInformation">
-          <p className="profileImage">
-            <FontAwesomeIcon icon={faCircle} style={{ fontSize: "150px" }} />
-          </p>
-          {/* <p>{props.user.fullName}</p> */}
+          <div className="profilePictureContainer">
+            <img
+              src={props.user.profilePicture}
+              alt="profileImage"
+              className="profilePicture"
+            />
+            <ChangeProfileImage setUser={props.setUser} />
+          </div>
           <section className="profileName">
             {showEditNameForm ? (
               <UpdateNameForm
@@ -81,5 +85,4 @@ function Profile(props) {
     </div>
   );
 }
-
 export default Profile;

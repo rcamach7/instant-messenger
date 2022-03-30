@@ -54,8 +54,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      .profileImage {
+      .profilePictureContainer {
         padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        .profilePicture {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+        }
       }
       .profileName {
         display: flex;

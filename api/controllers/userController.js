@@ -3,6 +3,26 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
+// Image Uploading Dependencies
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// Configure Cloudinary to our account information
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD,
+  api_key: process.env.CLOUDINARY_API,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+// Configure storage information of the image we are saving
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "messages",
+  },
+});
+const upload = multer({ storage: storage });
 
 // ! Endpoint(s) for "/user/"
 exports.user_get = [
@@ -26,14 +46,24 @@ exports.user_get = [
       if (err) {
         res.status(403).json({ msg: "Failed authentication" });
       } else {
-        // Only gets hit if user is authorized
-        res.json({ authData });
+        User.findById(authData._id).exec((err, user) => {
+          if (err) next(err);
+
+          res.json({
+            user: {
+              username: user.username,
+              fullName: user.fullName,
+              profilePicture: user.profilePicture,
+              _id: user._id,
+            },
+          });
+        });
       }
     });
   },
 ];
 
-// Retrieves user by providing body fields and sends token back.
+// Retrieves user by providing body fields and sends token back.(client refreshes page which triggers get user end point, which is why we don't return user info)
 exports.login_user_post = [
   // Data Validation and sanitation.
   check("username").exists().bail().trim().isLength({ min: 4 }),
@@ -65,7 +95,7 @@ exports.login_user_post = [
       (err, token) => {
         if (err) next(err);
 
-        res.json({ token, user: req.user });
+        res.json({ token });
       }
     );
   },
@@ -93,7 +123,7 @@ exports.create_user_post = [
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json(errors);
+      return res.status(400).json(errors);
     }
 
     // Hash password for user security
@@ -105,6 +135,8 @@ exports.create_user_post = [
         username: req.body.username,
         password: hashedPassword,
         fullName: req.body.fullName,
+        profilePicture:
+          "https://res.cloudinary.com/de2ymful4/image/upload/v1648592585/messenger/blue_default_pnbhvr.jpg",
         friends: [],
       });
 
@@ -130,6 +162,7 @@ exports.create_user_post = [
               user: {
                 username: newUser.username,
                 fullName: newUser.fullName,
+                profilePicture: newUser.profilePicture,
                 _id: newUser._id,
               },
               msg: "Account created",
@@ -191,6 +224,7 @@ exports.update_user_put = [
                   user: {
                     username: updatedUser.username,
                     fullName: updatedUser.fullName,
+                    profilePicture: updatedUser.profilePicture,
                     _id: updatedUser._id,
                   },
                   msg: "Account updated",
@@ -201,8 +235,42 @@ exports.update_user_put = [
         } else {
           res.status(400).json({ msg: "Name too short" });
         }
-        // res.json({ authData, msg: "Name updated" });
       }
+    });
+  },
+];
+
+// Update users profilePicture by providing file in form data fields.
+exports.update_profilePicture_put = [
+  // Pull the token received and add it to the request.
+  (req, res, next) => {
+    // Pull the bearerHeader
+    const bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== "undefined") {
+      const bearer = bearerHeader.split(" ");
+      const bearerToken = bearer[1];
+      req.token = bearerToken;
+      next();
+    } else {
+      res.status(403).json({
+        message: "Protected route - not authorized",
+      });
+    }
+  },
+  // Intercepts image and adds it to the request parameter.
+  upload.single("image"),
+  (req, res, next) => {
+    // Authenticate user with provided
+    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
+      if (err) next(err);
+
+      User.findByIdAndUpdate(authData._id, {
+        $set: { profilePicture: req.file.path },
+      }).exec((err) => {
+        if (err) next(err);
+
+        res.status(201).json({ msg: "Profile picture updates" });
+      });
     });
   },
 ];
