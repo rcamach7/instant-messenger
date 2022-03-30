@@ -228,13 +228,12 @@ exports.update_user_put = [
         } else {
           res.status(400).json({ msg: "Name too short" });
         }
-        // res.json({ authData, msg: "Name updated" });
       }
     });
   },
 ];
 
-// Update users profilePicture by providing file
+// Update users profilePicture by providing file in form data fields.
 exports.update_profilePicture_put = [
   // Pull the token received and add it to the request.
   (req, res, next) => {
@@ -251,17 +250,20 @@ exports.update_profilePicture_put = [
       });
     }
   },
-  upload.single("image"),
   // Intercepts image and adds it to the request parameter.
-  async (req, res, next) => {
+  upload.single("image"),
+  (req, res, next) => {
     // Authenticate user with provided
     jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
       if (err) next(err);
 
-      if (req.file) {
-        console.log(req.file);
-      }
-      return res.json({ msg: "yee" });
+      User.findByIdAndUpdate(authData._id, {
+        $set: { profilePicture: req.file.path },
+      }).exec((err) => {
+        if (err) next(err);
+
+        res.status(201).json({ msg: "Profile picture updates" });
+      });
     });
   },
 ];
