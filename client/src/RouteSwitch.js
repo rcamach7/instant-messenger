@@ -25,7 +25,7 @@ const RouteSwitch = () => {
   useEffect(() => {
     if (storedJwt) {
       axios.get("/users/").then((results) => {
-        setUser(results.data.authData);
+        setUser(results.data.user);
       });
     }
   }, []);
@@ -34,7 +34,7 @@ const RouteSwitch = () => {
   useEffect(() => {
     if (storedJwt && user === null) {
       axios.get("/users/").then((results) => {
-        setUser(results.data.authData);
+        setUser(results.data.user);
       });
     }
   }, [user]);

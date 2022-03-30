@@ -1,17 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
-  faCircle,
   faMoon,
   faXmark,
   faHeartCrack,
   faPenToSquare,
-  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
-import axios from "axios";
+import ChangeProfileImage from "../forms/ChangeProfileImage";
 
 function Profile(props) {
   const [showEditNameForm, setShowEditNameForm] = useState(false);
@@ -31,11 +29,14 @@ function Profile(props) {
         </ul>
 
         <div className="profileInformation">
-          <div className="profileImage">
-            <FontAwesomeIcon icon={faCircle} style={{ fontSize: "150px" }} />
-            <ChangeProfileImage />
+          <div className="profilePictureContainer">
+            <img
+              src={props.user.profilePicture}
+              alt="profileImage"
+              className="profilePicture"
+            />
+            <ChangeProfileImage setUser={props.setUser} />
           </div>
-          {/* <p>{props.user.fullName}</p> */}
           <section className="profileName">
             {showEditNameForm ? (
               <UpdateNameForm
@@ -84,40 +85,4 @@ function Profile(props) {
     </div>
   );
 }
-
-function ChangeProfileImage() {
-  const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    if (image !== null) {
-      const formData = new FormData();
-      formData.append("image", image);
-
-      axios({
-        method: "put",
-        url: "/users/profilePicture",
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      }).then((result) => {
-        console.log(result);
-      });
-    }
-  }, [image]);
-
-  return (
-    <form className="ChangeProfileImage">
-      <label htmlFor="fileUpload" className="fileUploadLabel">
-        <FontAwesomeIcon icon={faImage} />
-      </label>
-      <input
-        className="fileUpload"
-        id="fileUpload"
-        type="file"
-        accept=".jpg, .jpeg, .png"
-        onChange={(e) => setImage(e.target.files[0])}
-      />
-    </form>
-  );
-}
-
 export default Profile;

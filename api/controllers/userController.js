@@ -46,14 +46,24 @@ exports.user_get = [
       if (err) {
         res.status(403).json({ msg: "Failed authentication" });
       } else {
-        // Only gets hit if user is authorized
-        res.json({ authData });
+        User.findById(authData._id).exec((err, user) => {
+          if (err) next(err);
+
+          res.json({
+            user: {
+              username: user.username,
+              fullName: user.fullName,
+              profilePicture: user.profilePicture,
+              _id: user._id,
+            },
+          });
+        });
       }
     });
   },
 ];
 
-// Retrieves user by providing body fields and sends token back.
+// Retrieves user by providing body fields and sends token back.(client refreshes page which triggers get user end point, which is why we don't return user info)
 exports.login_user_post = [
   // Data Validation and sanitation.
   check("username").exists().bail().trim().isLength({ min: 4 }),
@@ -77,7 +87,6 @@ exports.login_user_post = [
         username: req.user.username,
         _id: req.user._id,
         fullName: req.user.fullName,
-        profilePicture: req.user.profilePicture,
       },
       process.env.SECRET_STRING,
       {
@@ -86,7 +95,7 @@ exports.login_user_post = [
       (err, token) => {
         if (err) next(err);
 
-        res.json({ token, user: req.user });
+        res.json({ token });
       }
     );
   },
@@ -139,7 +148,6 @@ exports.create_user_post = [
           {
             username: newUser.username,
             fullName: newUser.fullName,
-            profilePicture: newUser.profilePicture,
             _id: newUser._id,
           },
           process.env.SECRET_STRING,
@@ -202,7 +210,6 @@ exports.update_user_put = [
               {
                 username: updatedUser.username,
                 fullName: updatedUser.fullName,
-                profilePicture: updatedUser.profilePicture,
                 _id: updatedUser._id,
               },
               process.env.SECRET_STRING,
