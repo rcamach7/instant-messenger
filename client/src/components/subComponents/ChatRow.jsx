@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-
 function ChatRow(props) {
   // Will sort the messages by the message dat, and grab the last message sent between the two users to populate in the preview
   // If no message history, we default to a preset value to avoid errors.
@@ -33,7 +30,11 @@ function ChatRow(props) {
 
   return (
     <section className="ChatRow" onClick={() => handleInitiateChat()}>
-      <span>{<FontAwesomeIcon icon={faCircle} className="userIcon" />}</span>
+      <img
+        src={props.chat.friend.profilePicture}
+        alt="userImage"
+        className="userImage"
+      />
       <div className="contactInfo">
         <p className="friendName">{props.chat.friend.fullName}</p>
         <p className="messagePreview">{lastMessage}</p>

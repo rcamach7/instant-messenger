@@ -13,6 +13,7 @@
     // Matches menuBar as to not let it spill underneath
     width: clamp(320px, 100vw, 500px);
     height: 100vh;
+    min-height: fit-content;
 
     // Animation properties
     animation: slide-in 300ms forwards;
@@ -22,46 +23,47 @@
     top: 0;
     bottom: 0;
 
-    padding: 0 10px 0 10px;
+    padding: 10px 20px 0 20px;
     background-color: rgb(214, 216, 218);
+
+    // Box Shadow
+    box-shadow: 3px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 3px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 2px 5px 0px rgba(0, 0, 0, 0.75);
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    .topBar {
-      height: 50px;
-      padding-right: 10px;
+    .iconClose {
       margin-left: auto;
 
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      li {
-        padding-top: 5px;
-        list-style: none;
-        .iconClose {
-          color: white;
-          background-color: black;
-          border-radius: 50%;
-          font-size: 25px;
-          cursor: pointer;
-        }
-      }
+      color: white;
+      background-color: black;
+      border-radius: 50%;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .iconClose:hover {
+      background-color: red;
     }
 
     .profileInformation {
+      padding-bottom: 20px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       .profilePictureContainer {
+        position: relative;
         padding-bottom: 10px;
+
         display: flex;
         flex-direction: column;
         .profilePicture {
           width: 150px;
           height: 150px;
           border-radius: 50%;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         }
       }
       .profileName {
@@ -76,10 +78,11 @@
     }
 
     .profileButtons {
-      width: clamp(200px, 28vw, 300px);
-      background-color: v.$theme-main-bk-secondary;
-      border-radius: 10px;
+      width: clamp(225px, 30vw, 250px);
       padding: 10px 10px 10px 10px;
+
+      background-color: white;
+      border-radius: 10px;
       .buttonList {
         display: flex;
         flex-direction: column;
@@ -102,12 +105,11 @@
             flex: 5;
             border: none;
             background-color: transparent;
-            padding-bottom: 6px;
             border-bottom: rgba(30, 30, 30, 0.4) solid 1px;
           }
         }
         li:hover {
-          background-color: white;
+          background-color: v.$theme-main-bk-secondary;
           cursor: pointer;
         }
       }
@@ -116,12 +118,20 @@
     .socialsContainer {
       padding-bottom: 20px;
       margin-top: auto;
+
       display: flex;
       gap: 30px;
       li {
         list-style: none;
         .socialIcon {
           font-size: 23px;
+          cursor: pointer;
+          transition: transform 0.5s;
+          font-size: 25px;
+        }
+        .socialIcon:hover {
+          transform: scale(1.2);
+          color: v.$theme-main;
           cursor: pointer;
         }
       }

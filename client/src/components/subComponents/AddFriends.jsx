@@ -14,28 +14,24 @@ export default function AddFriends(props) {
       .then(() => {
         // Query up to date friend information and update state.
         props.refreshFriendsInformation();
-      })
-      .catch((errors) => {
-        console.log(errors.response);
       });
   };
 
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
-        <ul className="topBar">
-          <li onClick={() => props.setShowAddFriends(false)}>
-            <FontAwesomeIcon icon={faCircleXmark} className="iconClose" />
-          </li>
-        </ul>
+        <FontAwesomeIcon
+          onClick={() => props.setShowAddFriends(false)}
+          icon={faCircleXmark}
+          className="iconClose"
+        />
 
-        <h1>Friend Requests</h1>
         <RequestFriendForm
           refreshFriendsInformation={props.refreshFriendsInformation}
         />
 
-        <p>Sent Requests</p>
         <ul className="sentRequests">
+          <p>Sent Requests</p>
           {props.sentFriendRequests.map((sentRequest, i) => {
             return (
               <li key={i}>
@@ -45,8 +41,8 @@ export default function AddFriends(props) {
           })}
         </ul>
 
-        <p>Received Requests</p>
         <ul className="receivedRequests">
+          <p>Received Requests</p>
           {props.receivedFriendRequests.map((receivedRequest, i) => {
             return (
               <li key={i}>

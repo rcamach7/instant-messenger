@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -28,8 +28,8 @@ export default function ChangeProfileImage(props) {
 
   return (
     <form className="ChangeProfileImage">
-      <label htmlFor="fileUpload" className="fileUploadLabel">
-        <FontAwesomeIcon icon={faImage} />
+      <label htmlFor="fileUpload">
+        <FontAwesomeIcon icon={faCamera} className="fileUploadIcon" />
       </label>
       <input
         className="fileUpload"

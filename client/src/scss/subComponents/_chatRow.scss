@@ -1,15 +1,20 @@
 .ChatRow {
   height: 70px;
+
+  padding-left: 5px;
   box-shadow: rgba(17, 17, 26, 0.2) 0px 1px 0px;
 
   display: flex;
   align-items: center;
-  .userIcon {
-    color: rgb(0, 0, 0, 0.5);
-    font-size: 50px;
-    padding: 0 5px 0 5px;
+  .userImage {
+    width: 50px;
+    height: 50px;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 50%;
   }
   .contactInfo {
+    padding-left: 5px;
     .friendName {
       font-weight: 500;
     }
