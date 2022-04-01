@@ -23,7 +23,7 @@
     top: 0;
     bottom: 0;
 
-    padding: 0 20px 0 20px;
+    padding: 10px 20px 0 20px;
     background-color: rgb(214, 216, 218);
 
     // Box Shadow
@@ -34,32 +34,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    .topBar {
-      height: 50px;
-      padding-right: 10px;
+    .iconClose {
       margin-left: auto;
 
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      li {
-        padding-top: 5px;
-        list-style: none;
-        .iconClose {
-          color: white;
-          background-color: black;
-          border-radius: 50%;
-          font-size: 25px;
-          cursor: pointer;
-        }
-        .iconClose:hover {
-          background-color: red;
-        }
-      }
+      color: white;
+      background-color: black;
+      border-radius: 50%;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .iconClose:hover {
+      background-color: red;
     }
 
     .profileInformation {
+      padding-bottom: 20px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -88,7 +78,7 @@
     }
 
     .profileButtons {
-      width: clamp(200px, 28vw, 250px);
+      width: clamp(225px, 30vw, 250px);
       padding: 10px 10px 10px 10px;
 
       background-color: white;

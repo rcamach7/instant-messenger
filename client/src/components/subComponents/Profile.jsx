@@ -22,11 +22,11 @@ function Profile(props) {
   return (
     <div className="ProfileBackdrop">
       <div className="Profile">
-        <ul className="topBar">
-          <li onClick={() => props.setShowProfile(false)}>
-            <FontAwesomeIcon icon={faCircleXmark} className="iconClose" />
-          </li>
-        </ul>
+        <FontAwesomeIcon
+          icon={faCircleXmark}
+          className="iconClose"
+          onClick={() => props.setShowProfile(false)}
+        />
 
         <div className="profileInformation">
           <div className="profilePictureContainer">
