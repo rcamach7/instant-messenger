@@ -21,7 +21,7 @@ export default function AddFriends(props) {
           <p className="title">REQUESTS SENT</p>
           {props.sentFriendRequests.map((sentRequest, i) => {
             return (
-              <div className="sentFriendRequest">
+              <div key={i} className="sentFriendRequest">
                 <img
                   className="userPicture"
                   src={sentRequest._id.profilePicture}
