@@ -44,24 +44,26 @@ export default function AddFriends(props) {
         <ul className="receivedRequests">
           <p>Received Requests</p>
           {props.receivedFriendRequests.map((receivedRequest, i) => {
-            return (
-              <li key={i}>
-                <span>{receivedRequest._id.fullName}</span>
-                <span className="iconContainer">
-                  <FontAwesomeIcon
-                    icon={faSquareCheck}
-                    className="friendIcon"
-                    onClick={() =>
-                      handleAcceptRequest(receivedRequest._id.username)
-                    }
-                  />
-                  <FontAwesomeIcon icon={faX} className="friendIcon" />
-                </span>
-              </li>
-            );
+            return <FriendRequest key={i}></FriendRequest>;
           })}
         </ul>
       </div>
+    </div>
+  );
+}
+
+function FriendRequest(props) {
+  return (
+    <div className="FriendRequest">
+      <img
+        className="profilePicture"
+        src={props.receivedRequest._id.profilePicture}
+        alt=""
+      />
+      <aside className="actionButtons">
+        <button>Confirm</button>
+        <button>Delete</button>
+      </aside>
     </div>
   );
 }

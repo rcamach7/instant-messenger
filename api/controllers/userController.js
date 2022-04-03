@@ -89,9 +89,6 @@ exports.login_user_post = [
         fullName: req.user.fullName,
       },
       process.env.SECRET_STRING,
-      {
-        expiresIn: "48h",
-      },
       (err, token) => {
         if (err) next(err);
 
