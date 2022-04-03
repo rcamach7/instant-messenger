@@ -48,6 +48,7 @@ cd api
 - Implement Socket connection for adding a new friend
 - Return errors on sign in or sign up to indicate what failed.
 - Data validation and sanitation for all user endpoints that send data in.
+- Detect expired tokens - and log user off. Currently, user is stuck in a 403 forbidden and had no access to logging out.
 
 > **Important**
 

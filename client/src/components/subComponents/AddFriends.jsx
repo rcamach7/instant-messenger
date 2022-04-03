@@ -1,22 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  faSquareCheck,
-  faX,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import RequestFriendForm from "../forms/RequestFriendForm";
 import axios from "axios";
 
 export default function AddFriends(props) {
-  const handleAcceptRequest = (friendUsername) => {
-    axios
-      .post("/users/friends/", { friendUsername: friendUsername })
-      .then(() => {
-        // Query up to date friend information and update state.
-        props.refreshFriendsInformation();
-      });
-  };
-
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
@@ -30,38 +17,83 @@ export default function AddFriends(props) {
           refreshFriendsInformation={props.refreshFriendsInformation}
         />
 
-        <ul className="sentRequests">
-          <p>Sent Requests</p>
+        <div className="sentRequests">
+          <p className="title">REQUESTS SENT</p>
           {props.sentFriendRequests.map((sentRequest, i) => {
             return (
-              <li key={i}>
-                <span>{sentRequest._id.fullName}</span>
-              </li>
+              <div key={i} className="sentFriendRequest">
+                <img
+                  className="userPicture"
+                  src={sentRequest._id.profilePicture}
+                  alt=""
+                />
+                <p>{sentRequest._id.fullName}</p>
+              </div>
             );
           })}
-        </ul>
+        </div>
 
-        <ul className="receivedRequests">
-          <p>Received Requests</p>
+        <div className="receivedRequests">
+          <p className="title">REQUESTS RECEIVED</p>
           {props.receivedFriendRequests.map((receivedRequest, i) => {
             return (
-              <li key={i}>
-                <span>{receivedRequest._id.fullName}</span>
-                <span className="iconContainer">
-                  <FontAwesomeIcon
-                    icon={faSquareCheck}
-                    className="friendIcon"
-                    onClick={() =>
-                      handleAcceptRequest(receivedRequest._id.username)
-                    }
-                  />
-                  <FontAwesomeIcon icon={faX} className="friendIcon" />
-                </span>
-              </li>
+              <FriendRequest
+                key={i}
+                receivedRequest={receivedRequest}
+                refreshFriendsInformation={props.refreshFriendsInformation}
+              />
             );
           })}
-        </ul>
+        </div>
       </div>
+    </div>
+  );
+}
+
+function FriendRequest(props) {
+  const handleAcceptRequest = (friendUsername) => {
+    axios
+      .post("/users/friends/", { friendUsername: friendUsername })
+      .then(() => {
+        // Query up to date friend information and update state.
+        props.refreshFriendsInformation();
+      });
+  };
+
+  return (
+    <div className="FriendRequest">
+      <img
+        className="userPicture"
+        src={props.receivedRequest._id.profilePicture}
+        alt=""
+      />
+      <div className="userInfo">
+        <p>{props.receivedRequest._id.fullName}</p>
+        <div className="actionButtons">
+          <button
+            className="confirm"
+            onClick={() =>
+              handleAcceptRequest(props.receivedRequest._id.username)
+            }
+          >
+            Confirm
+          </button>
+          <button>Delete</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SentFriendRequest(props) {
+  return (
+    <div className="SentFriendRequest">
+      <img
+        className="userPicture"
+        src={props.sentRequest._id.profilePicture}
+        alt=""
+      />
+      <p>{props.sentRequest._id.fullName}</p>
     </div>
   );
 }
