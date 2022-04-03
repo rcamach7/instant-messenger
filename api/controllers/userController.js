@@ -19,7 +19,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "messages",
+    folder: "messenger",
   },
 });
 const upload = multer({ storage: storage });
@@ -148,9 +148,6 @@ exports.create_user_post = [
             _id: newUser._id,
           },
           process.env.SECRET_STRING,
-          {
-            expiresIn: "48h",
-          },
           (err, token) => {
             if (err) next(err);
 
@@ -210,9 +207,6 @@ exports.update_user_put = [
                 _id: updatedUser._id,
               },
               process.env.SECRET_STRING,
-              {
-                expiresIn: "48h",
-              },
               (err, token) => {
                 if (err) next(err);
 
