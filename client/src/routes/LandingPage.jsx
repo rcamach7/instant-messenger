@@ -3,21 +3,29 @@ import axios from "axios";
 import logo from "../assets/logo.png";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 
-function LandingPage(props) {
+function LandingPage() {
   const [account, setAccount] = useState({
     username: "",
     password: "",
   });
+  // Will display error if credentials are not correct
+  const [errors, setErrors] = useState(false);
   const [showCreateAccountForm, setCreateAccountForm] = useState(false);
 
   // Upon login - we will save the token we receive (if successful) and store it in local memory.
   // Upon page reload, our main component will detect the auth token and route the user to the home page.
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post("/users/log-in", account).then((results) => {
-      localStorage.setItem("token", results.data.token);
-      window.location.reload();
-    });
+    axios
+      .post("/users/log-in", account)
+      .then((results) => {
+        localStorage.setItem("token", results.data.token);
+        window.location.reload();
+      })
+      // Catch any login errors from API
+      .catch(() => {
+        setErrors(true);
+      });
   };
 
   return (
@@ -56,7 +64,9 @@ function LandingPage(props) {
           autoComplete="off"
           required
         />
-
+        {errors ? (
+          <p style={{ color: "red" }}>Invalid username or password</p>
+        ) : null}
         <button className="login-btn" type="submit">
           Log In
         </button>
