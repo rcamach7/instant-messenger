@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/userController");
+const loginController = require("../controllers/loginController");
+const profilePictureController = require("../controllers/profilePictureController");
 const friendController = require("../controllers/friendController");
 const messageController = require("../controllers/messageController");
 
+// * User Controller
 // Get user data if token is provided
 router.get("/", userController.user_get);
 
@@ -17,11 +20,16 @@ router.put("/", userController.update_user_put);
 // Deletes user by providing body fields
 router.delete("/", userController.user_delete);
 
+// * Login controller
 // Retrieves user by providing body fields.
-router.post("/log-in", userController.login_user_post);
+router.post("/log-in", loginController.login_user_post);
 
+// * ProfilePicture controller
 // Sets profile picture for user by providing file
-router.put("/profilePicture", userController.update_profilePicture_put);
+router.put(
+  "/profilePicture",
+  profilePictureController.update_profilePicture_put
+);
 
 // * Friend(s) controller
 // Will return the list of friends and relevant data to user

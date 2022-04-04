@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 
 // Import Route Controllers and models
 const User = require("./models/User");
-const userRoutes = require("./routes/userRoutes");
+const appRoutes = require("./routes/appRoutes");
 
 // Initiate our application
 const app = express();
@@ -50,6 +50,6 @@ passport.use(
 );
 
 // Define Routes
-app.use("/users", userRoutes);
+app.use("/users", appRoutes);
 
 module.exports = app;

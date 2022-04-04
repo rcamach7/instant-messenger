@@ -65,7 +65,6 @@ exports.friends_get = [
   },
 ];
 
-// ! Sanitation to be implemented afterwards
 // Needs to remove the pending request from the current user, and the "sent" request from the original user as well.
 exports.add_friend_post = [
   // Verify token exists. Then, pull the token received and add it to the request.

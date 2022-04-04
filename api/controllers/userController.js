@@ -1,30 +1,8 @@
 const User = require("../models/User");
-const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
-// Image Uploading Dependencies
-const multer = require("multer");
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-// Configure Cloudinary to our account information
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD,
-  api_key: process.env.CLOUDINARY_API,
-  api_secret: process.env.CLOUDINARY_SECRET,
-});
-
-// Configure storage information of the image we are saving
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "messenger",
-  },
-});
-const upload = multer({ storage: storage });
-
-// ! Endpoint(s) for "/user/"
 exports.user_get = [
   // Pull the token received and add it to the request.
   (req, res, next) => {
@@ -63,43 +41,7 @@ exports.user_get = [
   },
 ];
 
-// Retrieves user by providing body fields and sends token back.(client refreshes page which triggers get user end point, which is why we don't return user info)
-exports.login_user_post = [
-  // Data Validation and sanitation.
-  check("username").exists().bail().trim().isLength({ min: 4 }),
-  check("password").exists().bail().trim().isLength({ min: 4 }),
-  // Before attempting to authorize, check for validation errors.
-  (req, res, next) => {
-    // Check for validation errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).json(errors);
-    }
-    next();
-  },
-  passport.authenticate("local", {
-    session: false,
-  }),
-  // Return JWT token upon validation
-  (req, res, next) => {
-    jwt.sign(
-      {
-        username: req.user.username,
-        _id: req.user._id,
-        fullName: req.user.fullName,
-      },
-      process.env.SECRET_STRING,
-      (err, token) => {
-        if (err) next(err);
-
-        res.json({ token });
-      }
-    );
-  },
-];
-
 // Creates a user by providing body fields.
-// * implement sanitation and validation for fullName field
 exports.create_user_post = [
   // Data Validation and sanitation.
   check("username")
@@ -227,41 +169,6 @@ exports.update_user_put = [
           res.status(400).json({ msg: "Name too short" });
         }
       }
-    });
-  },
-];
-
-// Update users profilePicture by providing file in form data fields.
-exports.update_profilePicture_put = [
-  // Pull the token received and add it to the request.
-  (req, res, next) => {
-    // Pull the bearerHeader
-    const bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== "undefined") {
-      const bearer = bearerHeader.split(" ");
-      const bearerToken = bearer[1];
-      req.token = bearerToken;
-      next();
-    } else {
-      res.status(403).json({
-        message: "Protected route - not authorized",
-      });
-    }
-  },
-  // Intercepts image and adds it to the request parameter.
-  upload.single("image"),
-  (req, res, next) => {
-    // Authenticate user with provided
-    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
-      if (err) next(err);
-
-      User.findByIdAndUpdate(authData._id, {
-        $set: { profilePicture: req.file.path },
-      }).exec((err) => {
-        if (err) next(err);
-
-        res.status(201).json({ msg: "Profile picture updates" });
-      });
     });
   },
 ];
