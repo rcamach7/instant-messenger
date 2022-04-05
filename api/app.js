@@ -37,6 +37,8 @@ passport.use(
 
       // Validates password
       bcrypt.compare(password, user.password, (err, res) => {
+        if (err) return done(err);
+
         if (res) {
           // Password authenticated
           return done(null, user);
