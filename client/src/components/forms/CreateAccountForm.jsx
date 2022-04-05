@@ -8,15 +8,35 @@ function CreateAccountForm(props) {
     fullName: "",
     username: "",
     password: "",
+    passwordConfirm: "",
   });
+  const [badPasswordError, setBadPasswordError] = useState(false);
+  // Will show any API errors after submission.
+  const [badRequest, setBadRequest] = useState([]);
 
   // Store token, and refresh page.
   const handleCreateAccount = (e) => {
     e.preventDefault(e);
-    axios.post("/users/", account).then((results) => {
-      localStorage.setItem("token", results.data.token);
-      window.location.reload();
-    });
+    // Check if re-typed passwords match.
+    if (account.password !== account.passwordConfirm) {
+      // Display form error
+      setBadPasswordError(true);
+    } else {
+      // Only send one password field, so we destructure account object, as we have confirmed passwords match.
+      axios
+        .post("/users/", {
+          fullName: account.fullName,
+          username: account.username,
+          password: account.password,
+        })
+        .then((results) => {
+          localStorage.setItem("token", results.data.token);
+          window.location.reload();
+        })
+        .catch((errors) => {
+          setBadRequest(errors.response.data.errors);
+        });
+    }
   };
 
   return (
@@ -52,7 +72,7 @@ function CreateAccountForm(props) {
             setAccount({ ...account, [e.target.id]: e.target.value })
           }
           placeholder="Username"
-          minLength="4"
+          minLength="3"
           maxLength="100"
           required
         />
@@ -68,7 +88,29 @@ function CreateAccountForm(props) {
           maxLength="100"
           required
         />
-
+        <input
+          type="password"
+          id="passwordConfirm"
+          onChange={(e) =>
+            setAccount({ ...account, [e.target.id]: e.target.value })
+          }
+          placeholder="Confirm password"
+          minLength="4"
+          maxLength="100"
+          required
+        />
+        {/* If passwords don't match on submission - ask user to fill again */}
+        {badPasswordError ? (
+          <p className="submissionError ">Passwords do not match</p>
+        ) : null}
+        {/* Prints any errors generated from API */}
+        {badRequest.map((submissionError, i) => {
+          return (
+            <p key={i} className="submissionError">
+              {submissionError.msg}
+            </p>
+          );
+        })}
         <input type="submit" className="btn" />
       </form>
     </div>

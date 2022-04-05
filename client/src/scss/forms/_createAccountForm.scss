@@ -16,7 +16,7 @@
 
   .CreateAccountForm {
     width: fit-content;
-    height: 275px;
+    height: fit-content;
 
     padding: 10px;
     text-align: center;
@@ -36,9 +36,14 @@
     background-color: rgb(66, 183, 41);
     color: white;
     padding: 3px;
-    margin-top: auto;
+    margin-top: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+
+  .submissionError {
+    color: red;
+    font-size: 13px;
   }
 }

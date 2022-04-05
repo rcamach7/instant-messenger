@@ -49,13 +49,13 @@ exports.create_user_post = [
     .bail()
     .trim()
     .isLength({ min: 4 })
-    .custom((value) => {
+    .withMessage("Username too short")
+    .custom(async (value) => {
       // Makes sure the username is not already in use by another member
-      return User.findOne({ username: value }).then((user) => {
-        if (user) {
-          return Promise.reject("Username Already Exists");
-        }
-      });
+      const user = await User.findOne({ username: value });
+      if (user) {
+        return Promise.reject("Username already exists");
+      }
     }),
   check("password").exists().bail().trim().isLength({ min: 4 }),
   (req, res, next) => {
