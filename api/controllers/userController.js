@@ -49,7 +49,7 @@ exports.create_user_post = [
     .bail()
     .trim()
     .isLength({ min: 4 })
-    .withMessage("Username too short")
+    .withMessage("Username must be at least 4 characters")
     .custom(async (value) => {
       // Makes sure the username is not already in use by another member
       const user = await User.findOne({ username: value });
@@ -57,7 +57,18 @@ exports.create_user_post = [
         return Promise.reject("Username already exists");
       }
     }),
-  check("password").exists().bail().trim().isLength({ min: 4 }),
+  check("password")
+    .exists()
+    .bail()
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Password must be at least 4 characters"),
+  check("fullName")
+    .exists()
+    .bail()
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Name must be at least 4 characters"),
   (req, res, next) => {
     // Check for validation errors
     const errors = validationResult(req);

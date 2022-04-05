@@ -72,7 +72,7 @@ function CreateAccountForm(props) {
             setAccount({ ...account, [e.target.id]: e.target.value })
           }
           placeholder="Username"
-          minLength="3"
+          minLength="4"
           maxLength="100"
           required
         />
