@@ -26,7 +26,7 @@ function CreateAccountForm(props) {
       axios
         .post("/users/", {
           fullName: account.fullName,
-          username: account.username,
+          username: account.username.toLowerCase(),
           password: account.password,
         })
         .then((results) => {
