@@ -41,14 +41,13 @@ cd api
 
 > **Severe**
 
-- Before adding a friend, make sure the friends isn't already added in the users friend array.
-- Data validation and sanitation for all user endpoints that send data in.
 - Detect expired tokens - and log user off. Currently, user is stuck in a 403 forbidden and had no access to logging out.
+- When users send messages - preview isn't updating to show most recent message.
 
 > **Important**
 
 - Change color theme for buttons on log in and sign up pages/forms.
 - Add time stamps to messages to indicate when they were sent
+- Add time stamps to messages to indicate when they were sent
 - When users send messages - preview isn't updating to show most recent message.
-- Update method of storing JWT token client-side.
 

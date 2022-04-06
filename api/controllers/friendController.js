@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const v4 = require("uuid").v4;
+const { check, validationResult } = require("express-validator");
 
 // Returns the users friends and any data stored, such as messages.
 exports.friends_get = [
@@ -81,11 +82,22 @@ exports.add_friend_post = [
       });
     }
   },
+  // Data Validation and sanitation.
+  check("friendUsername")
+    .exists()
+    .bail()
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters")
+    .toLowerCase(),
   // Verify token is valid, and corresponds to a user, then pull user information from it.
   (req, res, next) => {
     jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
       if (err) {
         res.status(403).json({ msg: "Failed authentication" });
+      } else if (!validationResult(req).isEmpty()) {
+        // Username passed in didn't pass validation
+        return res.status(400).json(errors);
       } else {
         // Look for the friend the user wants to add to see if he exists
         User.findOne({ username: req.body.friendUsername }).exec(
@@ -165,11 +177,22 @@ exports.request_friend_post = [
       });
     }
   },
+  // Data Validation and sanitation.
+  check("friendUsername")
+    .exists()
+    .bail()
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters")
+    .toLowerCase(),
   // Verify token is valid, and then check if user is already a friend, or there exists a pending friend request already.
   (req, res, next) => {
     jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
       if (err) {
         res.status(403).json({ msg: "Failed authentication" });
+      } else if (!validationResult(req).isEmpty()) {
+        // Username passed in didn't pass validation
+        return res.status(400).json(errors);
       } else {
         // Get potential friend information
         User.findOne({ username: req.body.friendUsername }).exec(
