@@ -9,7 +9,9 @@ export default function RequestFriendForm(props) {
   const handleFriendRequest = (e) => {
     e.preventDefault();
     axios
-      .post("/users/friends/request", { friendUsername: friendUsername })
+      .post("/users/friends/request", {
+        friendUsername: friendUsername.toLowerCase(),
+      })
       // Upon successful request, we will reset the state fields.
       .then(() => {
         setErrors([]);

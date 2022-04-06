@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 // Retrieves user by providing body fields and sends token back.(client refreshes page which triggers get user end point, which is why we don't return user info)
 exports.login_user_post = [
   // Data Validation and sanitation.
-  check("username").exists().bail().trim().isLength({ min: 4 }),
+  check("username").exists().bail().trim().isLength({ min: 4 }).toLowerCase(),
   check("password").exists().bail().trim().isLength({ min: 4 }),
   // Before attempting to authorize, check for validation errors.
   (req, res, next) => {

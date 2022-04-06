@@ -50,6 +50,7 @@ exports.create_user_post = [
     .trim()
     .isLength({ min: 4 })
     .withMessage("Username must be at least 4 characters")
+    .toLowerCase()
     .custom(async (value) => {
       // Makes sure the username is not already in use by another member
       const user = await User.findOne({ username: value });
@@ -86,7 +87,7 @@ exports.create_user_post = [
         password: hashedPassword,
         fullName: req.body.fullName,
         profilePicture:
-          "https://res.cloudinary.com/de2ymful4/image/upload/v1648592585/messenger/blue_default_pnbhvr.jpg",
+          "https://res.cloudinary.com/de2ymful4/image/upload/v1649203693/messenger/default_vrsymg.jpg",
         friends: [],
       });
 
