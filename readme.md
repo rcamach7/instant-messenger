@@ -41,12 +41,7 @@ cd api
 
 > **Severe**
 
-- When users send messages - preview isn't updating to show most recent message.
-- Add a confirm password field in the create account form and validate it client side, and server side.
 - Before adding a friend, make sure the friends isn't already added in the users friend array.
-- Update method of storing JWT token client-side.
-- Implement Socket connection for adding a new friend
-- Return errors on sign in or sign up to indicate what failed.
 - Data validation and sanitation for all user endpoints that send data in.
 - Detect expired tokens - and log user off. Currently, user is stuck in a 403 forbidden and had no access to logging out.
 
@@ -54,3 +49,6 @@ cd api
 
 - Change color theme for buttons on log in and sign up pages/forms.
 - Add time stamps to messages to indicate when they were sent
+- When users send messages - preview isn't updating to show most recent message.
+- Update method of storing JWT token client-side.
+
