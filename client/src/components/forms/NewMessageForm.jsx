@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlay,
   faImages,
   faFaceSmile,
   faPaperPlane,

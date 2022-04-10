@@ -68,6 +68,7 @@ function Home(props) {
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
         roomSocket={roomSocket}
+        refreshFriendsInformation={refreshFriendsInformation}
       />
     </main>
   );

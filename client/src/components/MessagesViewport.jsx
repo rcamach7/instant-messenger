@@ -37,6 +37,7 @@ function MessagesViewport(props) {
         ...props.activeFriendChat,
         messages: [...props.activeFriendChat.messages, newFriendMessage],
       });
+      props.refreshFriendsInformation();
     });
   }, [props]);
 

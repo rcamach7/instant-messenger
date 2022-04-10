@@ -41,7 +41,6 @@ cd api
 
 > **Severe**
 
-- Detect expired tokens - and log user off. Currently, user is stuck in a 403 forbidden and had no access to logging out.
 - When users send messages - preview isn't updating to show most recent message.
 
 > **Important**
