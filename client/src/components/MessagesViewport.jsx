@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faUserGear } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { v4 } from "uuid";
 import io from "socket.io-client";
@@ -51,7 +51,7 @@ function MessagesViewport(props) {
             {<FontAwesomeIcon className="icon" icon={faCaretLeft} />}
           </li>
           <li>{props.activeFriendChat.fullName}</li>
-          <li>{<FontAwesomeIcon className="icon" icon={faUserGear} />}</li>
+          <li>{/* Used to even out spacing in top bar */}</li>
         </ul>
       </nav>
 

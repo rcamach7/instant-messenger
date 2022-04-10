@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faUserGear } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faBars } from "@fortawesome/free-solid-svg-icons";
 import { v4 } from "uuid";
 import ChatRow from "./subComponents/ChatRow";
 import Profile from "./subComponents/Profile";
@@ -30,7 +30,7 @@ function MenuBar(props) {
             {
               <FontAwesomeIcon
                 className="icon"
-                icon={faUserGear}
+                icon={faBars}
                 onClick={() => setShowProfile(true)}
               />
             }

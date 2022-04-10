@@ -33,9 +33,16 @@ const RouteSwitch = () => {
   // Get user data is JWT token exists but we haven't requested user data (possibly re-opened tab)
   useEffect(() => {
     if (storedJwt && user === null) {
-      axios.get("/users/").then((results) => {
-        setUser(results.data.user);
-      });
+      axios
+        .get("/users/")
+        .then((results) => {
+          setUser(results.data.user);
+        })
+        .catch(() => {
+          // Token exists - but API is down - so we log off user.
+          localStorage.removeItem("token");
+          window.location.reload();
+        });
     }
   }, [user]);
 
