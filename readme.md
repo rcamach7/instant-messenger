@@ -41,12 +41,11 @@ cd api
 
 > **Severe**
 
-- When users send messages - preview isn't updating to show most recent message.
-
 > **Important**
 
 - Change color theme for buttons on log in and sign up pages/forms.
 - Add time stamps to messages to indicate when they were sent
 - Add time stamps to messages to indicate when they were sent
 - When users send messages - preview isn't updating to show most recent message.
+- Pull up web socket connection to Home component since we will be dealing with multiple socket functions.
 

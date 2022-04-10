@@ -149,6 +149,10 @@ exports.add_friend_post = [
               ).exec((err) => {
                 if (err) next(err);
 
+                req.app
+                  .get("socketio")
+                  .emit("new friend acceptance", newFriendUser._id);
+
                 // Respond with successful message.
                 res.status(201).json({
                   message: "Friend Added",
@@ -263,6 +267,12 @@ exports.request_friend_post = [
         { $push: { receivedFriendRequests: { _id: res.locals.user._id } } }
       ).exec((err) => {
         if (err) next(err);
+
+        // Emit signal of new friend being added
+        req.app
+          .get("socketio")
+          .emit("new friend request", res.locals.friend._id);
+
         // Notify user of successful friend request
         res.status(202).json({ msg: "Successfully sent friend request" });
       });

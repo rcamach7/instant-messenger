@@ -30,13 +30,24 @@ function MessagesViewport(props) {
     }
   }, [props.roomSocket]);
 
-  // When our message, or a message from a friends is saved on DB, it will emit a signal to both us us (if connected) to save our new message.
+  // Manages socket alerts
   useEffect(() => {
+    // When our message, or a message from a friends is saved on DB, it will emit a signal to both us us (if connected) to save our new message.
     socket.on("chat message", (newFriendMessage) => {
       props.setActiveFriendChat({
         ...props.activeFriendChat,
         messages: [...props.activeFriendChat.messages, newFriendMessage],
       });
+      props.refreshFriendsInformation();
+    });
+
+    // When a new request is sent out - let active users know and reflect change if appropriate.
+    socket.on("new friend request", (userId) => {
+      props.refreshFriendsInformation();
+    });
+
+    // When a friend request is accepted- let active users know and reflect change if appropriate.
+    socket.on("new friend acceptance", (userId) => {
       props.refreshFriendsInformation();
     });
   }, [props]);
