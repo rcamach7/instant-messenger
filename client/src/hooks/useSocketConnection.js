@@ -23,6 +23,7 @@ export default function useSocketConnection(props) {
         messages: [...props.activeFriendChat.messages, newFriendMessage],
       });
       props.refreshFriendsInformation();
+      console.log("HIT");
     });
 
     // When a new request is sent out - let active users know and reflect change if appropriate.
@@ -34,5 +35,5 @@ export default function useSocketConnection(props) {
     socket.on("new friend acceptance", (userId) => {
       props.refreshFriendsInformation();
     });
-  }, [props]);
+  }, [props.activeFriendChat]);
 }

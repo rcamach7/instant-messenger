@@ -27,7 +27,7 @@ function Home(props) {
   }, [mobileSwapSection]);
 
   // Get user specific friend info. Called on mount and when user receives a request or sends one out - to have UI reflect any changes visually.
-  const refreshFriendsInformation = async () => {
+  const refreshFriendsInformation = async (newFriendMessage) => {
     try {
       // De-construct specific fields we will receive when we get our response.
       const {
@@ -40,6 +40,22 @@ function Home(props) {
     } catch (error) {
       console.log(error);
     }
+
+    // Was called because a new message was sent, so we will update the messages
+    // if (newFriendMessage) {
+    //   friends.forEach((curFriend) => {
+    //     // console.log(curFriend.friend);
+    //     // console.log(activeFriendChat.friendUsername);
+
+    //     if (curFriend.friend.username === activeFriendChat.friendUsername) {
+    //       // console.log(curFriend);
+    //       setActiveFriendChat({
+    //         ...activeFriendChat,
+    //         messages: [...curFriend.messages],
+    //       });
+    //     }
+    //   });
+    // }
   };
 
   // On component mount, retrieve the users friends and set state variables.
@@ -69,6 +85,7 @@ function Home(props) {
         setActiveFriendChat={setActiveFriendChat}
         roomSocket={roomSocket}
         refreshFriendsInformation={refreshFriendsInformation}
+        friends={friends}
       />
     </main>
   );
