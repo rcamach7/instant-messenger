@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
+import useFetchUser from "./hooks/useFetchUser";
 
 // Send all requests with our authentication token - if it exists.
 const storedJwt = localStorage.getItem("token");
@@ -19,41 +19,8 @@ axios.interceptors.request.use(
 );
 
 const RouteSwitch = () => {
-  const [user, setUser] = useState(null);
-
-  // Sign users in on page refresh if JWT token exists.
-  useEffect(() => {
-    const fetchUser = async () => {
-      // Only fetch user if we have a stored JWT Token
-      if (storedJwt) {
-        try {
-          const { data } = await axios.get("/users/");
-          setUser(data);
-        } catch (error) {
-          // Token exists - but is not valid, so we remove it.
-          localStorage.removeItem("token");
-          window.location.reload();
-        }
-      }
-    };
-    fetchUser();
-  }, []);
-
-  // Get user data is JWT token exists but we haven't requested user data (possibly re-opened tab)
-  useEffect(() => {
-    if (storedJwt && user === null) {
-      axios
-        .get("/users/")
-        .then((results) => {
-          setUser(results.data.user);
-        })
-        .catch(() => {
-          // Token exists - but API is down - so we log off user.
-          localStorage.removeItem("token");
-          window.location.reload();
-        });
-    }
-  }, [user]);
+  // Custom hook handles retrieving user info if Token exists, and updating user info upon any change.
+  const [user, setUser] = useFetchUser();
 
   return (
     <BrowserRouter>
@@ -85,7 +52,7 @@ function RequireAuth({ children }) {
   return storedJwt === null ? <Navigate to="/" replace /> : children;
 }
 
-// // Once authenticated, we don't want our users to continue in the landing page / sign in page.
+// Once authenticated, we don't want our users to continue in the landing page / sign in page.
 function NotAuthenticated({ children }) {
   return storedJwt === null ? children : <Navigate to="/home" replace />;
 }
