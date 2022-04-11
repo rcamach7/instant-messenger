@@ -1,51 +1,29 @@
-# iChat Web App
+# Messenger Web App
 
-Full stack messenger app that allows users to add and chat with friends over a realtime socket connection. Build with React on the frontend and a NodeJS API serving the frontend.
+> Full stack web messenger applications that allows users to chat with friends.
+
+![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1649449397/main-portfolio/projects/chat_row1m8.png)
+
+## Key Features
+
+- User interface built with React, styled with SCSS, and designed with a mobile first approach, making it responsive to all view ports.
+- API was created using Node and Express, which sanitizes and validates any data or request received from our front-end.
+- User authentication and security implemented with PassportJS and JWT Tokens, which were also used to protect routes against un-authenticated users.
+- MongoDB, in conjunction with mongoose, used to store and update user information.
+
 
 ### Built Using
 
-> **Front-End Technologies**
-
 - React Framework
-- Socket-IO Web Client
-  - Create private socket connections to chats for realtime client updates.
-- Javascript
-- HTML
-  - From Validation
-  - Consistent Semantic Elements
-- SASS Styling
-  - Media Query Breakpoints for responsive design
-
-> **Backend Technologies**
-
-- Node JS
-- Express JS
+  - State management and lifecycle hooks
+- NodeJS + Express JS
   - RESTful API endpoints
-  - Server-side Data Validation and Sanitation
-- Socket-IO
-  - Communicate with active socket connections to emit new messages signal.
+  - Server-side data validation and sanitation
+  - Socket-IO used to communicate with active socket connections to emit new messages signal.
 - MongoDB + Mongoose
-
-#### Directory Guide
-
-```bash
-# React frontend client source code
-cd client
-
-# NodeJS backend API source code
-cd ..
-cd api
-```
 
 #### To-Do's
 
-> **Severe**
-
-> **Important**
-
 - Change color theme for buttons on log in and sign up pages/forms.
 - Add time stamps to messages to indicate when they were sent
-- Add time stamps to messages to indicate when they were sent
-- When users send messages - preview isn't updating to show most recent message.
 - Pull up web socket connection to Home component since we will be dealing with multiple socket functions.
-
