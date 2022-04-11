@@ -18,34 +18,34 @@ function Home(props) {
   });
   const [roomSocket, setRoomSocket] = useState(null);
 
-  // On component mount, retrieve the users friends and subset data.
-  useEffect(() => {
-    axios.get("/users/friends").then((results) => {
-      // Set all user friend info
-      setFriends(results.data.friends);
-      setReceivedFriendRequests(results.data.receivedFriendRequests);
-      setSentFriendRequests(results.data.sentFriendRequests);
-    });
-  }, []);
-
   // Whenever we turn to our MenuBar displaying our friends, we will request another update to display the latest message.
+  // Only while on mobile view since we swap display of components.
   useEffect(() => {
     if (!mobileSwapSection) {
-      axios.get("/users/friends").then((results) => {
-        setFriends(results.data.friends);
-      });
+      refreshFriendsInformation();
     }
   }, [mobileSwapSection]);
 
-  // Whenever user changes friend information (accept friend request - or send a friend request) we need to reflect that change real-time
-  // by fetching from the DB again.
-  const refreshFriendsInformation = () => {
-    axios.get("/users/friends").then((results) => {
-      setFriends(results.data.friends);
-      setReceivedFriendRequests(results.data.receivedFriendRequests);
-      setSentFriendRequests(results.data.sentFriendRequests);
-    });
+  // Get user specific friend info. Called on mount and when user receives a request or sends one out - to have UI reflect any changes visually.
+  const refreshFriendsInformation = async () => {
+    try {
+      // De-construct specific fields we will receive when we get our response.
+      const {
+        data: { friends, receivedFriendRequests, sentFriendRequests },
+      } = await axios.get("/users/friends");
+      // Set all appropriate response fields to state variables
+      setFriends(friends);
+      setReceivedFriendRequests(receivedFriendRequests);
+      setSentFriendRequests(sentFriendRequests);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // On component mount, retrieve the users friends and set state variables.
+  useEffect(() => {
+    refreshFriendsInformation();
+  }, []);
 
   return (
     <main className="Home">

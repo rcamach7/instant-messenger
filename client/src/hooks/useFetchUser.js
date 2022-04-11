@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// Send all requests with our authentication token - if it exists.
+// Retrieve, if any, token existing in local storage.
 const storedJwt = localStorage.getItem("token");
 
 export default function useFetchUser() {

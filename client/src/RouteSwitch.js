@@ -19,7 +19,7 @@ axios.interceptors.request.use(
 );
 
 const RouteSwitch = () => {
-  // Custom hook handles retrieving user info if Token exists, and updating user info upon any change.
+  // Custom hook handles retrieving user info if Token exists, and refreshes user info if token exists, but user value is null which logically is not correct.
   const [user, setUser] = useFetchUser();
 
   return (
