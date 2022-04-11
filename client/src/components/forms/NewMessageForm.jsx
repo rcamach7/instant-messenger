@@ -13,16 +13,21 @@ function NewMessageForm(props) {
   // Create a new message after form submission.
   const handleNewMessage = (e) => {
     e.preventDefault();
-    axios
-      .post("/users/friends/messages", {
-        friendUsername: props.activeFriendChat.friendUsername,
-        message: newMessage,
-        // _id field is passed to emit a socket signal to any users in a room with this identifier.
-        _id: props.roomSocket,
-      })
-      .then(() => {
-        setNewMessage("");
-      });
+    if (props.activeFriendChat.friendUsername === "") {
+      alert("Please select a friend to begin a conversation");
+      setNewMessage("");
+    } else {
+      axios
+        .post("/users/friends/messages", {
+          friendUsername: props.activeFriendChat.friendUsername,
+          message: newMessage,
+          // _id field is passed to emit a socket signal to any users in a room with this identifier.
+          _id: props.roomSocket,
+        })
+        .then(() => {
+          setNewMessage("");
+        });
+    }
   };
 
   return (

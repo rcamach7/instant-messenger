@@ -19,10 +19,11 @@ function LandingPage() {
     axios
       .post("/users/log-in", account)
       .then((results) => {
+        // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
         localStorage.setItem("token", results.data.token);
         window.location.reload();
       })
-      // Catch any login errors from API
+      // Catch and display any login errors from API
       .catch(() => {
         setErrors(true);
       });

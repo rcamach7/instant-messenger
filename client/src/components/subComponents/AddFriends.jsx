@@ -85,6 +85,7 @@ function FriendRequest(props) {
   );
 }
 
+// TODO: Finish component and replace main component
 function SentFriendRequest(props) {
   return (
     <div className="SentFriendRequest">
