@@ -2,17 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { v4 } from "uuid";
-import io from "socket.io-client";
 import NewMessageForm from "./forms/NewMessageForm";
 import Message from "./subComponents/Message";
-
-// Create a live socket connection to our server to listen to events.
-const socket = io.connect("http://localhost:2000", {
-  transports: ["websocket"],
-});
+import useSocketConnection from "../hooks/useSocketConnection";
 
 function MessagesViewport(props) {
   const messages = props.activeFriendChat.messages;
+  // Manages socket connection based on current active chat.
+  useSocketConnection(props);
 
   // Sort messages whenever a new one comes in.
   useEffect(() => {
@@ -22,35 +19,6 @@ function MessagesViewport(props) {
     const element = document.getElementById("messagesContainer");
     element.scrollTop = element.scrollHeight;
   }, [messages]);
-
-  // If friendship ID exists for the active chat, we will join a specific room to listen for messages between this friend
-  useEffect(() => {
-    if (props.roomSocket !== null) {
-      socket.emit("join", { _id: props.roomSocket });
-    }
-  }, [props.roomSocket]);
-
-  // Manages socket alerts
-  useEffect(() => {
-    // When our message, or a message from a friends is saved on DB, it will emit a signal to both us us (if connected) to save our new message.
-    socket.on("chat message", (newFriendMessage) => {
-      props.setActiveFriendChat({
-        ...props.activeFriendChat,
-        messages: [...props.activeFriendChat.messages, newFriendMessage],
-      });
-      props.refreshFriendsInformation();
-    });
-
-    // When a new request is sent out - let active users know and reflect change if appropriate.
-    socket.on("new friend request", (userId) => {
-      props.refreshFriendsInformation();
-    });
-
-    // When a friend request is accepted- let active users know and reflect change if appropriate.
-    socket.on("new friend acceptance", (userId) => {
-      props.refreshFriendsInformation();
-    });
-  }, [props]);
 
   return (
     <aside className="MessagesViewport" style={props.style}>
