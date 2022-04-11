@@ -23,11 +23,20 @@ const RouteSwitch = () => {
 
   // Sign users in on page refresh if JWT token exists.
   useEffect(() => {
-    if (storedJwt) {
-      axios.get("/users/").then((results) => {
-        setUser(results.data.user);
-      });
-    }
+    const fetchUser = async () => {
+      // Only fetch user if we have a stored JWT Token
+      if (storedJwt) {
+        try {
+          const { data } = await axios.get("/users/");
+          setUser(data);
+        } catch (error) {
+          // Token exists - but is not valid, so we remove it.
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
+      }
+    };
+    fetchUser();
   }, []);
 
   // Get user data is JWT token exists but we haven't requested user data (possibly re-opened tab)
