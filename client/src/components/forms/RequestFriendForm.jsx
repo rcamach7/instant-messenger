@@ -26,7 +26,9 @@ export default function RequestFriendForm(props) {
 
   return (
     <form className="addNewFriend" onSubmit={(e) => handleFriendRequest(e)}>
-      <label htmlFor="friendUsername">Add New Friend</label>
+      <label htmlFor="friendUsername">
+        <p>Add New Friend</p>
+      </label>
       <input
         type="text"
         id="friendUsername"

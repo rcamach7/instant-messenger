@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { v4 } from "uuid";
 import NewMessageForm from "./forms/NewMessageForm";
@@ -31,7 +31,13 @@ function MessagesViewport(props) {
             {<FontAwesomeIcon className="icon" icon={faCaretLeft} />}
           </li>
           <li>{props.activeFriendChat.fullName}</li>
-          <li>{/* Used to even out spacing in top bar */}</li>
+          <li>
+            <FontAwesomeIcon
+              icon={faMoon}
+              className="icon"
+              onClick={() => props.toggleTheme()}
+            />
+          </li>
         </ul>
       </nav>
 

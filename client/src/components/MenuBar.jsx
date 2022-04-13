@@ -56,6 +56,7 @@ function MenuBar(props) {
           setShowProfile={setShowProfile}
           user={props.user}
           setUser={props.setUser}
+          toggleTheme={props.toggleTheme}
         />
       ) : null}
       {showAddFriends ? (

@@ -31,6 +31,45 @@ a {
   text-decoration: none;
 }
 
+// Dark theme settings
+body.dark {
+  p, .icon, li {
+    color: white !important;
+  }
+  .LandingPage {
+    background-color: rgb(34,39,45);
+    form {
+      background-color: rgb(45,51,59);
+    }
+  }
+  .Home {
+    // Both main components share this class for their navbar
+    .navbar {
+      background-color: rgb(45,51,59);
+    }
+    // First main component
+    .MenuBar {
+      background-color: rgb(34,39,45);
+      border-right: solid rgba(255, 255, 255, 0.4) 1px;
+      .ChatRow {
+        box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
+      }
+
+      .Profile, .AddFriends {
+        background-color: rgb(34,39,45);
+      }
+    }
+    
+    // Second main component
+    .MessagesViewport {
+      background-color: rgb(34,39,45);
+      .NewMessageForm {
+        background-color: rgb(45,51,59);
+      }
+    }
+  }
+}
+
 // Hide scrollbar but still use its functionality
 .disable-scrollbars {
   scrollbar-width: none; /* Firefox */
