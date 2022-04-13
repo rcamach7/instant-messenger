@@ -63,6 +63,9 @@ body.dark {
     // Second main component
     .MessagesViewport {
       background-color: rgb(34,39,45);
+      .friendMessage {
+        color: black;
+      }
       .NewMessageForm {
         background-color: rgb(45,51,59);
       }
