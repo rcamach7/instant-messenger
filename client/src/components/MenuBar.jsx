@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserPlus,
+  faBars,
+  faBriefcase,
+} from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { v4 } from "uuid";
 import ChatRow from "./subComponents/ChatRow";
 import Profile from "./subComponents/Profile";
@@ -48,7 +53,27 @@ function MenuBar(props) {
         </ul>
       </nav>
 
+      {/* Main container that holds all different friends */}
       <div className="chatRowsContainer">{chatRows}</div>
+
+      {/* Container that holds social icons */}
+      <ul className="personalSocialsContainer">
+        <li
+          onClick={() => window.open("https://github.com/rcamach7", "_blank")}
+        >
+          <FontAwesomeIcon icon={faGithub} className="icon" />
+        </li>
+        <li
+          onClick={() =>
+            window.open("https://www.ricardo-camacho.dev/", "_blank")
+          }
+        >
+          <FontAwesomeIcon icon={faBriefcase} className="icon" />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faLinkedin} className="icon" />
+        </li>
+      </ul>
 
       {/* Hidden Tabs */}
       {showProfile ? (
