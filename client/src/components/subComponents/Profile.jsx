@@ -10,7 +10,6 @@ import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImage from "../forms/ChangeProfileImage";
-import DarkMode from "./DarkMode";
 
 function Profile(props) {
   const [showEditNameForm, setShowEditNameForm] = useState(false);
@@ -46,8 +45,9 @@ function Profile(props) {
                 setShowEditNameForm={setShowEditNameForm}
               />
             ) : (
-              <p>{props.user.fullName}</p>
+              <p className="userName">{props.user.fullName}</p>
             )}
+            {/* Icon to update profile picture */}
             <FontAwesomeIcon
               icon={faPenToSquare}
               className="editNameIcon icon"
@@ -57,28 +57,18 @@ function Profile(props) {
           <p>({props.user.username})</p>
         </div>
 
+        {/* Profile PAge Buttons */}
         <nav className="profileButtons">
           <ul className="buttonList">
             <li>
-              <FontAwesomeIcon
-                className="buttonIcon"
-                icon={faMoon}
-                style={{ color: "rgb(72,72,235)" }}
-              />
               <button onClick={() => props.toggleTheme()}>
                 Toggle Dark Mode
               </button>
             </li>
             <li>
-              <FontAwesomeIcon
-                className="buttonIcon"
-                icon={faHeartCrack}
-                style={{ color: "red" }}
-              />
               <button>Report A Problem</button>
             </li>
             <li>
-              <FontAwesomeIcon className="buttonIcon" icon={faXmark} />
               <button onClick={handleSignOut}>Log Out</button>
             </li>
           </ul>

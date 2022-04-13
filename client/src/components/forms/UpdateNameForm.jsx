@@ -34,7 +34,7 @@ export default function UpdateNameForm(props) {
         minLength="4"
         required
       />
-      <input type="submit" style={{ display: "none" }} />
+      <input id="submitBtn" type="submit" />
     </form>
   );
 }
