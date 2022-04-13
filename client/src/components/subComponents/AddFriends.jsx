@@ -12,29 +12,30 @@ export default function AddFriends(props) {
           icon={faCircleXmark}
           className="iconClose"
         />
-
+        {/* Input form to request a new friend */}
         <RequestFriendForm
           refreshFriendsInformation={props.refreshFriendsInformation}
         />
 
+        {/* Container for requests sent out by user */}
         <div className="sentRequests">
-          <p className="title">REQUESTS SENT</p>
+          {props.sentFriendRequests.length > 0 ? (
+            <p className="title">Pending Requests</p>
+          ) : (
+            <p className="titleEmpty">No Pending Requests</p>
+          )}
           {props.sentFriendRequests.map((sentRequest, i) => {
-            return (
-              <div key={i} className="sentFriendRequest">
-                <img
-                  className="userPicture"
-                  src={sentRequest._id.profilePicture}
-                  alt=""
-                />
-                <p>{sentRequest._id.fullName}</p>
-              </div>
-            );
+            return <SentFriendRequest key={i} sentRequest={sentRequest} />;
           })}
         </div>
 
+        {/* Container for requests received for user */}
         <div className="receivedRequests">
-          <p className="title">REQUESTS RECEIVED</p>
+          {props.receivedFriendRequests.length > 0 ? (
+            <p className="title">Requests Received</p>
+          ) : (
+            <p className="titleEmpty">No Requests Received</p>
+          )}
           {props.receivedFriendRequests.map((receivedRequest, i) => {
             return (
               <FriendRequest
@@ -50,6 +51,7 @@ export default function AddFriends(props) {
   );
 }
 
+// Represents a individual that has requested the user as a friend.
 function FriendRequest(props) {
   const handleAcceptRequest = (friendUsername) => {
     axios
@@ -67,6 +69,7 @@ function FriendRequest(props) {
         src={props.receivedRequest._id.profilePicture}
         alt=""
       />
+
       <div className="userInfo">
         <p>{props.receivedRequest._id.fullName}</p>
         <div className="actionButtons">
@@ -76,16 +79,16 @@ function FriendRequest(props) {
               handleAcceptRequest(props.receivedRequest._id.username)
             }
           >
-            Confirm
+            Accept
           </button>
-          <button>Delete</button>
+          <button>Deny</button>
         </div>
       </div>
     </div>
   );
 }
 
-// TODO: Finish component and replace main component
+// Represents an individual that the user has sent a friend request to.
 function SentFriendRequest(props) {
   return (
     <div className="SentFriendRequest">
