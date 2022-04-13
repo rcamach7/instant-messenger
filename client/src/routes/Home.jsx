@@ -76,6 +76,7 @@ function Home(props) {
         receivedFriendRequests={receivedFriendRequests}
         sentFriendRequests={sentFriendRequests}
         refreshFriendsInformation={refreshFriendsInformation}
+        toggleTheme={props.toggleTheme}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
@@ -86,6 +87,7 @@ function Home(props) {
         roomSocket={roomSocket}
         refreshFriendsInformation={refreshFriendsInformation}
         friends={friends}
+        toggleTheme={props.toggleTheme}
       />
     </main>
   );

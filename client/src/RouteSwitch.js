@@ -3,6 +3,7 @@ import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
 import useFetchUser from "./hooks/useFetchUser";
+import useSetTheme from "./hooks/useSetTheme";
 
 // Send all requests with our authentication token - if it exists.
 const storedJwt = localStorage.getItem("token");
@@ -21,6 +22,10 @@ axios.interceptors.request.use(
 const RouteSwitch = () => {
   // Custom hook handles retrieving user info if Token exists, and refreshes user info if token exists, but user value is null which logically is not correct.
   const [user, setUser] = useFetchUser();
+  const [setTheme] = useSetTheme("light");
+
+  const toggleTheme = () =>
+    setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
 
   return (
     <BrowserRouter>
@@ -37,7 +42,7 @@ const RouteSwitch = () => {
           path="/home"
           element={
             <RequireAuth>
-              <Home user={user} setUser={setUser} />
+              <Home user={user} setUser={setUser} toggleTheme={toggleTheme} />
             </RequireAuth>
           }
         />
