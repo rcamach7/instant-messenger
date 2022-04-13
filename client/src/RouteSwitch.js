@@ -3,7 +3,7 @@ import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
 import useFetchUser from "./hooks/useFetchUser";
-import { useEffect, useState } from "react";
+import useSetTheme from "./hooks/useSetTheme";
 
 // Send all requests with our authentication token - if it exists.
 const storedJwt = localStorage.getItem("token");
@@ -22,29 +22,7 @@ axios.interceptors.request.use(
 const RouteSwitch = () => {
   // Custom hook handles retrieving user info if Token exists, and refreshes user info if token exists, but user value is null which logically is not correct.
   const [user, setUser] = useFetchUser();
-  const [theme, setTheme] = useState("light");
-  const currentTheme = localStorage.getItem("theme");
-
-  useEffect(() => {
-    if (currentTheme === null) {
-      // Set default theme if none exists
-      localStorage.setItem("theme", "light");
-    } else if (currentTheme === "dark") {
-      setTheme("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    const body = document.body;
-    if (theme === "light") {
-      // Remove dark theme if it exists
-      localStorage.setItem("theme", "light");
-      body.classList.remove("dark");
-    } else {
-      localStorage.setItem("theme", "dark");
-      body.classList.add("dark");
-    }
-  }, [theme]);
+  const [setTheme] = useSetTheme("light");
 
   const toggleTheme = () =>
     setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
