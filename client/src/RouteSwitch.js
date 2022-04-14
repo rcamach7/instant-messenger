@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
@@ -6,11 +7,11 @@ import useFetchUser from "./hooks/useFetchUser";
 import useSetTheme from "./hooks/useSetTheme";
 
 // Send all requests with our authentication token - if it exists.
-const storedJwt = localStorage.getItem("token");
+const myToken = localStorage.getItem("token");
 axios.interceptors.request.use(
   (config) => {
-    if (storedJwt) {
-      config.headers.authorization = `Bearer ${storedJwt}`;
+    if (myToken) {
+      config.headers.authorization = `Bearer ${myToken}`;
     }
     return config;
   },
@@ -20,8 +21,9 @@ axios.interceptors.request.use(
 );
 
 const RouteSwitch = () => {
+  const [storedJwt, setStoredJwt] = useState(myToken);
   // Custom hook handles retrieving user info if Token exists, and refreshes user info if token exists, but user value is null which logically is not correct.
-  const [user, setUser] = useFetchUser();
+  const [user, setUser] = useFetchUser(storedJwt, setStoredJwt);
   const [setTheme] = useSetTheme("light");
 
   const toggleTheme = () =>
@@ -33,7 +35,7 @@ const RouteSwitch = () => {
         <Route
           path="/messenger"
           element={
-            <NotAuthenticated>
+            <NotAuthenticated storedJwt={storedJwt}>
               <LandingPage />
             </NotAuthenticated>
           }
@@ -41,8 +43,13 @@ const RouteSwitch = () => {
         <Route
           path="/messenger/home"
           element={
-            <RequireAuth>
-              <Home user={user} setUser={setUser} toggleTheme={toggleTheme} />
+            <RequireAuth storedJwt={storedJwt}>
+              <Home
+                user={user}
+                setUser={setUser}
+                toggleTheme={toggleTheme}
+                setStoredJwt={setStoredJwt}
+              />
             </RequireAuth>
           }
         />
@@ -53,12 +60,12 @@ const RouteSwitch = () => {
 };
 
 // Protects routes that require authentication
-function RequireAuth({ children }) {
+function RequireAuth({ children, storedJwt }) {
   return storedJwt === null ? <Navigate to="/messenger" replace /> : children;
 }
 
 // Once authenticated, we don't want our users to continue in the landing page / sign in page.
-function NotAuthenticated({ children }) {
+function NotAuthenticated({ children, storedJwt }) {
   return storedJwt === null ? (
     children
   ) : (

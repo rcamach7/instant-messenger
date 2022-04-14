@@ -13,7 +13,8 @@ function Profile(props) {
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    window.location.reload(false);
+    props.setUser(null);
+    props.setStoredJwt(null);
   };
 
   return (

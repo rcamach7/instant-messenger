@@ -52,6 +52,7 @@ function Home(props) {
   return (
     <main className="Home">
       <MenuBar
+        setStoredJwt={props.setStoredJwt}
         style={{ display: mobileSwapSection ? "none" : "block" }}
         user={props.user}
         setMobileSwapSection={setMobileSwapSection}

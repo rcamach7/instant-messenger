@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Retrieve, if any, token existing in local storage.
-const storedJwt = localStorage.getItem("token");
+// const storedJwt = localStorage.getItem("token");
 
-export default function useFetchUser() {
+export default function useFetchUser(storedJwt, setStoredJwt) {
   const [user, setUser] = useState(null);
 
   // Retrieve user data and update state.
@@ -19,7 +19,8 @@ export default function useFetchUser() {
       console.log(error.response);
       // Token exists - but is not valid, or API is down, so we remove it to log user out.
       localStorage.removeItem("token");
-      window.location.reload(false);
+      setUser(null);
+      setStoredJwt(null);
     }
   };
 

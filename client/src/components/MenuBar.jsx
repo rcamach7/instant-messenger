@@ -78,6 +78,7 @@ function MenuBar(props) {
       {/* Hidden Tabs */}
       {showProfile ? (
         <Profile
+          setStoredJwt={props.setStoredJwt}
           setShowProfile={setShowProfile}
           user={props.user}
           setUser={props.setUser}
