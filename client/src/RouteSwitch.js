@@ -31,7 +31,7 @@ const RouteSwitch = () => {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/messenger"
           element={
             <NotAuthenticated>
               <LandingPage />
@@ -39,14 +39,14 @@ const RouteSwitch = () => {
           }
         />
         <Route
-          path="/home"
+          path="/messenger/home"
           element={
             <RequireAuth>
               <Home user={user} setUser={setUser} toggleTheme={toggleTheme} />
             </RequireAuth>
           }
         />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/messenger" />} />
       </Routes>
     </BrowserRouter>
   );
@@ -54,12 +54,16 @@ const RouteSwitch = () => {
 
 // Protects routes that require authentication
 function RequireAuth({ children }) {
-  return storedJwt === null ? <Navigate to="/" replace /> : children;
+  return storedJwt === null ? <Navigate to="/messenger" replace /> : children;
 }
 
 // Once authenticated, we don't want our users to continue in the landing page / sign in page.
 function NotAuthenticated({ children }) {
-  return storedJwt === null ? children : <Navigate to="/home" replace />;
+  return storedJwt === null ? (
+    children
+  ) : (
+    <Navigate to="/messenger/home" replace />
+  );
 }
 
 export default RouteSwitch;

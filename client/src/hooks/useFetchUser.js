@@ -19,7 +19,7 @@ export default function useFetchUser() {
       console.log(error.response);
       // Token exists - but is not valid, or API is down, so we remove it to log user out.
       localStorage.removeItem("token");
-      window.location.reload();
+      window.location.reload(false);
     }
   };
 
