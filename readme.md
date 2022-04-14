@@ -24,6 +24,8 @@
 
 #### To-Do's
 
-- Change color theme for buttons on log in and sign up pages/forms.
+- Update login page so logo is compatible with both light and dark theme.
+- Update API to anytime a new user is created, I am automatically added as a friend.
+- Create a AI that can chat back and fourth with a user that sends it a message.
+- fix socket bug that makes too many connections upon real-time chat.
 - Add time stamps to messages to indicate when they were sent
-- Pull up web socket connection to Home component since we will be dealing with multiple socket functions.

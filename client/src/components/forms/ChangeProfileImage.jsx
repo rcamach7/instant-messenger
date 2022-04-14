@@ -28,8 +28,8 @@ export default function ChangeProfileImage(props) {
 
   return (
     <form className="ChangeProfileImage">
-      <label htmlFor="fileUpload">
-        <FontAwesomeIcon icon={faCamera} className="fileUploadIcon icon" />
+      <label htmlFor="fileUpload" className="cameraIconLabel">
+        <FontAwesomeIcon icon={faCamera} className="fileUploadIcon" />
       </label>
       <input
         className="fileUpload"

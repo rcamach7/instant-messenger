@@ -75,15 +75,18 @@
         .editNameIcon {
           cursor: pointer;
         }
+        .userName {
+          font-size: 20px;
+          font-weight: bold;
+          text-align: center;
+        }
       }
     }
 
     .profileButtons {
       width: clamp(225px, 30vw, 250px);
-      padding: 10px 10px 10px 10px;
-
-      background-color: white;
       border-radius: 10px;
+
       .buttonList {
         display: flex;
         flex-direction: column;
@@ -95,23 +98,17 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          .buttonIcon {
-            cursor: pointer;
-            flex: 1;
-            font-size: 22px;
-          }
           button {
-            cursor: pointer;
-            text-align: left;
-            flex: 5;
-            border: none;
+            width: 100%;
+            border: solid 2px grey;
+            border-radius: 5px;
+            padding: 20px;
             background-color: transparent;
-            border-bottom: rgba(30, 30, 30, 0.4) solid 1px;
+            cursor: pointer;
           }
-        }
-        li:hover {
-          background-color: v.$theme-main-bk-secondary;
-          cursor: pointer;
+          button:hover {
+            background-color: v.$theme-main-bk;
+          }
         }
       }
     }

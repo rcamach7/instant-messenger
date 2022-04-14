@@ -3,10 +3,15 @@
   bottom: 10px;
   right: 25px;
 
-  .fileUploadIcon {
-    color: black;
-    cursor: pointer;
-    font-size: 25px;
+  .cameraIconLabel {
+    background-color: rgb(170, 167, 167);
+    padding: 8px 5px 2px 5px;
+    border-radius: 50%;
+    .fileUploadIcon {
+      color: black;
+      cursor: pointer;
+      font-size: 25px;
+    }
   }
   .fileUpload {
     display: none;

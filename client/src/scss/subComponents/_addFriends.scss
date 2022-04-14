@@ -43,33 +43,12 @@
     }
 
     .sentRequests {
+      padding-top: 10px;
       padding-bottom: 15px;
 
       display: flex;
       flex-direction: column;
       gap: 10px;
-      .title {
-        font-weight: bold;
-      }
-      .sentFriendRequest {
-        max-width: 300px;
-        padding: 5px;
-      
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      
-        display: flex;
-        align-items: center;
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: solid black 1px;
-        }
-        p {
-          padding-left: 5px;
-        }
-      }
     }
     .receivedRequests {
       padding-bottom: 15px;
@@ -77,9 +56,18 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      .title {
-        font-weight: bold;
-      }
+    }
+    // Classname shared by both sent and received requests containers
+    .title {
+      font-weight: bold;
+      text-align: center;
+      border: solid black 2px;
+      border-radius: 5px;
+    }
+    .titleEmpty {
+      text-align: center;
+      border: solid black 2px;
+      border-radius: 5px;
     }
   }
 }
@@ -100,16 +88,17 @@
     border: solid black 1px;
   }
   .userInfo {
+    flex: 2;
     padding-left: 5px;
 
     p {
-      padding-left: 5px;
       font-weight: bold;
     }
-    .actionButtons{ 
+    .actionButtons {
       display: flex;
       gap: 5px;
       button {
+        flex: 1;
         padding: 2.5px 5px;
         border: none;
         cursor: pointer;
@@ -117,9 +106,29 @@
       }
       .confirm {
         color: white;
-        background-color:  v.$theme-main;
+        background-color: v.$theme-main;
       }
-
     }
+  }
+}
+
+.SentFriendRequest {
+  max-width: 300px;
+  padding: 5px;
+
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  display: flex;
+  align-items: center;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid black 1px;
+  }
+  p {
+    padding-left: 5px;
+    font-weight: bold;
   }
 }
