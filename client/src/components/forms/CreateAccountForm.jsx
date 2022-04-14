@@ -31,7 +31,8 @@ function CreateAccountForm(props) {
         })
         .then((results) => {
           localStorage.setItem("token", results.data.token);
-          window.location.reload();
+          props.setStoredJwt(results.data.token);
+          props.setUser(results.data.user);
         })
         .catch((errors) => {
           setBadRequest(errors.response.data.errors);

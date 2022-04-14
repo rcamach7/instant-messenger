@@ -36,7 +36,7 @@ const RouteSwitch = () => {
           path="/messenger"
           element={
             <NotAuthenticated storedJwt={storedJwt}>
-              <LandingPage />
+              <LandingPage setStoredJwt={setStoredJwt} setUser={setUser} />
             </NotAuthenticated>
           }
         />

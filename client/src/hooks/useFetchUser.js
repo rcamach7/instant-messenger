@@ -36,7 +36,7 @@ export default function useFetchUser(storedJwt, setStoredJwt) {
     if (storedJwt && user === null) {
       fetchUser();
     }
-  }, [user]);
+  }, [user, storedJwt]);
 
   return [user, setUser];
 }
