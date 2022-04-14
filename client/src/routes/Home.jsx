@@ -32,7 +32,9 @@ function Home(props) {
       // De-construct specific fields we will receive when we get our response.
       const {
         data: { friends, receivedFriendRequests, sentFriendRequests },
-      } = await axios.get("/users/friends");
+      } = await axios.get(
+        "https://mighty-depths-39289.herokuapp.com/users/friends"
+      );
       // Set all appropriate response fields to state variables
       setFriends(friends);
       setReceivedFriendRequests(receivedFriendRequests);
@@ -40,22 +42,6 @@ function Home(props) {
     } catch (error) {
       console.log(error);
     }
-
-    // Was called because a new message was sent, so we will update the messages
-    // if (newFriendMessage) {
-    //   friends.forEach((curFriend) => {
-    //     // console.log(curFriend.friend);
-    //     // console.log(activeFriendChat.friendUsername);
-
-    //     if (curFriend.friend.username === activeFriendChat.friendUsername) {
-    //       // console.log(curFriend);
-    //       setActiveFriendChat({
-    //         ...activeFriendChat,
-    //         messages: [...curFriend.messages],
-    //       });
-    //     }
-    //   });
-    // }
   };
 
   // On component mount, retrieve the users friends and set state variables.

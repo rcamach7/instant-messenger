@@ -11,11 +11,12 @@ export default function useFetchUser() {
   const fetchUser = async () => {
     try {
       // De-construct nested object field in our API response.
-      const {
-        data: { user },
-      } = await axios.get("/users/");
-      setUser(user);
+      const { data } = await axios.get(
+        "https://mighty-depths-39289.herokuapp.com/users/"
+      );
+      setUser(data.user);
     } catch (error) {
+      console.log(error.response);
       // Token exists - but is not valid, or API is down, so we remove it to log user out.
       localStorage.removeItem("token");
       window.location.reload();

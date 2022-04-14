@@ -18,12 +18,15 @@ function NewMessageForm(props) {
       setNewMessage("");
     } else {
       axios
-        .post("/users/friends/messages", {
-          friendUsername: props.activeFriendChat.friendUsername,
-          message: newMessage,
-          // _id field is passed to emit a socket signal to any users in a room with this identifier.
-          _id: props.roomSocket,
-        })
+        .post(
+          "https://mighty-depths-39289.herokuapp.com/users/friends/messages",
+          {
+            friendUsername: props.activeFriendChat.friendUsername,
+            message: newMessage,
+            // _id field is passed to emit a socket signal to any users in a room with this identifier.
+            _id: props.roomSocket,
+          }
+        )
         .then(() => {
           setNewMessage("");
         });

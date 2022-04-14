@@ -1,9 +1,8 @@
 {
-  "homepage": "http://rcamach7.github.io/messenger/",
+  "homepage": "http://rcamach7.github.io/messenger",
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://mighty-depths-39289.herokuapp.com/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",

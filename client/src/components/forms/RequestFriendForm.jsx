@@ -9,7 +9,7 @@ export default function RequestFriendForm(props) {
   const handleFriendRequest = (e) => {
     e.preventDefault();
     axios
-      .post("/users/friends/request", {
+      .post("https://mighty-depths-39289.herokuapp.com/users/friends/request", {
         friendUsername: friendUsername.toLowerCase(),
       })
       // Upon successful request, we will reset the state fields.

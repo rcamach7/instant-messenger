@@ -8,15 +8,17 @@ export default function UpdateNameForm(props) {
 
   const handleNameChange = (e) => {
     e.preventDefault(e);
-    axios.put("/users/", newName).then((results) => {
-      // Delete old token, and store the new one with freshly signed user details
-      localStorage.removeItem("token");
-      localStorage.setItem("token", results.data.token);
-      // Update our parent component with new user details.
-      props.setUser(results.data.user);
-      // Hide edit name for
-      props.setShowEditNameForm(false);
-    });
+    axios
+      .put("https://mighty-depths-39289.herokuapp.com/users/", newName)
+      .then((results) => {
+        // Delete old token, and store the new one with freshly signed user details
+        localStorage.removeItem("token");
+        localStorage.setItem("token", results.data.token);
+        // Update our parent component with new user details.
+        props.setUser(results.data.user);
+        // Hide edit name for
+        props.setShowEditNameForm(false);
+      });
   };
 
   return (

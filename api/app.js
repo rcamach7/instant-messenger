@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config();
 
 // Authentication libraries
@@ -13,6 +14,9 @@ const appRoutes = require("./routes/appRoutes");
 
 // Initiate our application
 const app = express();
+
+// Enable all origins to connect to our app
+app.use(cors());
 
 // Global middleware
 app.use(express.json());

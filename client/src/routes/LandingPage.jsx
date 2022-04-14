@@ -17,7 +17,7 @@ function LandingPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("/users/log-in", account)
+      .post("https://mighty-depths-39289.herokuapp.com/users/log-in", account)
       .then((results) => {
         // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
         localStorage.setItem("token", results.data.token);

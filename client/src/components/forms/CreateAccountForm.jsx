@@ -24,7 +24,7 @@ function CreateAccountForm(props) {
     } else {
       // Only send one password field, so we destructure account object, as we have confirmed passwords match.
       axios
-        .post("/users/", {
+        .post("https://mighty-depths-39289.herokuapp.com/users/", {
           fullName: account.fullName,
           username: account.username.toLowerCase(),
           password: account.password,

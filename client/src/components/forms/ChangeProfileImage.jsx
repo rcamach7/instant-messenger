@@ -14,7 +14,7 @@ export default function ChangeProfileImage(props) {
 
       axios({
         method: "put",
-        url: "/users/profilePicture",
+        url: "https://mighty-depths-39289.herokuapp.com/users/profilePicture",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then(() => {

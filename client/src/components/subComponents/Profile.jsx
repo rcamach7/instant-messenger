@@ -66,7 +66,7 @@ function Profile(props) {
               <button>Report A Problem</button>
             </li>
             <li>
-              <button onClick={handleSignOut}>Log Out</button>
+              <button onClick={() => handleSignOut()}>Log Out</button>
             </li>
           </ul>
         </nav>

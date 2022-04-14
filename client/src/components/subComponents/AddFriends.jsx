@@ -55,7 +55,9 @@ export default function AddFriends(props) {
 function FriendRequest(props) {
   const handleAcceptRequest = (friendUsername) => {
     axios
-      .post("/users/friends/", { friendUsername: friendUsername })
+      .post("https://mighty-depths-39289.herokuapp.com/users/friends/", {
+        friendUsername: friendUsername,
+      })
       .then(() => {
         // Query up to date friend information and update state.
         props.refreshFriendsInformation();
