@@ -54,4 +54,8 @@ passport.use(
 // Define Routes
 app.use("/users", appRoutes);
 
+app.get("/", (req, res, next) => {
+  res.json({ msg: "hello world" });
+});
+
 module.exports = app;
