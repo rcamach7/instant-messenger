@@ -29,6 +29,24 @@ function LandingPage(props) {
       });
   };
 
+  const handleTestAccount = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://mighty-depths-39289.herokuapp.com/users/log-in", {
+        username: "foobar",
+        password: "test",
+      })
+      .then((results) => {
+        // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
+        localStorage.setItem("token", results.data.token);
+        window.location.reload();
+      })
+      // Catch and display any login errors from API
+      .catch(() => {
+        setErrors(true);
+      });
+  };
+
   return (
     <div className="LandingPage">
       <aside>
@@ -71,7 +89,9 @@ function LandingPage(props) {
         <button className="login-btn" type="submit">
           Log In
         </button>
-        <button type="button"> Forgot password?</button>
+        <button type="button" onClick={(e) => handleTestAccount(e)}>
+          Use Test Account
+        </button>
 
         <button
           className="newAccount-btn"

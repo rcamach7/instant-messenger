@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const v4 = require("uuid").v4;
 const { check, validationResult } = require("express-validator");
 
 exports.user_get = [
@@ -81,6 +83,7 @@ exports.create_user_post = [
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
       if (err) next(err);
 
+      const friendshipId = v4();
       // Create new user with defaulted values
       const newUser = new User({
         username: req.body.username,
@@ -88,35 +91,55 @@ exports.create_user_post = [
         fullName: req.body.fullName,
         profilePicture:
           "https://res.cloudinary.com/de2ymful4/image/upload/v1649203693/messenger/default_vrsymg.jpg",
-        friends: [],
+        // Add my account as a friend by default
+        friends: [
+          {
+            friend: new mongoose.Types.ObjectId("6258b8a8fee82b375b4b6b1d"),
+            messages: [],
+            _id: friendshipId,
+          },
+        ],
       });
 
       newUser.save((err) => {
         if (err) next(err);
 
-        // Create our JWT token with user information
-        jwt.sign(
+        // Update my account to reflect the new user that was created
+        User.updateOne(
+          { _id: new mongoose.Types.ObjectId("6258b8a8fee82b375b4b6b1d") },
           {
-            username: newUser.username,
-            fullName: newUser.fullName,
-            _id: newUser._id,
-          },
-          process.env.SECRET_STRING,
-          (err, token) => {
-            if (err) next(err);
-
-            res.json({
-              token,
-              user: {
-                username: newUser.username,
-                fullName: newUser.fullName,
-                profilePicture: newUser.profilePicture,
-                _id: newUser._id,
-              },
-              msg: "Account created",
-            });
+            // Add new friend to main user and initiate a shared message history.
+            $push: {
+              friends: { friend: newUser._id, messages: [], _id: friendshipId },
+            },
           }
-        );
+        ).exec((err) => {
+          if (err) next(err);
+
+          // Create our JWT token with user information
+          jwt.sign(
+            {
+              username: newUser.username,
+              fullName: newUser.fullName,
+              _id: newUser._id,
+            },
+            process.env.SECRET_STRING,
+            (err, token) => {
+              if (err) next(err);
+
+              res.json({
+                token,
+                user: {
+                  username: newUser.username,
+                  fullName: newUser.fullName,
+                  profilePicture: newUser.profilePicture,
+                  _id: newUser._id,
+                },
+                msg: "Account created",
+              });
+            }
+          );
+        });
       });
     });
   },

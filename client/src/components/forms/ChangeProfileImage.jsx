@@ -19,9 +19,11 @@ export default function ChangeProfileImage(props) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then(() => {
         // Refresh user data to show profile picture change.
-        axios.get("/users/").then((results) => {
-          props.setUser(results.data.user);
-        });
+        axios
+          .get("https://mighty-depths-39289.herokuapp.com/users/")
+          .then((results) => {
+            props.setUser(results.data.user);
+          });
       });
     }
   }, [image]);
