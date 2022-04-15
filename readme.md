@@ -2,7 +2,12 @@
 
 > Full stack web messenger applications that allows users to chat with friends.
 
-![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1649449397/main-portfolio/projects/chat_row1m8.png)
+<div align="center">
+
+[Visit messenger website](http://rcamach7.github.io/messenger/)
+</div>
+
+![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1649988013/main-portfolio/projects/messenger_kohrka.png)
 
 ## Key Features
 
@@ -25,7 +30,6 @@
 #### To-Do's
 
 - Update login page so logo is compatible with both light and dark theme.
-- Update API to anytime a new user is created, I am automatically added as a friend.
 - Create a AI that can chat back and fourth with a user that sends it a message.
 - fix socket bug that makes too many connections upon real-time chat.
 - Add time stamps to messages to indicate when they were sent
