@@ -3,11 +3,16 @@
 .MenuBar {
   width: clamp(320px, 100vw, 500px);
   height: 100vh;
+  // Bug fix for safari bottom search bar
+  max-height: -webkit-fill-available;
+
+  display: flex;
+  flex-direction: column;
 
   .navbar {
     height: 50px;
 
-    background-color: v.$theme-main-bk;
+    background-color: white;
     box-shadow: rgba(30, 30, 30, 0.4) 0px 1px 0px;
     ul {
       width: 100%;
@@ -31,9 +36,10 @@
     }
   }
   .chatRowsContainer {
-    height: calc(100vh - 100px);
   }
   .personalSocialsContainer {
+    margin-top: auto;
+
     height: 50px;
     list-style: none;
 

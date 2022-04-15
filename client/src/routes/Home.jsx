@@ -53,7 +53,7 @@ function Home(props) {
     <main className="Home">
       <MenuBar
         setStoredJwt={props.setStoredJwt}
-        style={{ display: mobileSwapSection ? "none" : "block" }}
+        style={{ display: mobileSwapSection ? "none" : "flex" }}
         user={props.user}
         setMobileSwapSection={setMobileSwapSection}
         friends={friends}

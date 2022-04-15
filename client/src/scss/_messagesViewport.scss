@@ -3,11 +3,13 @@
 .MessagesViewport {
   width: clamp(320px, 100vw, 500px);
   height: 100vh;
+  // Bug fix for safari mobile search bar
+  max-height: -webkit-fill-available;
 
   .navbar {
     height: 50px;
 
-    background-color: v.$theme-main-bk;
+    background-color: white;
     box-shadow: rgba(30, 30, 30, 0.4) 0px 1px 0px;
     ul {
       width: 100%;
@@ -33,7 +35,9 @@
   }
 
   .chatContainer {
-    height: calc(100vh - 50px);
+    height: calc(100% - 50px);
+    // Bug fix for safari mobile search bar
+    max-height: -webkit-fill-available;
     width: 100%;
 
     display: flex;

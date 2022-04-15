@@ -2,6 +2,8 @@
 
 .ProfileBackdrop {
   height: 100vh;
+  // Bug fix for safari mobile search bar
+  max-height: -webkit-fill-available;
   width: 100vw;
   background-color: rgb(0, 0, 0, 0.4);
 
@@ -13,7 +15,7 @@
     // Matches menuBar as to not let it spill underneath
     width: clamp(320px, 100vw, 500px);
     height: 100vh;
-    min-height: fit-content;
+    max-height: -webkit-fill-available;
 
     // Animation properties
     animation: slide-in 300ms forwards;
@@ -99,6 +101,7 @@
           justify-content: center;
           align-items: center;
           button {
+            color: black;
             width: 100%;
             border: solid 2px grey;
             border-radius: 5px;

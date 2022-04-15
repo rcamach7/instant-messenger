@@ -2,6 +2,8 @@
 
 .AddFriendsBackdrop {
   height: 100vh;
+  // Bug fix for safari mobile search bar
+  max-height: -webkit-fill-available;
   width: 100vw;
   background-color: rgb(0, 0, 0, 0.4);
 
@@ -13,6 +15,8 @@
     // Matches menuBar as to not let it spill underneath
     width: clamp(320px, 100vw, 500px);
     height: 100vh;
+    // Bug fix for safari mobile search bar
+    max-height: -webkit-fill-available;
 
     // Animation properties
     animation: slide-in ease-in-out 300ms forwards;
