@@ -1,3 +1,5 @@
+@use "../variables" as v;
+
 .ChangeProfileImage {
   position: absolute;
   bottom: 10px;
@@ -11,6 +13,9 @@
       color: black;
       cursor: pointer;
       font-size: 25px;
+    }
+    .fileUploadIcon:hover {
+      color: v.$theme-hover;
     }
   }
   .fileUpload {

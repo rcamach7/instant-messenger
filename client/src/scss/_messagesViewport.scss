@@ -30,6 +30,9 @@
           font-size: 25px;
           cursor: pointer;
         }
+        .icon:hover {
+          color: v.$theme-hover !important;
+        }
       }
     }
   }

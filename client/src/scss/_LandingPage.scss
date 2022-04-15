@@ -46,19 +46,21 @@
     }
 
     button {
+      font-weight: bold;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
     .login-btn {
-      color: white;
-      background-color: v.$theme-main;
+      color: black;
+      font-weight: bold;
+      background-color: v.$theme-hover;
     }
     .newAccount-btn {
       width: 50%;
 
       color: white;
-      background-color: rgb(66, 183, 41);
+      background-color: rgb(85, 85, 85);
     }
   }
 }

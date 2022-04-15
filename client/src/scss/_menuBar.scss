@@ -32,6 +32,9 @@
           cursor: pointer;
           font-size: 23px;
         }
+        .icon:hover {
+          color: v.$theme-hover !important;
+        }
       }
     }
   }
@@ -52,7 +55,7 @@
         font-size: 20px;
       }
       .icon:hover {
-        color: rgb(247, 185, 39) !important;
+        color: v.$theme-hover !important;
       }
     }
   }

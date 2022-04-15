@@ -46,7 +46,7 @@
       cursor: pointer;
     }
     .iconClose:hover {
-      background-color: red;
+      background-color: v.$theme-hover;
     }
 
     .profileInformation {
@@ -135,7 +135,7 @@
         }
         .socialIcon:hover {
           transform: scale(1.2);
-          color: v.$theme-main;
+          color: v.$theme-hover;
           cursor: pointer;
         }
       }

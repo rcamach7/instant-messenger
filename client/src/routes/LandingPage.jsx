@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.gif";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 
 function LandingPage(props) {
@@ -52,7 +52,7 @@ function LandingPage(props) {
       <aside>
         <img src={logo} alt="" />
         <p className="logo-text">
-          Connect with friends and the world around you on Messenger.
+          Connect with friends and the world around you!
         </p>
       </aside>
 
