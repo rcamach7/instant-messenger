@@ -53,7 +53,6 @@ body.dark {
     // First main component
     .MenuBar {
       background-color: rgb(34, 39, 45);
-      border-right: solid rgba(255, 255, 255, 0.4) 1px;
       .ChatRow {
         box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
       }
@@ -68,6 +67,10 @@ body.dark {
           button:hover {
             color: black;
           }
+        }
+        .title,
+        .titleEmpty {
+          border: solid rgb(255, 255, 255) 2px !important;
         }
       }
     }

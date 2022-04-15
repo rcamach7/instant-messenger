@@ -117,10 +117,13 @@
     }
 
     .socialsContainer {
+      width: 100%;
       padding-bottom: 20px;
       margin-top: auto;
 
       display: flex;
+      justify-content: space-around;
+
       gap: 30px;
       li {
         list-style: none;

@@ -7,7 +7,6 @@
   .Home {
     .MenuBar {
       display: block;
-      border-right: solid rgba(30, 30, 30, 0.4) 1px;
     }
 
     .MessagesViewport {
@@ -54,6 +53,16 @@
           }
         }
       }
+    }
+  }
+  // Configure colors for dark theme on viewport desktop sze
+  body.dark {
+    .MenuBar {
+      display: block;
+      border-right: solid rgba(132, 132, 132, 0.766) 1px;
+    }
+    .navbar {
+      box-shadow: rgba(132, 132, 132, 0.766) 0px 1px 0px;
     }
   }
 }

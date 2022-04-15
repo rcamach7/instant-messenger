@@ -73,6 +73,29 @@
       border: solid black 2px;
       border-radius: 5px;
     }
+
+    .socialsContainer {
+      margin-top: auto;
+      padding-bottom: 10px;
+
+      display: flex;
+      justify-content: space-around;
+      gap: 30px;
+      li {
+        list-style: none;
+        .socialIcon {
+          font-size: 23px;
+          cursor: pointer;
+          transition: transform 0.5s;
+          font-size: 25px;
+        }
+        .socialIcon:hover {
+          transform: scale(1.2);
+          color: v.$theme-main;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 

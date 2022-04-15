@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import RequestFriendForm from "../forms/RequestFriendForm";
 import axios from "axios";
 
@@ -46,6 +47,16 @@ export default function AddFriends(props) {
             );
           })}
         </div>
+
+        {/* Socials Container */}
+        <ul className="socialsContainer">
+          <li>
+            <FontAwesomeIcon icon={faGithub} className="socialIcon" />
+          </li>
+          <li>
+            <FontAwesomeIcon icon={faDev} className="socialIcon" />
+          </li>
+        </ul>
       </div>
     </div>
   );
