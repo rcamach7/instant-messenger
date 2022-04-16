@@ -23,7 +23,7 @@ Modern full stack web messenger applications that allows users to chat with frie
   <li>Custom react hooks created to manage key functionality</li>
   <li>Asynchronous javascript utilized using async/await and promise based functions.</li>
   <li>Form validation and sanitation implemented before making requests to out API</li>
-  <!-- <li>Destructured component props for easier readability and maintainability</li> -->
+  <li>Destructured component props for easier readability and maintainability</li>
   <li>Light and dark theme implemented and user preference saved for future visits</li>
   <li>Utilized app routing and protection of routes using JWT tokens</li>
 </details>

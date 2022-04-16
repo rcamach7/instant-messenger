@@ -69,7 +69,6 @@ function Home({ user, setUser, toggleTheme, setStoredJwt }) {
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
         user={user}
-        friends={friends}
         activeFriendChat={activeFriendChat}
         roomSocket={roomSocket}
         // Props that set data
