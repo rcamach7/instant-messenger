@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function RequestFriendForm(props) {
+export default function RequestFriendForm({ refreshFriendsInformation }) {
   const [friendUsername, setFriendUsername] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -16,7 +16,7 @@ export default function RequestFriendForm(props) {
       .then(() => {
         setErrors([]);
         setFriendUsername("");
-        props.refreshFriendsInformation();
+        refreshFriendsInformation();
       })
       // Will catch any errors returned from the API and display them
       .catch((error) => {

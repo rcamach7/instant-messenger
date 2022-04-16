@@ -6,10 +6,24 @@ import NewMessageForm from "./forms/NewMessageForm";
 import Message from "./subComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
 
-function MessagesViewport(props) {
-  const messages = props.activeFriendChat.messages;
+function MessagesViewport({
+  style,
+  user,
+  activeFriendChat,
+  roomSocket,
+  toggleTheme,
+  refreshFriendsInformation,
+  setMobileSwapSection,
+  setActiveFriendChat,
+}) {
+  const messages = activeFriendChat.messages;
   // Manages socket connection based on current active chat.
-  useSocketConnection(props);
+  useSocketConnection(
+    roomSocket,
+    activeFriendChat,
+    refreshFriendsInformation,
+    setActiveFriendChat
+  );
 
   // Sort messages whenever a new one comes in.
   useEffect(() => {
@@ -21,21 +35,21 @@ function MessagesViewport(props) {
   }, [messages]);
 
   return (
-    <aside className="MessagesViewport" style={props.style}>
+    <aside className="MessagesViewport" style={style}>
       <nav className="navbar">
         <ul>
           <li
             className="mobileSwitch"
-            onClick={() => props.setMobileSwapSection(false)}
+            onClick={() => setMobileSwapSection(false)}
           >
             {<FontAwesomeIcon className="icon" icon={faCaretLeft} />}
           </li>
-          <li>{props.activeFriendChat.fullName}</li>
+          <li>{activeFriendChat.fullName}</li>
           <li>
             <FontAwesomeIcon
               icon={faMoon}
               className="icon"
-              onClick={() => props.toggleTheme()}
+              onClick={() => toggleTheme()}
             />
           </li>
         </ul>
@@ -48,14 +62,14 @@ function MessagesViewport(props) {
         >
           <ul>
             {messages.map((message) => {
-              return <Message key={v4()} message={message} user={props.user} />;
+              return <Message key={v4()} message={message} user={user} />;
             })}
           </ul>
         </div>
 
         <NewMessageForm
-          activeFriendChat={props.activeFriendChat}
-          roomSocket={props.roomSocket}
+          activeFriendChat={activeFriendChat}
+          roomSocket={roomSocket}
         />
       </div>
     </aside>

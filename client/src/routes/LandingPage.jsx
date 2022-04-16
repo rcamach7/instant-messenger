@@ -3,7 +3,7 @@ import axios from "axios";
 import logo from "../assets/logo.gif";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 
-function LandingPage(props) {
+function LandingPage() {
   const [account, setAccount] = useState({
     username: "",
     password: "",
@@ -104,11 +104,7 @@ function LandingPage(props) {
 
       {/* Hidden form component */}
       {showCreateAccountForm ? (
-        <CreateAccountForm
-          setCreateAccountForm={setCreateAccountForm}
-          setStoredJwt={props.setStoredJwt}
-          setUser={props.setUser}
-        />
+        <CreateAccountForm setCreateAccountForm={setCreateAccountForm} />
       ) : null}
     </div>
   );

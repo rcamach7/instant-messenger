@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-function CreateAccountForm(props) {
+function CreateAccountForm({ setCreateAccountForm }) {
   const [account, setAccount] = useState({
     fullName: "",
     username: "",
@@ -46,10 +46,7 @@ function CreateAccountForm(props) {
         className="CreateAccountForm"
         onSubmit={(e) => handleCreateAccount(e)}
       >
-        <p
-          className="close-icon"
-          onClick={() => props.setCreateAccountForm(false)}
-        >
+        <p className="close-icon" onClick={() => setCreateAccountForm(false)}>
           {<FontAwesomeIcon icon={faClose} />}
         </p>
         <p>Create Account</p>

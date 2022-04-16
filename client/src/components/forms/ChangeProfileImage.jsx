@@ -3,7 +3,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ChangeProfileImage(props) {
+export default function ChangeProfileImage({ setUser }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function ChangeProfileImage(props) {
         axios
           .get("https://mighty-depths-39289.herokuapp.com/users/")
           .then((results) => {
-            props.setUser(results.data.user);
+            setUser(results.data.user);
           });
       });
     }

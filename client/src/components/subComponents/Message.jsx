@@ -1,6 +1,4 @@
-function Message(props) {
-  const { user, message } = props;
-
+function Message({ user, message }) {
   return (
     <li className="Message">
       <span

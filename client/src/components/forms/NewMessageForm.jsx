@@ -7,13 +7,13 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
-function NewMessageForm(props) {
+function NewMessageForm({ activeFriendChat, roomSocket }) {
   const [newMessage, setNewMessage] = useState("");
 
   // Create a new message after form submission.
   const handleNewMessage = (e) => {
     e.preventDefault();
-    if (props.activeFriendChat.friendUsername === "") {
+    if (activeFriendChat.friendUsername === "") {
       alert("Please select a friend to begin a conversation");
       setNewMessage("");
     } else {
@@ -21,10 +21,10 @@ function NewMessageForm(props) {
         .post(
           "https://mighty-depths-39289.herokuapp.com/users/friends/messages",
           {
-            friendUsername: props.activeFriendChat.friendUsername,
+            friendUsername: activeFriendChat.friendUsername,
             message: newMessage,
             // _id field is passed to emit a socket signal to any users in a room with this identifier.
-            _id: props.roomSocket,
+            _id: roomSocket,
           }
         )
         .then(() => {
