@@ -8,13 +8,13 @@ import { useState } from "react";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImage from "../forms/ChangeProfileImage";
 
-function Profile(props) {
+function Profile({ user, toggleTheme, setStoredJwt, setShowProfile, setUser }) {
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    props.setUser(null);
-    props.setStoredJwt(null);
+    setUser(null);
+    setStoredJwt(null);
   };
 
   return (
@@ -23,27 +23,27 @@ function Profile(props) {
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="iconClose"
-          onClick={() => props.setShowProfile(false)}
+          onClick={() => setShowProfile(false)}
         />
 
         <div className="profileInformation">
           <div className="profilePictureContainer">
             <img
-              src={props.user.profilePicture}
+              src={user.profilePicture}
               alt="profileImage"
               className="profilePicture"
             />
-            <ChangeProfileImage setUser={props.setUser} />
+            <ChangeProfileImage setUser={setUser} />
           </div>
           <section className="profileName">
             {showEditNameForm ? (
               <UpdateNameForm
-                user={props.user}
-                setUser={props.setUser}
+                user={user}
+                setUser={setUser}
                 setShowEditNameForm={setShowEditNameForm}
               />
             ) : (
-              <p className="userName">{props.user.fullName}</p>
+              <p className="userName">{user.fullName}</p>
             )}
             {/* Icon to update profile picture */}
             <FontAwesomeIcon
@@ -52,16 +52,14 @@ function Profile(props) {
               onClick={() => setShowEditNameForm(!showEditNameForm)}
             />
           </section>
-          <p>({props.user.username})</p>
+          <p>({user.username})</p>
         </div>
 
         {/* Profile PAge Buttons */}
         <nav className="profileButtons">
           <ul className="buttonList">
             <li>
-              <button onClick={() => props.toggleTheme()}>
-                Toggle Dark Mode
-              </button>
+              <button onClick={() => toggleTheme()}>Toggle Dark Mode</button>
             </li>
             <li>
               <button>Report A Problem</button>

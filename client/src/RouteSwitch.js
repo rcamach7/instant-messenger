@@ -26,6 +26,7 @@ const RouteSwitch = () => {
   const [user, setUser] = useFetchUser(storedJwt, setStoredJwt);
   const [setTheme] = useSetTheme("light");
 
+  // Toggles theme by updating the users preference in local storage.
   const toggleTheme = () =>
     setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
 
@@ -35,6 +36,7 @@ const RouteSwitch = () => {
         <Route
           path="/messenger"
           element={
+            // Will only allow user to enter path if not authenticated
             <NotAuthenticated storedJwt={storedJwt}>
               <LandingPage />
             </NotAuthenticated>
@@ -43,16 +45,18 @@ const RouteSwitch = () => {
         <Route
           path="/messenger/home"
           element={
+            // Will only allow user to enter path is JWT exists, which means they're authenticated.
             <RequireAuth storedJwt={storedJwt}>
               <Home
                 user={user}
                 setUser={setUser}
-                toggleTheme={toggleTheme}
                 setStoredJwt={setStoredJwt}
+                toggleTheme={toggleTheme}
               />
             </RequireAuth>
           }
         />
+        {/* Will re-route any user not in a valid path */}
         <Route path="*" element={<Navigate to="/messenger" />} />
       </Routes>
     </BrowserRouter>

@@ -3,7 +3,7 @@ import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
 import axios from "axios";
 
-function Home(props) {
+function Home({ user, setUser, toggleTheme, setStoredJwt }) {
   // User friend information
   const [friends, setFriends] = useState([]);
   const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
@@ -27,7 +27,7 @@ function Home(props) {
   }, [mobileSwapSection]);
 
   // Get user specific friend info. Called on mount and when user receives a request or sends one out - to have UI reflect any changes visually.
-  const refreshFriendsInformation = async (newFriendMessage) => {
+  const refreshFriendsInformation = async () => {
     try {
       // De-construct specific fields we will receive when we get our response.
       const {
@@ -52,29 +52,31 @@ function Home(props) {
   return (
     <main className="Home">
       <MenuBar
-        setStoredJwt={props.setStoredJwt}
         style={{ display: mobileSwapSection ? "none" : "flex" }}
-        user={props.user}
-        setMobileSwapSection={setMobileSwapSection}
+        user={user}
         friends={friends}
-        setActiveFriendChat={setActiveFriendChat}
-        setRoomSocket={setRoomSocket}
-        setUser={props.setUser}
         receivedFriendRequests={receivedFriendRequests}
         sentFriendRequests={sentFriendRequests}
+        toggleTheme={toggleTheme}
         refreshFriendsInformation={refreshFriendsInformation}
-        toggleTheme={props.toggleTheme}
+        // Props that set data
+        setStoredJwt={setStoredJwt}
+        setMobileSwapSection={setMobileSwapSection}
+        setActiveFriendChat={setActiveFriendChat}
+        setRoomSocket={setRoomSocket}
+        setUser={setUser}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
-        user={props.user}
+        user={user}
+        friends={friends}
         activeFriendChat={activeFriendChat}
+        roomSocket={roomSocket}
+        // Props that set data
+        toggleTheme={toggleTheme}
+        refreshFriendsInformation={refreshFriendsInformation}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
-        roomSocket={roomSocket}
-        refreshFriendsInformation={refreshFriendsInformation}
-        friends={friends}
-        toggleTheme={props.toggleTheme}
       />
     </main>
   );

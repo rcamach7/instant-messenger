@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserPlus,
@@ -6,29 +7,41 @@ import {
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { v4 } from "uuid";
 import ChatRow from "./subComponents/ChatRow";
 import Profile from "./subComponents/Profile";
 import AddFriends from "./subComponents/AddFriends";
 
-function MenuBar(props) {
+function MenuBar({
+  style,
+  user,
+  friends,
+  receivedFriendRequests,
+  sentFriendRequests,
+  toggleTheme,
+  refreshFriendsInformation,
+  setStoredJwt,
+  setMobileSwapSection,
+  setActiveFriendChat,
+  setRoomSocket,
+  setUser,
+}) {
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
   // Generate a collection of chat rows given the users friends.
-  const chatRows = props.friends.map((chat) => {
+  const chatRows = friends.map((chat) => {
     return (
       <ChatRow
         key={v4()}
         chat={chat}
-        setMobileSwapSection={props.setMobileSwapSection}
-        setActiveFriendChat={props.setActiveFriendChat}
-        setRoomSocket={props.setRoomSocket}
+        setMobileSwapSection={setMobileSwapSection}
+        setActiveFriendChat={setActiveFriendChat}
+        setRoomSocket={setRoomSocket}
       />
     );
   });
 
   return (
-    <aside className="MenuBar" style={props.style}>
+    <aside className="MenuBar" style={style}>
       <nav className="navbar">
         <ul>
           <li>
@@ -78,19 +91,19 @@ function MenuBar(props) {
       {/* Hidden Tabs */}
       {showProfile ? (
         <Profile
-          setStoredJwt={props.setStoredJwt}
+          user={user}
+          toggleTheme={toggleTheme}
+          setStoredJwt={setStoredJwt}
           setShowProfile={setShowProfile}
-          user={props.user}
-          setUser={props.setUser}
-          toggleTheme={props.toggleTheme}
+          setUser={setUser}
         />
       ) : null}
       {showAddFriends ? (
         <AddFriends
+          sentFriendRequests={sentFriendRequests}
+          receivedFriendRequests={receivedFriendRequests}
+          refreshFriendsInformation={refreshFriendsInformation}
           setShowAddFriends={setShowAddFriends}
-          receivedFriendRequests={props.receivedFriendRequests}
-          sentFriendRequests={props.sentFriendRequests}
-          refreshFriendsInformation={props.refreshFriendsInformation}
         />
       ) : null}
     </aside>

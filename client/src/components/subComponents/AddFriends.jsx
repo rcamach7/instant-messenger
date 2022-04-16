@@ -4,45 +4,50 @@ import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import RequestFriendForm from "../forms/RequestFriendForm";
 import axios from "axios";
 
-export default function AddFriends(props) {
+export default function AddFriends({
+  sentFriendRequests,
+  receivedFriendRequests,
+  refreshFriendsInformation,
+  setShowAddFriends,
+}) {
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
         <FontAwesomeIcon
-          onClick={() => props.setShowAddFriends(false)}
+          onClick={() => setShowAddFriends(false)}
           icon={faCircleXmark}
           className="iconClose"
         />
         {/* Input form to request a new friend */}
         <RequestFriendForm
-          refreshFriendsInformation={props.refreshFriendsInformation}
+          refreshFriendsInformation={refreshFriendsInformation}
         />
 
         {/* Container for requests sent out by user */}
         <div className="sentRequests">
-          {props.sentFriendRequests.length > 0 ? (
+          {sentFriendRequests.length > 0 ? (
             <p className="title">Pending Requests</p>
           ) : (
             <p className="titleEmpty">No Pending Requests</p>
           )}
-          {props.sentFriendRequests.map((sentRequest, i) => {
+          {sentFriendRequests.map((sentRequest, i) => {
             return <SentFriendRequest key={i} sentRequest={sentRequest} />;
           })}
         </div>
 
         {/* Container for requests received for user */}
         <div className="receivedRequests">
-          {props.receivedFriendRequests.length > 0 ? (
+          {receivedFriendRequests.length > 0 ? (
             <p className="title">Requests Received</p>
           ) : (
             <p className="titleEmpty">No Requests Received</p>
           )}
-          {props.receivedFriendRequests.map((receivedRequest, i) => {
+          {receivedFriendRequests.map((receivedRequest, i) => {
             return (
               <FriendRequest
                 key={i}
                 receivedRequest={receivedRequest}
-                refreshFriendsInformation={props.refreshFriendsInformation}
+                refreshFriendsInformation={refreshFriendsInformation}
               />
             );
           })}
@@ -63,7 +68,7 @@ export default function AddFriends(props) {
 }
 
 // Represents a individual that has requested the user as a friend.
-function FriendRequest(props) {
+function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
   const handleAcceptRequest = (friendUsername) => {
     axios
       .post("https://mighty-depths-39289.herokuapp.com/users/friends/", {
@@ -71,7 +76,7 @@ function FriendRequest(props) {
       })
       .then(() => {
         // Query up to date friend information and update state.
-        props.refreshFriendsInformation();
+        refreshFriendsInformation();
       });
   };
 
@@ -79,18 +84,16 @@ function FriendRequest(props) {
     <div className="FriendRequest">
       <img
         className="userPicture"
-        src={props.receivedRequest._id.profilePicture}
+        src={receivedRequest._id.profilePicture}
         alt=""
       />
 
       <div className="userInfo">
-        <p>{props.receivedRequest._id.fullName}</p>
+        <p>{receivedRequest._id.fullName}</p>
         <div className="actionButtons">
           <button
             className="confirm"
-            onClick={() =>
-              handleAcceptRequest(props.receivedRequest._id.username)
-            }
+            onClick={() => handleAcceptRequest(receivedRequest._id.username)}
           >
             Accept
           </button>
@@ -102,15 +105,15 @@ function FriendRequest(props) {
 }
 
 // Represents an individual that the user has sent a friend request to.
-function SentFriendRequest(props) {
+function SentFriendRequest({ sentRequest }) {
   return (
     <div className="SentFriendRequest">
       <img
         className="userPicture"
-        src={props.sentRequest._id.profilePicture}
+        src={sentRequest._id.profilePicture}
         alt=""
       />
-      <p>{props.sentRequest._id.fullName}</p>
+      <p>{sentRequest._id.fullName}</p>
     </div>
   );
 }

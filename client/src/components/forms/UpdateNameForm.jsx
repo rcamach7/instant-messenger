@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function UpdateNameForm(props) {
+export default function UpdateNameForm({ user, setUser, setShowEditNameForm }) {
   const [newName, setNewName] = useState({
-    fullName: props.user.fullName,
+    fullName: user.fullName,
   });
 
   const handleNameChange = (e) => {
@@ -15,9 +15,9 @@ export default function UpdateNameForm(props) {
         localStorage.removeItem("token");
         localStorage.setItem("token", results.data.token);
         // Update our parent component with new user details.
-        props.setUser(results.data.user);
+        setUser(results.data.user);
         // Hide edit name for
-        props.setShowEditNameForm(false);
+        setShowEditNameForm(false);
       });
   };
 
