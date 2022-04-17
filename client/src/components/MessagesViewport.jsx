@@ -8,7 +8,6 @@ import useSocketConnection from "../hooks/useSocketConnection";
 
 function MessagesViewport({
   style,
-  user,
   activeFriendChat,
   roomSocket,
   toggleTheme,
@@ -62,7 +61,7 @@ function MessagesViewport({
         >
           <ul>
             {messages.map((message) => {
-              return <Message key={v4()} message={message} user={user} />;
+              return <Message key={v4()} message={message} />;
             })}
           </ul>
         </div>

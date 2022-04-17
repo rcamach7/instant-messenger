@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../RouteSwitch";
 import axios from "axios";
 
-export default function UpdateNameForm({ user, setUser, setShowEditNameForm }) {
+export default function UpdateNameForm({ setShowEditNameForm }) {
+  const { user, setUser } = useContext(UserContext);
   const [newName, setNewName] = useState({
     fullName: user.fullName,
   });

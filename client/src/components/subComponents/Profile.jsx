@@ -4,11 +4,13 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../RouteSwitch";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImage from "../forms/ChangeProfileImage";
 
-function Profile({ user, toggleTheme, setStoredJwt, setShowProfile, setUser }) {
+function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
+  const { user, setUser } = useContext(UserContext);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
@@ -37,11 +39,7 @@ function Profile({ user, toggleTheme, setStoredJwt, setShowProfile, setUser }) {
           </div>
           <section className="profileName">
             {showEditNameForm ? (
-              <UpdateNameForm
-                user={user}
-                setUser={setUser}
-                setShowEditNameForm={setShowEditNameForm}
-              />
+              <UpdateNameForm setShowEditNameForm={setShowEditNameForm} />
             ) : (
               <p className="userName">{user.fullName}</p>
             )}

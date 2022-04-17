@@ -13,7 +13,6 @@ import AddFriends from "./subComponents/AddFriends";
 
 function MenuBar({
   style,
-  user,
   friends,
   receivedFriendRequests,
   sentFriendRequests,
@@ -23,7 +22,6 @@ function MenuBar({
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
-  setUser,
 }) {
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
@@ -91,11 +89,9 @@ function MenuBar({
       {/* Hidden Tabs */}
       {showProfile ? (
         <Profile
-          user={user}
           toggleTheme={toggleTheme}
           setStoredJwt={setStoredJwt}
           setShowProfile={setShowProfile}
-          setUser={setUser}
         />
       ) : null}
       {showAddFriends ? (

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
+import React from "react";
 import axios from "axios";
 import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
@@ -19,6 +20,9 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Export user context to provide to any children components who need it.
+export const UserContext = React.createContext();
 
 const RouteSwitch = () => {
   const [storedJwt, setStoredJwt] = useState(myToken);
@@ -47,12 +51,9 @@ const RouteSwitch = () => {
           element={
             // Will only allow user to enter path is JWT exists, which means they're authenticated.
             <RequireAuth storedJwt={storedJwt}>
-              <Home
-                user={user}
-                setUser={setUser}
-                setStoredJwt={setStoredJwt}
-                toggleTheme={toggleTheme}
-              />
+              <UserContext.Provider value={{ user: user, setUser: setUser }}>
+                <Home setStoredJwt={setStoredJwt} toggleTheme={toggleTheme} />
+              </UserContext.Provider>
             </RequireAuth>
           }
         />

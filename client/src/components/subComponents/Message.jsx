@@ -1,4 +1,9 @@
-function Message({ user, message }) {
+import { UserContext } from "../../RouteSwitch";
+import { useContext } from "react";
+
+function Message({ message }) {
+  const { user } = useContext(UserContext);
+
   return (
     <li className="Message">
       <span

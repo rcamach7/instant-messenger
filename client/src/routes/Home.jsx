@@ -3,7 +3,7 @@ import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
 import axios from "axios";
 
-function Home({ user, setUser, toggleTheme, setStoredJwt }) {
+function Home({ toggleTheme, setStoredJwt }) {
   // User friend information
   const [friends, setFriends] = useState([]);
   const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
@@ -53,7 +53,6 @@ function Home({ user, setUser, toggleTheme, setStoredJwt }) {
     <main className="Home">
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "flex" }}
-        user={user}
         friends={friends}
         receivedFriendRequests={receivedFriendRequests}
         sentFriendRequests={sentFriendRequests}
@@ -64,11 +63,9 @@ function Home({ user, setUser, toggleTheme, setStoredJwt }) {
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
         setRoomSocket={setRoomSocket}
-        setUser={setUser}
       />
       <MessagesViewport
         style={{ display: mobileSwapSection ? "block" : "none" }}
-        user={user}
         activeFriendChat={activeFriendChat}
         roomSocket={roomSocket}
         // Props that set data
