@@ -41,11 +41,21 @@ function MenuBar({
 
   useEffect(() => {
     // Anytime there's a new message, sort the order of the friends as to display that with the most recent activity.
-    sortedFriends.sort(
-      (a, b) =>
-        new Date(b.messages[b.messages.length - 1].timestamp) -
-        new Date(a.messages[a.messages.length - 1].timestamp)
-    );
+    if (sortedFriends.length > 0) {
+      sortedFriends.sort((a, b) => {
+        // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
+        if (b.messages.length === 0) {
+          return false;
+        } else if (a.messages.length === 0) {
+          return true;
+        }
+        // Both friends have previous messages so now we do our date comparison.
+        return (
+          new Date(b.messages[b.messages.length - 1].timestamp) -
+          new Date(a.messages[a.messages.length - 1].timestamp)
+        );
+      });
+    }
   }, [sortedFriends]);
 
   return (
