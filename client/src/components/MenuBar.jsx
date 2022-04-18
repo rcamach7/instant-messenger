@@ -40,13 +40,12 @@ function MenuBar({
   });
 
   useEffect(() => {
-    // Organize chat rows anytime there is a change (a new message for example)
-    // sortedFriends.sort((a, b) => a.messages[a.messages.length])
-    if (sortedFriends.length > 0) {
-      console.log(
-        sortedFriends[0].messages[sortedFriends[0].messages.length - 1]
-      );
-    }
+    // Anytime there's a new message, sort the order of the friends as to display that with the most recent activity.
+    sortedFriends.sort(
+      (a, b) =>
+        new Date(b.messages[b.messages.length - 1].timestamp) -
+        new Date(a.messages[a.messages.length - 1].timestamp)
+    );
   }, [sortedFriends]);
 
   return (
