@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,7 +26,8 @@ function MenuBar({
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
   // Generate a collection of chat rows given the users friends.
-  const chatRows = friends.map((chat) => {
+  const sortedFriends = friends;
+  const chatRows = sortedFriends.map((chat) => {
     return (
       <ChatRow
         key={v4()}
@@ -37,6 +38,16 @@ function MenuBar({
       />
     );
   });
+
+  useEffect(() => {
+    // Organize chat rows anytime there is a change (a new message for example)
+    // sortedFriends.sort((a, b) => a.messages[a.messages.length])
+    if (sortedFriends.length > 0) {
+      console.log(
+        sortedFriends[0].messages[sortedFriends[0].messages.length - 1]
+      );
+    }
+  }, [sortedFriends]);
 
   return (
     <aside className="MenuBar" style={style}>

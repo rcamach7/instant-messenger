@@ -51,6 +51,7 @@ const RouteSwitch = () => {
           element={
             // Will only allow user to enter path is JWT exists, which means they're authenticated.
             <RequireAuth storedJwt={storedJwt}>
+              {/* The value of our context will be a object with both user and setUser, that will be destructured in our children components */}
               <UserContext.Provider value={{ user: user, setUser: setUser }}>
                 <Home setStoredJwt={setStoredJwt} toggleTheme={toggleTheme} />
               </UserContext.Provider>
