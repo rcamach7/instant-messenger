@@ -4,13 +4,15 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../RouteSwitch";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImage from "../forms/ChangeProfileImage";
+import LoadingComponents from "./LoadingComponents";
 
 function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
   const { user, setUser } = useContext(UserContext);
+  const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
@@ -18,6 +20,13 @@ function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
     setUser(null);
     setStoredJwt(null);
   };
+
+  useEffect(() => {
+    // If user hasn't loaded - display a loading UI icon.
+    if (user) {
+      setLoadingUI(false);
+    }
+  }, [user]);
 
   return (
     <div className="ProfileBackdrop">
@@ -28,21 +37,26 @@ function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
           onClick={() => setShowProfile(false)}
         />
 
+        {/* Shows user image along with ability to update their image */}
         <div className="profileInformation">
           <div className="profilePictureContainer">
-            <img
-              src={user.profilePicture}
-              alt="profileImage"
-              className="profilePicture"
-            />
+            {user ? (
+              <img
+                src={user.profilePicture}
+                alt="profileImage"
+                className="profilePicture"
+              />
+            ) : null}
             <ChangeProfileImage setUser={setUser} />
           </div>
+
+          {/* Shows user information such as name, username, and ability to edit them */}
           <section className="profileName">
             {showEditNameForm ? (
               <UpdateNameForm setShowEditNameForm={setShowEditNameForm} />
-            ) : (
+            ) : user ? (
               <p className="userName">{user.fullName}</p>
-            )}
+            ) : null}
             {/* Icon to update profile picture */}
             <FontAwesomeIcon
               icon={faPenToSquare}
@@ -50,10 +64,10 @@ function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
               onClick={() => setShowEditNameForm(!showEditNameForm)}
             />
           </section>
-          <p>({user.username})</p>
+          {user ? <p>{user.username}</p> : null}
         </div>
 
-        {/* Profile PAge Buttons */}
+        {/* Profile Page Buttons */}
         <nav className="profileButtons">
           <ul className="buttonList">
             <li>
@@ -77,7 +91,11 @@ function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
           </li>
         </ul>
       </div>
+
+      {/* Will show loading screen incase user data is still being fetched */}
+      {loadingUI ? <LoadingComponents /> : null}
     </div>
   );
 }
+
 export default Profile;
