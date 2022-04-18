@@ -10,6 +10,7 @@
 @import "./subComponents/chatRow";
 @import "./subComponents/profile";
 @import "./subComponents/addFriends";
+@import "./subComponents/loadingComponents";
 // Forms styling
 @import "./forms/createAccountForm";
 @import "./forms/newMessageForm";
@@ -122,12 +123,20 @@ body.dark {
     transform: scaleX(1);
   }
 }
-
 @keyframes slide-in {
   0% {
     transform: scaleX(0);
   }
   100% {
     transform: scaleX(1);
+  }
+}
+// Used for loading icon to spin while component data is loading
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

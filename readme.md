@@ -50,7 +50,5 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### To-Do's
 
 - fix socket bug that makes too many connections upon real-time chat.
-- Add UI loading feature while client is fetching user data to prevent app from crashing while its attempting to display user data.
 - Add time stamps to messages to indicate when they were sent
 - Fix routing issue on GH pages where browser requests files from host instead from our react app.
-- Have ChatRow component dynamically order itself by how recent the latest message was sent/received.
