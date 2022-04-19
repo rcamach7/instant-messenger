@@ -6,7 +6,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 <div align="center">
 
-[Visit messenger website](http://rcamach7.github.io/messenger/)
+[Visit messenger website](https://rcamach7.github.io/messenger/#/messenger)
 
 </div>
 
@@ -51,4 +51,3 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 - fix socket bug that makes too many connections upon real-time chat.
 - Add time stamps to messages to indicate when they were sent
-- Fix routing issue on GH pages where browser requests files from host instead from our react app.

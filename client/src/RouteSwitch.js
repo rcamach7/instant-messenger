@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
@@ -35,7 +35,7 @@ const RouteSwitch = () => {
     setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route
           path="/messenger"
@@ -61,7 +61,7 @@ const RouteSwitch = () => {
         {/* Will re-route any user not in a valid path */}
         <Route path="*" element={<Navigate to="/messenger" />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
