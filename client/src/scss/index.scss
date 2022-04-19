@@ -103,6 +103,22 @@ body.dark {
   }
 }
 
+// Animation across all icons in the webpage
+.icon:hover {
+  animation: infinite pulse 2s alternate;
+}
+@keyframes pulse {
+  25% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
 @keyframes spring {
   0% {
     transform: scaleX(1);
