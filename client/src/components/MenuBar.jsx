@@ -13,6 +13,7 @@ import AddFriends from "./subComponents/AddFriends";
 
 function MenuBar({
   style,
+  activeFriendChat,
   friends,
   receivedFriendRequests,
   sentFriendRequests,
@@ -31,6 +32,12 @@ function MenuBar({
     return (
       <ChatRow
         key={v4()}
+        // If this current chat row is the current active one - background will be slightly different.
+        activeStyle={
+          activeFriendChat.friendUsername === chat.friend.username
+            ? "activeChat"
+            : ""
+        }
         chat={chat}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}

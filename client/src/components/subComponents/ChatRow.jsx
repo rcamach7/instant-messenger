@@ -1,4 +1,5 @@
 function ChatRow({
+  activeStyle,
   chat,
   setMobileSwapSection,
   setActiveFriendChat,
@@ -34,7 +35,11 @@ function ChatRow({
   };
 
   return (
-    <section className="ChatRow" onClick={() => handleInitiateChat()}>
+    <section
+      // If this friend is the current active friend - we will apply some styling to distinguish active chat
+      className={`ChatRow ${activeStyle}`}
+      onClick={() => handleInitiateChat()}
+    >
       <img
         src={chat.friend.profilePicture}
         alt="userImage"

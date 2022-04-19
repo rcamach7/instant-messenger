@@ -22,6 +22,12 @@
       }
     }
   }
+  // Will prevent background color on active chat since it's not relevant in mobile mode.
+  body.dark {
+    .activeChat {
+      background-color: transparent !important;
+    }
+  }
 }
 
 // Indicates we can show our components side by side and makes the proper adjustments.

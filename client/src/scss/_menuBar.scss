@@ -39,6 +39,9 @@
     }
   }
   .chatRowsContainer {
+    .activeChat {
+      background-color: rgb(230, 230, 230);
+    }
   }
   .personalSocialsContainer {
     margin-top: auto;

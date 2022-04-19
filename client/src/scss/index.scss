@@ -57,6 +57,9 @@ body.dark {
       .ChatRow {
         box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
       }
+      .activeChat {
+        background-color: rgb(81, 93, 105);
+      }
 
       .Profile,
       .AddFriends {
