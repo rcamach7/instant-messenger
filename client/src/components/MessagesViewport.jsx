@@ -19,7 +19,6 @@ function MessagesViewport({
   // Manages socket connection based on current active chat.
   useSocketConnection(
     roomSocket,
-    activeFriendChat,
     refreshFriendsInformation,
     setActiveFriendChat
   );

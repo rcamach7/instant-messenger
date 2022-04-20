@@ -8,7 +8,6 @@ const socket = io.connect("https://mighty-depths-39289.herokuapp.com/", {
 
 export default function useSocketConnection(
   roomSocket,
-  activeFriendChat,
   refreshFriendsInformation,
   setActiveFriendChat
 ) {
@@ -23,10 +22,13 @@ export default function useSocketConnection(
   useEffect(() => {
     // When our message, or a message from a friends is saved on DB, it will emit a signal to both us us (if connected) to save our new message.
     socket.on("chat message", (newFriendMessage) => {
-      setActiveFriendChat({
-        ...activeFriendChat,
-        messages: [...activeFriendChat.messages, newFriendMessage],
+      setActiveFriendChat((prevState) => {
+        return {
+          ...prevState,
+          messages: [...prevState.messages, newFriendMessage],
+        };
       });
+
       refreshFriendsInformation();
     });
 
@@ -39,5 +41,5 @@ export default function useSocketConnection(
     socket.on("new friend acceptance", () => {
       refreshFriendsInformation();
     });
-  }, [activeFriendChat]);
+  }, []);
 }
