@@ -125,7 +125,10 @@ exports.create_user_post = [
           fullName: res.locals.newUser.fullName,
           _id: res.locals.newUser._id,
         },
-        process.env.SECRET_STRING
+        process.env.SECRET_STRING,
+        {
+          expiresIn: "24h",
+        }
       );
 
       // End the response successfully
@@ -147,7 +150,6 @@ exports.create_user_post = [
 
 // Updates user by providing body fields.
 // At this point we only support updating name field.
-// In the end we need to sign a new token, and have user replace the old one with the one we sent, since the old token is signed with old name.
 // Possibly break it down to another middleware for easier maintainability
 exports.update_user_put = [
   // Pull the token received and add it to the request.
@@ -184,6 +186,9 @@ exports.update_user_put = [
                 _id: updatedUser._id,
               },
               process.env.SECRET_STRING,
+              {
+                expiresIn: "24h",
+              },
               (err, token) => {
                 if (err) next(err);
 
@@ -210,5 +215,5 @@ exports.update_user_put = [
 
 // Deletes user by providing body fields
 exports.user_delete = (req, res, next) => {
-  res.json("OK");
+  res.json("Not implemented");
 };
