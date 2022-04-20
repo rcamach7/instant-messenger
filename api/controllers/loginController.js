@@ -20,22 +20,23 @@ exports.login_user_post = [
     session: false,
   }),
   // Return JWT token upon validation
-  (req, res, next) => {
-    jwt.sign(
-      {
-        username: req.user.username,
-        _id: req.user._id,
-        fullName: req.user.fullName,
-      },
-      process.env.SECRET_STRING,
-      {
-        expiresIn: "24h",
-      },
-      (err, token) => {
-        if (err) next(err);
-
-        res.json({ token });
-      }
-    );
+  async (req, res) => {
+    try {
+      const token = await jwt.sign(
+        {
+          username: req.user.username,
+          _id: req.user._id,
+          fullName: req.user.fullName,
+        },
+        process.env.SECRET_STRING,
+        {
+          expiresIn: "24h",
+        }
+      );
+      // Give user authentication token
+      res.json(token);
+    } catch (error) {
+      req.status(400).json({ msg: "Error authenticating user" });
+    }
   },
 ];
