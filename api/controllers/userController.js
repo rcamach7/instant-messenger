@@ -167,49 +167,47 @@ exports.update_user_put = [
       });
     }
   },
-  (req, res, next) => {
-    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
-      if (err) {
-        res.status(403).json({ msg: "Failed authentication" });
-      } else {
-        if (req.body.fullName.length >= 4) {
-          User.findByIdAndUpdate(authData._id, {
-            $set: { fullName: req.body.fullName },
-          }).exec((err, updatedUser) => {
-            if (err) next(err);
+  async (req, res) => {
+    // Check if it meets minimum size
+    let newName = req.body.fullName;
+    if (newName.length < 4) {
+      return req.status(400).json({ error: "Name too short." });
+    }
 
-            // Create new token for our user and send it back
-            jwt.sign(
-              {
-                username: updatedUser.username,
-                fullName: updatedUser.fullName,
-                _id: updatedUser._id,
-              },
-              process.env.SECRET_STRING,
-              {
-                expiresIn: "24h",
-              },
-              (err, token) => {
-                if (err) next(err);
+    try {
+      // Grab auth data and retrieve user
+      const authData = await jwt.verify(req.token, process.env.SECRET_STRING);
+      const user = await User.findByIdAndUpdate(authData._id, {
+        $set: { fullName: req.body.fullName },
+      });
 
-                res.json({
-                  token,
-                  user: {
-                    username: updatedUser.username,
-                    fullName: updatedUser.fullName,
-                    profilePicture: updatedUser.profilePicture,
-                    _id: updatedUser._id,
-                  },
-                  msg: "Account updated",
-                });
-              }
-            );
-          });
-        } else {
-          res.status(400).json({ msg: "Name too short" });
+      // Create token
+      const token = await jwt.sign(
+        {
+          username: user.username,
+          fullName: user.fullName,
+          _id: user._id,
+        },
+        process.env.SECRET_STRING,
+        {
+          expiresIn: "24h",
         }
-      }
-    });
+      );
+
+      // Respond with token and user information
+      res.json({
+        token,
+        user: {
+          username: user.username,
+          fullName: req.body.fullName,
+          profilePicture: user.profilePicture,
+          _id: user._id,
+        },
+        msg: "Account updated",
+      });
+    } catch (error) {
+      req.status(400).json({ error: "Error updating user" });
+    }
   },
 ];
 
