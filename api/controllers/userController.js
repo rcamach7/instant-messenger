@@ -23,7 +23,7 @@ exports.user_get = [
   },
   async (req, res) => {
     try {
-      const { _id } = await jwt.verify(req.token, process.env.SECRET_STRING);
+      const { _id } = jwt.verify(req.token, process.env.SECRET_STRING);
       const user = await User.findById(_id).select(
         "username fullName profilePicture _id"
       );

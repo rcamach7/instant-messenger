@@ -34,7 +34,7 @@ exports.login_user_post = [
         }
       );
       // Give user authentication token
-      res.json(token);
+      res.json({ token });
     } catch (error) {
       req.status(400).json({ msg: "Error authenticating user" });
     }
