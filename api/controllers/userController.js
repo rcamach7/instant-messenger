@@ -21,25 +21,17 @@ exports.user_get = [
       });
     }
   },
-  (req, res, next) => {
-    jwt.verify(req.token, process.env.SECRET_STRING, (err, authData) => {
-      if (err) {
-        res.status(403).json({ msg: "Failed authentication" });
-      } else {
-        User.findById(authData._id).exec((err, user) => {
-          if (err) next(err);
+  async (req, res) => {
+    try {
+      const { _id } = await jwt.verify(req.token, process.env.SECRET_STRING);
+      const user = await User.findById(_id).select(
+        "username fullName profilePicture _id"
+      );
 
-          res.json({
-            user: {
-              username: user.username,
-              fullName: user.fullName,
-              profilePicture: user.profilePicture,
-              _id: user._id,
-            },
-          });
-        });
-      }
-    });
+      return res.json(user);
+    } catch (err) {
+      res.status(401).json({ error: "Invalid token" });
+    }
   },
 ];
 
