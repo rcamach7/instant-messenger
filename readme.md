@@ -49,5 +49,4 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 #### To-Do's
 
-- fix socket bug that makes too many connections upon real-time chat.
 - Add time stamps to messages to indicate when they were sent
