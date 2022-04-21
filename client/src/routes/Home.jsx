@@ -8,6 +8,11 @@ function Home({ toggleTheme, setStoredJwt }) {
   const [friends, setFriends] = useState([]);
   const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
+  const [myFriends, setMyFriends] = useState({
+    friends: [],
+    receivedFriendRequests: [],
+    sentFriendRequests: [],
+  });
 
   // App functions
   const [mobileSwapSection, setMobileSwapSection] = useState(false);
@@ -39,6 +44,7 @@ function Home({ toggleTheme, setStoredJwt }) {
       setFriends(friends);
       setReceivedFriendRequests(receivedFriendRequests);
       setSentFriendRequests(sentFriendRequests);
+      setMyFriends({ friends, receivedFriendRequests, sentFriendRequests });
     } catch (error) {
       console.log(error);
     }
@@ -49,14 +55,21 @@ function Home({ toggleTheme, setStoredJwt }) {
     refreshFriendsInformation();
   }, []);
 
+  useEffect(() => {
+    console.log(myFriends);
+  }, [myFriends]);
+
   return (
     <main className="Home">
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "flex" }}
-        friends={friends}
         activeFriendChat={activeFriendChat}
+        // To be removed
+        friends={friends}
         receivedFriendRequests={receivedFriendRequests}
         sentFriendRequests={sentFriendRequests}
+        // Replaced by
+        myFriends={myFriends}
         toggleTheme={toggleTheme}
         refreshFriendsInformation={refreshFriendsInformation}
         // Props that set data

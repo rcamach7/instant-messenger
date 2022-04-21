@@ -23,6 +23,7 @@ function MenuBar({
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
+  myFriends,
 }) {
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
