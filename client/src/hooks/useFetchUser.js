@@ -11,10 +11,10 @@ export default function useFetchUser(storedJwt, setStoredJwt) {
   const fetchUser = async () => {
     try {
       // De-construct nested object field in our API response.
-      const { data } = await axios.get(
-        "https://mighty-depths-39289.herokuapp.com/users/"
-      );
-      setUser(data.user);
+      const {
+        data: { user },
+      } = await axios.get("https://mighty-depths-39289.herokuapp.com/users/");
+      setUser(user);
     } catch (error) {
       console.log(error.response);
       // Token exists - but is not valid, or API is down, so we remove it to log user out.

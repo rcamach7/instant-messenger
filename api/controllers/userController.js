@@ -28,7 +28,7 @@ exports.user_get = [
         "username fullName profilePicture _id"
       );
 
-      return res.json(user);
+      return res.json({ user });
     } catch (err) {
       res.status(401).json({ error: "Invalid token" });
     }
