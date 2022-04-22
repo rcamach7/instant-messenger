@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,20 +14,18 @@ import AddFriends from "./subComponents/AddFriends";
 function MenuBar({
   style,
   activeFriendChat,
-  friends,
-  receivedFriendRequests,
-  sentFriendRequests,
   toggleTheme,
   refreshFriendsInformation,
   setStoredJwt,
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
+  myFriends,
 }) {
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
   // Generate a collection of chat rows given the users friends.
-  const sortedFriends = friends;
+  const sortedFriends = myFriends.friends;
   const chatRows = sortedFriends.map((chat) => {
     return (
       <ChatRow
@@ -45,25 +43,6 @@ function MenuBar({
       />
     );
   });
-
-  useEffect(() => {
-    // Anytime there's a new message, sort the order of the friends as to display that with the most recent activity.
-    if (sortedFriends.length > 0) {
-      sortedFriends.sort((a, b) => {
-        // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
-        if (b.messages.length === 0) {
-          return false;
-        } else if (a.messages.length === 0) {
-          return true;
-        }
-        // Both friends have previous messages so now we do our date comparison.
-        return (
-          new Date(b.messages[b.messages.length - 1].timestamp) -
-          new Date(a.messages[a.messages.length - 1].timestamp)
-        );
-      });
-    }
-  }, [sortedFriends]);
 
   return (
     <aside className="MenuBar" style={style}>
@@ -123,8 +102,8 @@ function MenuBar({
       ) : null}
       {showAddFriends ? (
         <AddFriends
-          sentFriendRequests={sentFriendRequests}
-          receivedFriendRequests={receivedFriendRequests}
+          sentFriendRequests={myFriends.sentFriendRequests}
+          receivedFriendRequests={myFriends.receivedFriendRequests}
           refreshFriendsInformation={refreshFriendsInformation}
           setShowAddFriends={setShowAddFriends}
         />
