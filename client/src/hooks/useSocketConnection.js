@@ -1,8 +1,9 @@
 import io from "socket.io-client";
+import config from "../assets/config.json";
 import { useEffect } from "react";
 
 // Create a live socket connection to our server to listen to events.
-const socket = io.connect("https://mighty-depths-39289.herokuapp.com/", {
+const socket = io.connect(`${config.apiUrl}`, {
   transports: ["websocket"],
 });
 

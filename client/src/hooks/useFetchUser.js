@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
+import config from "../assets/config.json";
 import axios from "axios";
-
-// Retrieve, if any, token existing in local storage.
-// const storedJwt = localStorage.getItem("token");
 
 export default function useFetchUser(storedJwt, setStoredJwt) {
   const [user, setUser] = useState(null);
@@ -13,7 +11,7 @@ export default function useFetchUser(storedJwt, setStoredJwt) {
       // De-construct nested object field in our API response.
       const {
         data: { user },
-      } = await axios.get("https://mighty-depths-39289.herokuapp.com/users/");
+      } = await axios.get(`${config.apiUrl}/users/`);
       setUser(user);
     } catch (error) {
       console.log(error.response);

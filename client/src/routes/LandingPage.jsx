@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import config from "../assets/config.json";
 import logo from "../assets/logo.gif";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 
@@ -17,7 +18,7 @@ function LandingPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("https://mighty-depths-39289.herokuapp.com/users/log-in", account)
+      .post(`${config.apiUrl}/users/log-in`, account)
       .then((results) => {
         // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
         localStorage.setItem("token", results.data.token);
@@ -32,7 +33,7 @@ function LandingPage() {
   const handleTestAccount = (e) => {
     e.preventDefault();
     axios
-      .post("https://mighty-depths-39289.herokuapp.com/users/log-in", {
+      .post(`${config.apiUrl}/users/log-in`, {
         username: "foobar",
         password: "test",
       })

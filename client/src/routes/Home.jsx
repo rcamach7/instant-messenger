@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { sortFriends } from "../assets/helperFunctions";
+import config from "../assets/config.json";
 import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
 
@@ -33,9 +34,7 @@ function Home({ toggleTheme, setStoredJwt }) {
       // De-construct specific fields we will receive when we get our response.
       const {
         data: { friends, receivedFriendRequests, sentFriendRequests },
-      } = await axios.get(
-        "https://mighty-depths-39289.herokuapp.com/users/friends"
-      );
+      } = await axios.get(`${config.apiUrl}/users/friends`);
       // Set all appropriate response fields to state variable
       setMyFriends({
         friends: sortFriends(friends),
