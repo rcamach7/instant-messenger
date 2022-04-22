@@ -18,6 +18,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 - MongoDB, in conjunction with mongoose, used to store and update user information.
 
 ### In depth features
+
 <details>
   <summary>Front End (ReactJS)</summary>
   <li>Custom react hooks created to manage key functionality</li>
@@ -37,7 +38,6 @@ Modern full stack web messenger applications that allows users to chat with frie
   <li>Cloudinary utilized to store and set user profile images</li>
 </details>
 
-
 ### Built Using
 
 - React: library
@@ -50,4 +50,3 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### To-Do's
 
 - Add time stamps to messages to indicate when they were sent
-- Fix bug where my react React is listening on global emits for new messages instead of emits in the specific room we are in
