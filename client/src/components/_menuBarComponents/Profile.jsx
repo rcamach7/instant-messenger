@@ -7,7 +7,7 @@ import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../RouteSwitch";
 import UpdateNameForm from "../forms/UpdateNameForm";
-import ChangeProfileImage from "../forms/ChangeProfileImage";
+import ChangeProfileImageForm from "../forms/ChangeProfileImageForm";
 import LoadingComponents from "./LoadingComponents";
 
 function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
@@ -47,7 +47,7 @@ function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
                 className="profilePicture"
               />
             ) : null}
-            <ChangeProfileImage setUser={setUser} />
+            <ChangeProfileImageForm setUser={setUser} />
           </div>
 
           {/* Shows user information such as name, username, and ability to edit them */}

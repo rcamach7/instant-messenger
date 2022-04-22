@@ -4,7 +4,7 @@ import config from "../../assets/config.json";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ChangeProfileImage({ setUser }) {
+export default function ChangeProfileImageForm({ setUser }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {

@@ -6,16 +6,16 @@
 @import "./menuBar";
 @import "./messagesViewport";
 // SubComponents Styling
-@import "./subComponents/message";
-@import "./subComponents/chatRow";
-@import "./subComponents/profile";
-@import "./subComponents/addFriends";
-@import "./subComponents/loadingComponents";
+@import "./_messagesViewportComponents/message";
+@import "./_menuBarComponents/chatRow";
+@import "./_menuBarComponents/profile";
+@import "./_menuBarComponents/addFriends";
+@import "./_menuBarComponents/loadingComponents";
 // Forms styling
 @import "./forms/createAccountForm";
 @import "./forms/newMessageForm";
 @import "./forms/requestFriendForm";
-@import "./forms/changeProfileImage";
+@import "./forms/changeProfileImageForm";
 @import "./forms/updateNameForm";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Roboto+Mono:wght@300;400;700&display=swap");

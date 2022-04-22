@@ -3,7 +3,7 @@ import { faCaretLeft, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { v4 } from "uuid";
 import NewMessageForm from "./forms/NewMessageForm";
-import Message from "./subComponents/Message";
+import Message from "./_messagesViewportComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
 
 function MessagesViewport({
