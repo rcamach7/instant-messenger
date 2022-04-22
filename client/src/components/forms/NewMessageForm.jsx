@@ -11,23 +11,24 @@ import {
 function NewMessageForm({ activeFriendChat, roomSocket }) {
   const [newMessage, setNewMessage] = useState("");
 
-  // Create a new message after form submission.
-  const handleNewMessage = (e) => {
+  const handleNewMessage = async (e) => {
     e.preventDefault();
+    // If user isn't inside a friend chat, let user know. (happens upon first log in)
     if (activeFriendChat.friendUsername === "") {
       alert("Please select a friend to begin a conversation");
       setNewMessage("");
     } else {
-      axios
-        .post(`${config.apiUrl}/users/friends/messages`, {
+      try {
+        await axios.post(`${config.apiUrl}/users/friends/messages`, {
           friendUsername: activeFriendChat.friendUsername,
           message: newMessage,
           // _id field is passed to emit a socket signal to any users in a room with this identifier.
           _id: roomSocket,
-        })
-        .then(() => {
-          setNewMessage("");
         });
+        setNewMessage("");
+      } catch (error) {
+        alert("Error sending new message");
+      }
     }
   };
 

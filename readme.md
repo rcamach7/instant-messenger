@@ -50,3 +50,4 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### To-Do's
 
 - Add time stamps to messages to indicate when they were sent
+- Update token state on sign in, and update local variable as to not reload to page to log user in.

@@ -15,28 +15,27 @@ function CreateAccountForm({ setCreateAccountForm }) {
   // Will show any API errors after submission.
   const [badRequest, setBadRequest] = useState([]);
 
-  // Store token, and refresh page.
-  const handleCreateAccount = (e) => {
-    e.preventDefault(e);
-    // Check if re-typed passwords match.
+  const handleCreateAccount = async (e) => {
+    e.preventDefault();
     if (account.password !== account.passwordConfirm) {
       // Display form error
       setBadPasswordError(true);
     } else {
-      // Only send one password field, so we destructure account object, as we have confirmed passwords match.
-      axios
-        .post(`${config.apiUrl}/users/`, {
+      try {
+        const {
+          data: { token },
+        } = await axios.post(`${config.apiUrl}/users/`, {
           fullName: account.fullName,
           username: account.username.toLowerCase(),
           password: account.password,
-        })
-        .then((results) => {
-          localStorage.setItem("token", results.data.token);
-          window.location.reload();
-        })
-        .catch((errors) => {
-          setBadRequest(errors.response.data.errors);
         });
+        // Save token to local storage.
+        localStorage.setItem("token", token);
+        // Refresh window. App will detect new token on refresh, and navigate the user to home.
+        window.location.reload();
+      } catch (error) {
+        setBadRequest(error.response.data.errors);
+      }
     }
   };
 

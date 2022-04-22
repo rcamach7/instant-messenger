@@ -8,24 +8,33 @@ export default function ChangeProfileImageForm({ setUser }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
-    if (image !== null) {
+    const updatePicture = async () => {
       // Create a formData instance so we can send multipart/form-data outside of form control
       const formData = new FormData();
       formData.append("image", image);
 
-      axios({
-        method: "put",
-        url: `${config.apiUrl}/users/profilePicture`,
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      }).then(() => {
-        // Refresh user data to show profile picture change.
-        axios.get(`${config.apiUrl}/users/`).then((results) => {
-          setUser(results.data.user);
+      try {
+        await axios({
+          method: "put",
+          url: `${config.apiUrl}/users/profilePicture`,
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
         });
-      });
+        // Retrieve new user information and update app.
+        const {
+          data: { user },
+        } = await axios.get(`${config.apiUrl}/users/`);
+        setUser(user);
+      } catch (error) {
+        alert("Error uploading new picture");
+      }
+    };
+
+    // Runs whenever a image gets uploaded to the form
+    if (image !== null) {
+      updatePicture();
     }
-  }, [image]);
+  }, [image, setUser]);
 
   return (
     <form className="ChangeProfileImage">

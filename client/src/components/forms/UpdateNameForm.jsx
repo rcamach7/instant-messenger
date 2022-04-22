@@ -9,17 +9,22 @@ export default function UpdateNameForm({ setShowEditNameForm }) {
     fullName: user.fullName,
   });
 
-  const handleNameChange = (e) => {
+  const handleNameChange = async (e) => {
     e.preventDefault(e);
-    axios.put(`${config.apiUrl}/users/`, newName).then((results) => {
+    try {
+      const {
+        data: { user, token },
+      } = await axios.put(`${config.apiUrl}/users/`, newName);
+
       // Delete old token, and store the new one with freshly signed user details
       localStorage.removeItem("token");
-      localStorage.setItem("token", results.data.token);
+      localStorage.setItem("token", token);
       // Update our parent component with new user details.
-      setUser(results.data.user);
-      // Hide edit name for
+      setUser(user);
       setShowEditNameForm(false);
-    });
+    } catch (err) {
+      alert(`Error occurred while changing name`);
+    }
   };
 
   return (

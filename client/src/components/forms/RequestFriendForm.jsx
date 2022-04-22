@@ -6,23 +6,20 @@ export default function RequestFriendForm({ refreshFriendsInformation }) {
   const [friendUsername, setFriendUsername] = useState("");
   const [errors, setErrors] = useState([]);
 
-  // Process submission of form
-  const handleFriendRequest = (e) => {
+  const handleFriendRequest = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${config.apiUrl}/users/friends/request`, {
+    try {
+      // Process friend request
+      await axios.post(`${config.apiUrl}/users/friends/request`, {
         friendUsername: friendUsername.toLowerCase(),
-      })
-      // Upon successful request, we will reset the state fields.
-      .then(() => {
-        setErrors([]);
-        setFriendUsername("");
-        refreshFriendsInformation();
-      })
-      // Will catch any errors returned from the API and display them
-      .catch((error) => {
-        setErrors([error.response.data.msg]);
       });
+      // Upon successful request, we will reset the state fields.
+      setErrors([]);
+      setFriendUsername("");
+      refreshFriendsInformation();
+    } catch (error) {
+      setErrors([error.response.data.msg]);
+    }
   };
 
   return (
