@@ -15,37 +15,37 @@ function LandingPage() {
 
   // Upon login - we will save the token we receive (if successful) and store it in local memory.
   // Upon page reload, our main component will detect the auth token and route the user to the home page.
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${config.apiUrl}/users/log-in`, account)
-      .then((results) => {
-        // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
-        localStorage.setItem("token", results.data.token);
-        window.location.reload();
-      })
+    try {
+      const {
+        data: { token },
+      } = await axios.post(`${config.apiUrl}/users/log-in`, account);
+      // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
+      localStorage.setItem("token", token);
+      window.location.reload();
+    } catch (error) {
       // Catch and display any login errors from API
-      .catch(() => {
-        setErrors(true);
-      });
+      setErrors(true);
+    }
   };
 
-  const handleTestAccount = (e) => {
+  const handleTestAccount = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${config.apiUrl}/users/log-in`, {
+
+    try {
+      const {
+        data: { token },
+      } = await axios.post(`${config.apiUrl}/users/log-in`, {
         username: "foobar",
         password: "test",
-      })
-      .then((results) => {
-        // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
-        localStorage.setItem("token", results.data.token);
-        window.location.reload();
-      })
-      // Catch and display any login errors from API
-      .catch(() => {
-        setErrors(true);
       });
+      localStorage.setItem("token", token);
+      window.location.reload();
+    } catch (error) {
+      // Catch and display any login errors from API
+      setErrors(true);
+    }
   };
 
   return (

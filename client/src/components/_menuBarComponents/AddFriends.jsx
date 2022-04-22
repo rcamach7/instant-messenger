@@ -70,15 +70,15 @@ export default function AddFriends({
 
 // Represents a individual that has requested the user as a friend.
 function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
-  const handleAcceptRequest = (friendUsername) => {
-    axios
-      .post(`${config.apiUrl}/users/friends`, {
+  const handleAcceptRequest = async (friendUsername) => {
+    try {
+      await axios.post(`${config.apiUrl}/users/friends`, {
         friendUsername: friendUsername,
-      })
-      .then(() => {
-        // Query up to date friend information and update state.
-        refreshFriendsInformation();
       });
+      refreshFriendsInformation();
+    } catch (error) {
+      alert("Error adding friend");
+    }
   };
 
   return (
