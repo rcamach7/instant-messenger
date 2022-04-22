@@ -19,3 +19,12 @@ export function sortFriends(friends) {
   });
   return sortedFriends;
 }
+
+// Will sort the messages by the message date, and grab the last message sent between the two users to populate in the preview
+// If no message history, we default to a preset value.
+export function getLastMessage(messages) {
+  return messages.length > 0
+    ? messages.sort((a, b) => b.timestamp - a.timestamp)[messages.length - 1]
+        .message
+    : "start conversation";
+}

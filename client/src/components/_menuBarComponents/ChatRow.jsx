@@ -1,3 +1,5 @@
+import { getLastMessage } from "../../assets/helperFunctions";
+
 function ChatRow({
   activeStyle,
   chat,
@@ -5,14 +7,7 @@ function ChatRow({
   setActiveFriendChat,
   setRoomSocket,
 }) {
-  // Will sort the messages by the message dat, and grab the last message sent between the two users to populate in the preview
-  // If no message history, we default to a preset value to avoid errors.
-  let lastMessage =
-    chat.messages.length > 0
-      ? chat.messages.sort((a, b) => b.timestamp - a.timestamp)[
-          chat.messages.length - 1
-        ].message
-      : "start conversation";
+  let lastMessage = getLastMessage(chat.messages);
 
   const handleInitiateChat = () => {
     // Will this particular friends information to initiate a chatroom with a socket connection.
