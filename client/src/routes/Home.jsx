@@ -1,27 +1,23 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { sortFriends } from "../assets/helperFunctions";
 import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
-import axios from "axios";
 
 function Home({ toggleTheme, setStoredJwt }) {
-  // User friend information
-  const [friends, setFriends] = useState([]);
-  const [receivedFriendRequests, setReceivedFriendRequests] = useState([]);
-  const [sentFriendRequests, setSentFriendRequests] = useState([]);
+  const [mobileSwapSection, setMobileSwapSection] = useState(false);
   const [myFriends, setMyFriends] = useState({
     friends: [],
     receivedFriendRequests: [],
     sentFriendRequests: [],
   });
-
-  // App functions
-  const [mobileSwapSection, setMobileSwapSection] = useState(false);
+  // Active chat information
+  const [roomSocket, setRoomSocket] = useState(null);
   const [activeFriendChat, setActiveFriendChat] = useState({
     friendUsername: "",
     fullName: "",
     messages: [],
   });
-  const [roomSocket, setRoomSocket] = useState(null);
 
   // Whenever we turn to our MenuBar displaying our friends, we will request another update to display the latest message.
   // Only while on mobile view since we swap display of components.
@@ -40,49 +36,25 @@ function Home({ toggleTheme, setStoredJwt }) {
       } = await axios.get(
         "https://mighty-depths-39289.herokuapp.com/users/friends"
       );
-      // Set all appropriate response fields to state variables
-      setFriends(friends);
-      setReceivedFriendRequests(receivedFriendRequests);
-      setSentFriendRequests(sentFriendRequests);
-      setMyFriends({ friends, receivedFriendRequests, sentFriendRequests });
+      // Set all appropriate response fields to state variable
+      setMyFriends({
+        friends: sortFriends(friends),
+        receivedFriendRequests,
+        sentFriendRequests,
+      });
     } catch (error) {
       console.log(error);
     }
-    console.log("api call");
   };
-
-  useEffect(() => {
-    if (myFriends.friends.length > 0) {
-      myFriends.friends.sort((a, b) => {
-        // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
-        if (b.messages.length === 0) {
-          return false;
-        } else if (a.messages.length === 0) {
-          return true;
-        }
-        // Both friends have previous messages so now we do our date comparison.
-        return (
-          new Date(b.messages[b.messages.length - 1].timestamp) -
-          new Date(a.messages[a.messages.length - 1].timestamp)
-        );
-      });
-    }
-  }, [myFriends]);
 
   return (
     <main className="Home">
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "flex" }}
         activeFriendChat={activeFriendChat}
-        // To be removed
-        friends={friends}
-        receivedFriendRequests={receivedFriendRequests}
-        sentFriendRequests={sentFriendRequests}
-        // Replaced by
         myFriends={myFriends}
         toggleTheme={toggleTheme}
         refreshFriendsInformation={refreshFriendsInformation}
-        // Props that set data
         setStoredJwt={setStoredJwt}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}

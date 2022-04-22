@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,9 +14,6 @@ import AddFriends from "./subComponents/AddFriends";
 function MenuBar({
   style,
   activeFriendChat,
-  friends,
-  receivedFriendRequests,
-  sentFriendRequests,
   toggleTheme,
   refreshFriendsInformation,
   setStoredJwt,
@@ -28,7 +25,7 @@ function MenuBar({
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
   // Generate a collection of chat rows given the users friends.
-  const sortedFriends = friends;
+  const sortedFriends = myFriends.friends;
   const chatRows = sortedFriends.map((chat) => {
     return (
       <ChatRow
@@ -46,27 +43,6 @@ function MenuBar({
       />
     );
   });
-
-  // // Sort friends by most recent activity anytime there is a change (for example new message)
-  // useEffect(() => {
-  //   if (sortedFriends.length > 0) {
-  //     sortedFriends.sort((a, b) => {
-  //       // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
-  //       if (b.messages.length === 0) {
-  //         console.log("hit");
-  //         return false;
-  //       } else if (a.messages.length === 0) {
-  //         console.log("hit 2");
-  //         return true;
-  //       }
-  //       // Both friends have previous messages so now we do our date comparison.
-  //       return (
-  //         new Date(b.messages[b.messages.length - 1].timestamp) -
-  //         new Date(a.messages[a.messages.length - 1].timestamp)
-  //       );
-  //     });
-  //   }
-  // }, [sortedFriends]);
 
   return (
     <aside className="MenuBar" style={style}>

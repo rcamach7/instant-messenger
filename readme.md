@@ -50,3 +50,5 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### To-Do's
 
 - Add time stamps to messages to indicate when they were sent
+- Fix bug where my react React is listening on global emits for new messages instead of emits in the specific room we are in
+- Add a config file to insert our API address for react client - to make it easier to use our local API for testing new changes.
