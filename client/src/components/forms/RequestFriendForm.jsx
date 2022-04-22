@@ -1,4 +1,5 @@
 import { useState } from "react";
+import config from "../../assets/config.json";
 import axios from "axios";
 
 export default function RequestFriendForm({ refreshFriendsInformation }) {
@@ -9,7 +10,7 @@ export default function RequestFriendForm({ refreshFriendsInformation }) {
   const handleFriendRequest = (e) => {
     e.preventDefault();
     axios
-      .post("https://mighty-depths-39289.herokuapp.com/users/friends/request", {
+      .post(`${config.apiUrl}/users/friends/request`, {
         friendUsername: friendUsername.toLowerCase(),
       })
       // Upon successful request, we will reset the state fields.

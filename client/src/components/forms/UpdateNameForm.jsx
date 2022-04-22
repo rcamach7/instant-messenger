@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import config from "../../assets/config.json";
 import { UserContext } from "../../RouteSwitch";
 import axios from "axios";
 
@@ -10,17 +11,15 @@ export default function UpdateNameForm({ setShowEditNameForm }) {
 
   const handleNameChange = (e) => {
     e.preventDefault(e);
-    axios
-      .put("https://mighty-depths-39289.herokuapp.com/users/", newName)
-      .then((results) => {
-        // Delete old token, and store the new one with freshly signed user details
-        localStorage.removeItem("token");
-        localStorage.setItem("token", results.data.token);
-        // Update our parent component with new user details.
-        setUser(results.data.user);
-        // Hide edit name for
-        setShowEditNameForm(false);
-      });
+    axios.put(`${config.apiUrl}/users/`, newName).then((results) => {
+      // Delete old token, and store the new one with freshly signed user details
+      localStorage.removeItem("token");
+      localStorage.setItem("token", results.data.token);
+      // Update our parent component with new user details.
+      setUser(results.data.user);
+      // Hide edit name for
+      setShowEditNameForm(false);
+    });
   };
 
   return (

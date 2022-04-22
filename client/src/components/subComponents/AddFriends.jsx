@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
+import config from "../../assets/config.json";
 import RequestFriendForm from "../forms/RequestFriendForm";
 import axios from "axios";
 
@@ -71,7 +72,7 @@ export default function AddFriends({
 function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
   const handleAcceptRequest = (friendUsername) => {
     axios
-      .post("https://mighty-depths-39289.herokuapp.com/users/friends/", {
+      .post(`${config.apiUrl}/users/friends`, {
         friendUsername: friendUsername,
       })
       .then(() => {

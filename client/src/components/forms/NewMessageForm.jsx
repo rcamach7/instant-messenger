@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import config from "../../assets/config.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImages,
@@ -18,15 +19,12 @@ function NewMessageForm({ activeFriendChat, roomSocket }) {
       setNewMessage("");
     } else {
       axios
-        .post(
-          "https://mighty-depths-39289.herokuapp.com/users/friends/messages",
-          {
-            friendUsername: activeFriendChat.friendUsername,
-            message: newMessage,
-            // _id field is passed to emit a socket signal to any users in a room with this identifier.
-            _id: roomSocket,
-          }
-        )
+        .post(`${config.apiUrl}/users/friends/messages`, {
+          friendUsername: activeFriendChat.friendUsername,
+          message: newMessage,
+          // _id field is passed to emit a socket signal to any users in a room with this identifier.
+          _id: roomSocket,
+        })
         .then(() => {
           setNewMessage("");
         });

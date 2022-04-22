@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import config from "../../assets/config.json";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -14,16 +15,14 @@ export default function ChangeProfileImage({ setUser }) {
 
       axios({
         method: "put",
-        url: "https://mighty-depths-39289.herokuapp.com/users/profilePicture",
+        url: `${config.apiUrl}/users/profilePicture`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then(() => {
         // Refresh user data to show profile picture change.
-        axios
-          .get("https://mighty-depths-39289.herokuapp.com/users/")
-          .then((results) => {
-            setUser(results.data.user);
-          });
+        axios.get(`${config.apiUrl}/users/`).then((results) => {
+          setUser(results.data.user);
+        });
       });
     }
   }, [image]);

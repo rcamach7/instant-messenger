@@ -1,4 +1,5 @@
 import { useState } from "react";
+import config from "../../assets/config.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -24,7 +25,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
     } else {
       // Only send one password field, so we destructure account object, as we have confirmed passwords match.
       axios
-        .post("https://mighty-depths-39289.herokuapp.com/users/", {
+        .post(`${config.apiUrl}/users/`, {
           fullName: account.fullName,
           username: account.username.toLowerCase(),
           password: account.password,
@@ -37,6 +38,15 @@ function CreateAccountForm({ setCreateAccountForm }) {
           setBadRequest(errors.response.data.errors);
         });
     }
+  };
+
+  // Update state by pulling the ID and value of the input being changes and updating our state.
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setAccount({
+      ...account,
+      [id]: value,
+    });
   };
 
   return (
@@ -53,9 +63,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
         <input
           type="text"
           id="fullName"
-          onChange={(e) =>
-            setAccount({ ...account, [e.target.id]: e.target.value })
-          }
+          onChange={handleInputChange}
           placeholder="Full name"
           minLength="4"
           maxLength="100"
@@ -65,9 +73,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
         <input
           type="text"
           id="username"
-          onChange={(e) =>
-            setAccount({ ...account, [e.target.id]: e.target.value })
-          }
+          onChange={handleInputChange}
           placeholder="Username"
           minLength="4"
           maxLength="100"
@@ -77,9 +83,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
         <input
           type="password"
           id="password"
-          onChange={(e) =>
-            setAccount({ ...account, [e.target.id]: e.target.value })
-          }
+          onChange={handleInputChange}
           placeholder="Password"
           minLength="4"
           maxLength="100"
@@ -88,9 +92,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
         <input
           type="password"
           id="passwordConfirm"
-          onChange={(e) =>
-            setAccount({ ...account, [e.target.id]: e.target.value })
-          }
+          onChange={handleInputChange}
           placeholder="Confirm password"
           minLength="4"
           maxLength="100"
