@@ -48,15 +48,25 @@ function Home({ toggleTheme, setStoredJwt }) {
     } catch (error) {
       console.log(error);
     }
+    console.log("api call");
   };
 
-  // On component mount, retrieve the users friends and set state variables.
   useEffect(() => {
-    refreshFriendsInformation();
-  }, []);
-
-  useEffect(() => {
-    console.log(myFriends);
+    if (myFriends.friends.length > 0) {
+      myFriends.friends.sort((a, b) => {
+        // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
+        if (b.messages.length === 0) {
+          return false;
+        } else if (a.messages.length === 0) {
+          return true;
+        }
+        // Both friends have previous messages so now we do our date comparison.
+        return (
+          new Date(b.messages[b.messages.length - 1].timestamp) -
+          new Date(a.messages[a.messages.length - 1].timestamp)
+        );
+      });
+    }
   }, [myFriends]);
 
   return (

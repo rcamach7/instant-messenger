@@ -47,24 +47,26 @@ function MenuBar({
     );
   });
 
-  useEffect(() => {
-    // Anytime there's a new message, sort the order of the friends as to display that with the most recent activity.
-    if (sortedFriends.length > 0) {
-      sortedFriends.sort((a, b) => {
-        // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
-        if (b.messages.length === 0) {
-          return false;
-        } else if (a.messages.length === 0) {
-          return true;
-        }
-        // Both friends have previous messages so now we do our date comparison.
-        return (
-          new Date(b.messages[b.messages.length - 1].timestamp) -
-          new Date(a.messages[a.messages.length - 1].timestamp)
-        );
-      });
-    }
-  }, [sortedFriends]);
+  // // Sort friends by most recent activity anytime there is a change (for example new message)
+  // useEffect(() => {
+  //   if (sortedFriends.length > 0) {
+  //     sortedFriends.sort((a, b) => {
+  //       // Fist check to see if users have any messages - if not, then they are sorted to the bottom.
+  //       if (b.messages.length === 0) {
+  //         console.log("hit");
+  //         return false;
+  //       } else if (a.messages.length === 0) {
+  //         console.log("hit 2");
+  //         return true;
+  //       }
+  //       // Both friends have previous messages so now we do our date comparison.
+  //       return (
+  //         new Date(b.messages[b.messages.length - 1].timestamp) -
+  //         new Date(a.messages[a.messages.length - 1].timestamp)
+  //       );
+  //     });
+  //   }
+  // }, [sortedFriends]);
 
   return (
     <aside className="MenuBar" style={style}>
@@ -124,8 +126,8 @@ function MenuBar({
       ) : null}
       {showAddFriends ? (
         <AddFriends
-          sentFriendRequests={sentFriendRequests}
-          receivedFriendRequests={receivedFriendRequests}
+          sentFriendRequests={myFriends.sentFriendRequests}
+          receivedFriendRequests={myFriends.receivedFriendRequests}
           refreshFriendsInformation={refreshFriendsInformation}
           setShowAddFriends={setShowAddFriends}
         />
