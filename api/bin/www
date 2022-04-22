@@ -37,6 +37,12 @@ io.on("connection", (socket) => {
 
   // Have users join a room of the current person they're chatting with
   socket.on("join", (data) => {
+    // Disconnect from any previous rooms joined
+    for (let room of socket.rooms) {
+      socket.leave(room);
+    }
+
+    // Join new room
     socket.join(data._id);
     console.log(`User has joined room: ${data._id}`);
   });
