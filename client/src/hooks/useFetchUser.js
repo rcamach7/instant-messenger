@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import config from "../assets/config.json";
-import axios from "axios";
+import { getUser } from "../assets/api";
 
 export default function useFetchUser(storedJwt, setStoredJwt) {
   const [user, setUser] = useState(null);
@@ -10,20 +9,16 @@ export default function useFetchUser(storedJwt, setStoredJwt) {
     // Retrieve user data and update state.
     const fetchUser = async () => {
       try {
-        // De-construct nested object field in our API response.
-        const {
-          data: { user },
-        } = await axios.get(`${config.apiUrl}/users/`);
+        const user = await getUser();
         setUser(user);
       } catch (error) {
-        console.log(error.response);
-        // Token exists - but is not valid, or API is down, so we remove it to log user out.
+        // Token might be expired, or API is down.
         localStorage.removeItem("token");
         setUser(null);
         setStoredJwt(null);
       }
     };
-
+    // If we have a token stored and user in null, retrieve user from API.
     if (storedJwt && user === null) {
       fetchUser();
     }

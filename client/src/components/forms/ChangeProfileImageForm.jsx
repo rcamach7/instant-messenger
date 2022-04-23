@@ -1,29 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import config from "../../assets/config.json";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { updateProfilePicture } from "../../assets/api";
 
 export default function ChangeProfileImageForm({ setUser }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
     const updatePicture = async () => {
-      // Create a formData instance so we can send multipart/form-data outside of form control
-      const formData = new FormData();
-      formData.append("image", image);
-
       try {
-        await axios({
-          method: "put",
-          url: `${config.apiUrl}/users/profilePicture`,
-          data: formData,
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        // Retrieve new user information and update app.
-        const {
-          data: { user },
-        } = await axios.get(`${config.apiUrl}/users/`);
+        const user = await updateProfilePicture(image);
         setUser(user);
       } catch (error) {
         alert("Error uploading new picture");

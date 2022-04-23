@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import config from "../../assets/config.json";
 import RequestFriendForm from "../forms/RequestFriendForm";
-import axios from "axios";
+import { addFriend } from "../../assets/api";
 
 export default function AddFriends({
   sentFriendRequests,
@@ -70,11 +69,10 @@ export default function AddFriends({
 
 // Represents a individual that has requested the user as a friend.
 function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
+  // Accept friend request and have API add user to friends.
   const handleAcceptRequest = async (friendUsername) => {
     try {
-      await axios.post(`${config.apiUrl}/users/friends`, {
-        friendUsername: friendUsername,
-      });
+      await addFriend(friendUsername);
       refreshFriendsInformation();
     } catch (error) {
       alert("Error adding friend");
