@@ -1,6 +1,5 @@
 import { useState } from "react";
-import config from "../../assets/config.json";
-import axios from "axios";
+import { requestFriend } from "../../assets/api";
 
 export default function RequestFriendForm({ refreshFriendsInformation }) {
   const [friendUsername, setFriendUsername] = useState("");
@@ -10,9 +9,7 @@ export default function RequestFriendForm({ refreshFriendsInformation }) {
     e.preventDefault();
     try {
       // Process friend request
-      await axios.post(`${config.apiUrl}/users/friends/request`, {
-        friendUsername: friendUsername.toLowerCase(),
-      });
+      await requestFriend(friendUsername);
       // Upon successful request, we will reset the state fields.
       setErrors([]);
       setFriendUsername("");

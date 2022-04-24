@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
-import config from "../../assets/config.json";
 import { UserContext } from "../../RouteSwitch";
-import axios from "axios";
+import { updateName } from "../../assets/api";
 
 export default function UpdateNameForm({ setShowEditNameForm }) {
   const { user, setUser } = useContext(UserContext);
@@ -12,10 +11,7 @@ export default function UpdateNameForm({ setShowEditNameForm }) {
   const handleNameChange = async (e) => {
     e.preventDefault(e);
     try {
-      const {
-        data: { user, token },
-      } = await axios.put(`${config.apiUrl}/users/`, newName);
-
+      const { user, token } = await updateName(newName);
       // Delete old token, and store the new one with freshly signed user details
       localStorage.removeItem("token");
       localStorage.setItem("token", token);

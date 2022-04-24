@@ -1,12 +1,11 @@
 import { useState } from "react";
-import axios from "axios";
-import config from "../../assets/config.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImages,
   faFaceSmile,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
+import { sendMessage } from "../../assets/api";
 
 function NewMessageForm({ activeFriendChat, roomSocket }) {
   const [newMessage, setNewMessage] = useState("");
@@ -19,12 +18,11 @@ function NewMessageForm({ activeFriendChat, roomSocket }) {
       setNewMessage("");
     } else {
       try {
-        await axios.post(`${config.apiUrl}/users/friends/messages`, {
-          friendUsername: activeFriendChat.friendUsername,
-          message: newMessage,
-          // _id field is passed to emit a socket signal to any users in a room with this identifier.
-          _id: roomSocket,
-        });
+        await sendMessage(
+          activeFriendChat.friendUsername,
+          newMessage,
+          roomSocket
+        );
         setNewMessage("");
       } catch (error) {
         alert("Error sending new message");

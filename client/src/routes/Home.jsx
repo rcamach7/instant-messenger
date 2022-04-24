@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { sortFriends } from "../assets/helperFunctions";
-import config from "../assets/config.json";
 import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
+import { getFriends } from "../assets/api";
 
 function Home({ toggleTheme, setStoredJwt }) {
   const [mobileSwapSection, setMobileSwapSection] = useState(false);
@@ -32,9 +31,8 @@ function Home({ toggleTheme, setStoredJwt }) {
   const refreshFriendsInformation = async () => {
     try {
       // De-construct specific fields we will receive when we get our response.
-      const {
-        data: { friends, receivedFriendRequests, sentFriendRequests },
-      } = await axios.get(`${config.apiUrl}/users/friends`);
+      const { friends, receivedFriendRequests, sentFriendRequests } =
+        await getFriends();
       // Set all appropriate response fields to state variable
       setMyFriends({
         friends: sortFriends(friends),
@@ -63,7 +61,6 @@ function Home({ toggleTheme, setStoredJwt }) {
         style={{ display: mobileSwapSection ? "block" : "none" }}
         activeFriendChat={activeFriendChat}
         roomSocket={roomSocket}
-        // Props that set data
         toggleTheme={toggleTheme}
         refreshFriendsInformation={refreshFriendsInformation}
         setMobileSwapSection={setMobileSwapSection}

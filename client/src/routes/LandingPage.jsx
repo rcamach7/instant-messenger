@@ -1,8 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
-import config from "../assets/config.json";
 import logo from "../assets/logo.gif";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
+import { getToken } from "../assets/api";
 
 function LandingPage() {
   const [account, setAccount] = useState({
@@ -15,31 +14,17 @@ function LandingPage() {
 
   // Upon login - we will save the token we receive (if successful) and store it in local memory.
   // Upon page reload, our main component will detect the auth token and route the user to the home page.
-  const handleLogin = async (e) => {
+  const handleLogin = async (e, useTestAccount) => {
     e.preventDefault();
     try {
-      const {
-        data: { token },
-      } = await axios.post(`${config.apiUrl}/users/log-in`, account);
+      // Checks if we are using a test account or not.
+      let token;
+      if (useTestAccount) {
+        token = await getToken({ username: "foobar", password: "test" });
+      } else {
+        token = await getToken(account);
+      }
       // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
-      localStorage.setItem("token", token);
-      window.location.reload();
-    } catch (error) {
-      // Catch and display any login errors from API
-      setErrors(true);
-    }
-  };
-
-  const handleTestAccount = async (e) => {
-    e.preventDefault();
-
-    try {
-      const {
-        data: { token },
-      } = await axios.post(`${config.apiUrl}/users/log-in`, {
-        username: "foobar",
-        password: "test",
-      });
       localStorage.setItem("token", token);
       window.location.reload();
     } catch (error) {
@@ -57,7 +42,7 @@ function LandingPage() {
         </p>
       </aside>
 
-      <form onSubmit={(e) => handleLogin(e)}>
+      <form onSubmit={(e) => handleLogin(e, false)}>
         <input
           type="text"
           placeholder="Username"
@@ -90,7 +75,7 @@ function LandingPage() {
         <button className="login-btn" type="submit">
           Log In
         </button>
-        <button type="button" onClick={(e) => handleTestAccount(e)}>
+        <button type="button" onClick={(e) => handleLogin(e, true)}>
           Use Test Account
         </button>
 

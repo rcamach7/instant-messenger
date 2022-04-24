@@ -1,8 +1,7 @@
 import { useState } from "react";
-import config from "../../assets/config.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import { createUser } from "../../assets/api";
 
 function CreateAccountForm({ setCreateAccountForm }) {
   const [account, setAccount] = useState({
@@ -22,16 +21,9 @@ function CreateAccountForm({ setCreateAccountForm }) {
       setBadPasswordError(true);
     } else {
       try {
-        const {
-          data: { token },
-        } = await axios.post(`${config.apiUrl}/users/`, {
-          fullName: account.fullName,
-          username: account.username.toLowerCase(),
-          password: account.password,
-        });
-        // Save token to local storage.
+        const token = createUser(account);
+        // Save token to local storage and refresh page.
         localStorage.setItem("token", token);
-        // Refresh window. App will detect new token on refresh, and navigate the user to home.
         window.location.reload();
       } catch (error) {
         setBadRequest(error.response.data.errors);
