@@ -21,7 +21,7 @@ function CreateAccountForm({ setCreateAccountForm }) {
       setBadPasswordError(true);
     } else {
       try {
-        const token = createUser(account);
+        const token = await createUser(account);
         // Save token to local storage and refresh page.
         localStorage.setItem("token", token);
         window.location.reload();
