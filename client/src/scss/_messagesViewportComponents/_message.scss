@@ -1,15 +1,20 @@
 .Message {
   list-style: none;
   padding: 5px;
+  max-width: 100%;
+  overflow: hidden;
 
   display: flex;
   .messageContent {
+    max-width: 100%;
     border-radius: 15px;
     font-weight: bold;
     padding: 6px;
+    word-wrap: break-word;
   }
   // Styling based on sender
   .myMessage {
+    height: fit-content;
     margin-left: auto;
     text-align: right;
 
