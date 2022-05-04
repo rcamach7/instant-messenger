@@ -2,7 +2,7 @@ import { useState } from "react";
 import MenuBar from "../components/MenuBar";
 import MessagesViewport from "../components/MessagesViewport";
 
-function Home({ toggleTheme, setStoredJwt }) {
+function Home({ toggleTheme }) {
   const [mobileSwapSection, setMobileSwapSection] = useState(false);
   // Active chat information
   const [roomSocket, setRoomSocket] = useState(null);
@@ -18,7 +18,6 @@ function Home({ toggleTheme, setStoredJwt }) {
         style={{ display: mobileSwapSection ? "none" : "flex" }}
         activeFriendChat={activeFriendChat}
         toggleTheme={toggleTheme}
-        setStoredJwt={setStoredJwt}
         setMobileSwapSection={setMobileSwapSection}
         setActiveFriendChat={setActiveFriendChat}
         setRoomSocket={setRoomSocket}

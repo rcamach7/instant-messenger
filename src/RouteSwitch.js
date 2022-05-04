@@ -53,7 +53,7 @@ const RouteSwitch = () => {
             <RequireAuth storedJwt={storedJwt}>
               {/* The value of our context will be a object with both user and setUser, that will be destructured in our children components */}
               <UserContext.Provider value={{ user: user, setUser: setUser }}>
-                <Home setStoredJwt={setStoredJwt} toggleTheme={toggleTheme} />
+                <Home toggleTheme={toggleTheme} />
               </UserContext.Provider>
             </RequireAuth>
           }
