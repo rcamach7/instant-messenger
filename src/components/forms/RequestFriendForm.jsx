@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { requestFriend } from "../../assets/api";
 
-export default function RequestFriendForm({ refreshFriendsInformation }) {
+export default function RequestFriendForm({ setUser }) {
   const [friendUsername, setFriendUsername] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -9,11 +9,11 @@ export default function RequestFriendForm({ refreshFriendsInformation }) {
     e.preventDefault();
     try {
       // Process friend request
-      await requestFriend(friendUsername);
+      const user = await requestFriend(friendUsername);
       // Upon successful request, we will reset the state fields.
       setErrors([]);
       setFriendUsername("");
-      refreshFriendsInformation();
+      setUser(user);
     } catch (error) {
       setErrors([error.response.data.msg]);
     }

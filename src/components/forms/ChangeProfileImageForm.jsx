@@ -4,23 +4,23 @@ import { useEffect, useState } from "react";
 import { updateProfilePicture } from "../../assets/api";
 
 export default function ChangeProfileImageForm({ setUser }) {
-  const [image, setImage] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
     const updatePicture = async () => {
       try {
-        const user = await updateProfilePicture(image);
+        const user = await updateProfilePicture(profilePicture);
         setUser(user);
       } catch (error) {
         alert("Error uploading new picture");
       }
     };
 
-    // Runs whenever a image gets uploaded to the form
-    if (image !== null) {
+    // Runs whenever a profilePicture gets uploaded to the form
+    if (profilePicture !== null) {
       updatePicture();
     }
-  }, [image, setUser]);
+  }, [profilePicture, setUser]);
 
   return (
     <form className="ChangeProfileImage">
@@ -32,7 +32,7 @@ export default function ChangeProfileImageForm({ setUser }) {
         id="fileUpload"
         type="file"
         accept=".jpg, .jpeg, .png"
-        onChange={(e) => setImage(e.target.files[0])}
+        onChange={(e) => setProfilePicture(e.target.files[0])}
       />
     </form>
   );

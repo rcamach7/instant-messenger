@@ -56,24 +56,26 @@ export async function getFriends() {
   }
 }
 
-// Add a friend to the current user
-export async function addFriend(friend) {
+export async function requestFriend(friendUsername) {
   try {
-    await axios.post(`${config.apiUrl}/users/friends`, {
-      friendUsername: friend,
-    });
-    return Promise.resolve();
+    const {
+      data: { user },
+    } = await axios.put(`${config.apiUrl}/friends/${friendUsername}`);
+
+    return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }
 }
 
-// Request a new friend
-export async function requestFriend(friendUsername) {
+// Add a friend to the current user
+export async function acceptFriendRequest(friendId) {
   try {
-    await axios.post(`${config.apiUrl}/users/friends/request`, {
-      friendUsername: friendUsername.toLowerCase(),
-    });
+    const {
+      data: { user },
+    } = await axios.post(`${config.apiUrl}/friends/${friendId}`);
+
+    return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -95,31 +97,33 @@ export async function sendMessage(friendUsername, message, roomSocket) {
 }
 
 // Update profile image, and return user with updated image
-export async function updateProfilePicture(image) {
+export async function updateProfilePicture(profilePicture) {
   try {
     // Create a formData instance so we can send multipart/form-data outside of form control
     const formData = new FormData();
-    formData.append("image", image);
-    await axios({
+    formData.append("profilePicture", profilePicture);
+
+    const {
+      data: { user },
+    } = await axios({
       method: "put",
-      url: `${config.apiUrl}/users/profilePicture`,
+      url: `${config.apiUrl}/users/`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     });
-    // Retrieve user with updated information
-    const user = await getUser();
     return Promise.resolve(user);
   } catch (error) {
+    console.log(error);
     return Promise.reject(error);
   }
 }
 
-export async function updateName(newName) {
+export async function updateName(fullName) {
   try {
     const {
-      data: { user, token },
-    } = await axios.put(`${config.apiUrl}/users/`, newName);
-    return Promise.resolve({ user, token });
+      data: { user },
+    } = await axios.put(`${config.apiUrl}/users/`, { fullName });
+    return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
   }

@@ -4,17 +4,12 @@ import { updateName } from "../../assets/api";
 
 export default function UpdateNameForm({ setShowEditNameForm }) {
   const { user, setUser } = useContext(UserContext);
-  const [newName, setNewName] = useState({
-    fullName: user.fullName,
-  });
+  const [fullName, setFullName] = useState(user ? user.fullName : "");
 
   const handleNameChange = async (e) => {
     e.preventDefault(e);
     try {
-      const { user, token } = await updateName(newName);
-      // Delete old token, and store the new one with freshly signed user details
-      localStorage.removeItem("token");
-      localStorage.setItem("token", token);
+      const user = await updateName(fullName);
       // Update our parent component with new user details.
       setUser(user);
       setShowEditNameForm(false);
@@ -27,13 +22,8 @@ export default function UpdateNameForm({ setShowEditNameForm }) {
     <form className="updateName" onSubmit={(e) => handleNameChange(e)}>
       <input
         type="text"
-        value={newName.fullName}
-        id="fullName"
-        onChange={(e) =>
-          setNewName({
-            [e.target.id]: e.target.value,
-          })
-        }
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
         autoComplete="false"
         minLength="4"
         required

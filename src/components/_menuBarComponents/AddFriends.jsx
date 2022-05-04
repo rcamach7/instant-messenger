@@ -2,14 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import RequestFriendForm from "../forms/RequestFriendForm";
-import { addFriend } from "../../assets/api";
+import { acceptFriendRequest } from "../../assets/api";
+import { useContext } from "react";
+import { UserContext } from "../../RouteSwitch.js";
 
-export default function AddFriends({
-  sentFriendRequests,
-  receivedFriendRequests,
-  refreshFriendsInformation,
-  setShowAddFriends,
-}) {
+export default function AddFriends({ setShowAddFriends }) {
+  const { user, setUser } = useContext(UserContext);
+  const {
+    sentFriendRequests,
+    receivedFriendRequests,
+    refreshFriendsInformation,
+  } = user;
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
@@ -19,9 +22,7 @@ export default function AddFriends({
           className="iconClose"
         />
         {/* Input form to request a new friend */}
-        <RequestFriendForm
-          refreshFriendsInformation={refreshFriendsInformation}
-        />
+        <RequestFriendForm setUser={setUser} />
 
         {/* Container for requests sent out by user */}
         <div className="sentRequests">
@@ -68,12 +69,12 @@ export default function AddFriends({
 }
 
 // Represents a individual that has requested the user as a friend.
-function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
+function FriendRequest({ receivedRequest, setUser }) {
   // Accept friend request and have API add user to friends.
-  const handleAcceptRequest = async (friendUsername) => {
+  const handleAcceptRequest = async (friendId) => {
     try {
-      await addFriend(friendUsername);
-      refreshFriendsInformation();
+      const user = await acceptFriendRequest(friendId);
+      setUser(user);
     } catch (error) {
       alert("Error adding friend");
     }
@@ -92,7 +93,7 @@ function FriendRequest({ receivedRequest, refreshFriendsInformation }) {
         <div className="actionButtons">
           <button
             className="confirm"
-            onClick={() => handleAcceptRequest(receivedRequest._id.username)}
+            onClick={() => handleAcceptRequest(receivedRequest._id)}
           >
             Accept
           </button>
