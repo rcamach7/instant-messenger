@@ -1,4 +1,4 @@
 {
-  "apiUrl": "https://mighty-depths-39289.herokuapp.com",
+  "apiUrl": "http://localhost:2000",
   "tempUrl": "http://localhost:2000"
 }

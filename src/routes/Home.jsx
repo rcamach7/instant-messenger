@@ -49,7 +49,6 @@ function Home({ toggleTheme, setStoredJwt }) {
       <MenuBar
         style={{ display: mobileSwapSection ? "none" : "flex" }}
         activeFriendChat={activeFriendChat}
-        myFriends={myFriends}
         toggleTheme={toggleTheme}
         refreshFriendsInformation={refreshFriendsInformation}
         setStoredJwt={setStoredJwt}

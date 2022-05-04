@@ -33,7 +33,7 @@ export async function getToken(account) {
   try {
     const {
       data: { token },
-    } = await axios.post(`${config.apiUrl}/users/log-in`, account);
+    } = await axios.post(`${config.apiUrl}/login`, account);
     return Promise.resolve(token);
   } catch (error) {
     return Promise.reject(error);
