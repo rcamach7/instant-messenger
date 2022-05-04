@@ -7,7 +7,7 @@ function Home({ toggleTheme, setStoredJwt }) {
   // Active chat information
   const [roomSocket, setRoomSocket] = useState(null);
   const [activeFriendChat, setActiveFriendChat] = useState({
-    friendUsername: "",
+    friendId: "",
     fullName: "",
     messages: [],
   });

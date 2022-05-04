@@ -12,7 +12,7 @@ function ChatRow({
   const handleInitiateChat = () => {
     // Will this particular friends information to initiate a chatroom with a socket connection.
     setActiveFriendChat({
-      friendUsername: chat.friend.username,
+      friendId: chat.friend._id,
       fullName: chat.friend.fullName,
       messages: chat.messages,
     });

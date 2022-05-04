@@ -83,16 +83,16 @@ export async function acceptFriendRequest(friendId) {
 }
 
 // Send a new message to a friend
-export async function sendMessage(friendUsername, message, roomSocket) {
+export async function sendMessage(friendId, roomSocket, message) {
   try {
-    await axios.post(`${config.apiUrl}/users/friends/messages`, {
-      friendUsername,
+    await axios.post(`${config.apiUrl}/messages/${friendId}`, {
       message,
       // _id field is passed to emit a socket signal to any users in a room with this identifier.
       _id: roomSocket,
     });
     return Promise.resolve();
   } catch (error) {
+    console.log(error);
     Promise.reject(error);
   }
 }

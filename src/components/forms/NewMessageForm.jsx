@@ -18,13 +18,10 @@ function NewMessageForm({ activeFriendChat, roomSocket }) {
       setNewMessage("");
     } else {
       try {
-        await sendMessage(
-          activeFriendChat.friendUsername,
-          newMessage,
-          roomSocket
-        );
+        await sendMessage(activeFriendChat.friendId, roomSocket, newMessage);
         setNewMessage("");
       } catch (error) {
+        console.log(error);
         alert("Error sending new message");
       }
     }
