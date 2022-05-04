@@ -1,4 +1,4 @@
 {
-  "apiUrl": "http://localhost:2000",
+  "apiUrl": "https://fb-messenger-api.herokuapp.com",
   "tempUrl": "http://localhost:2000"
 }
