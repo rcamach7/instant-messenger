@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../RouteSwitch";
+import { sortFriends } from "../assets/helperFunctions";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,17 +17,16 @@ function MenuBar({
   style,
   activeFriendChat,
   toggleTheme,
-  refreshFriendsInformation,
-  setStoredJwt,
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
-  myFriends,
 }) {
+  const { user } = useContext(UserContext);
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
+
   // Generate a collection of chat rows given the users friends.
-  const sortedFriends = myFriends.friends;
+  const sortedFriends = sortFriends([...(user ? user.friends : [])]);
   const chatRows = sortedFriends.map((chat) => {
     return (
       <ChatRow
@@ -94,17 +95,12 @@ function MenuBar({
 
       {/* Hidden Tabs */}
       {showProfile ? (
-        <Profile
-          toggleTheme={toggleTheme}
-          setStoredJwt={setStoredJwt}
-          setShowProfile={setShowProfile}
-        />
+        <Profile toggleTheme={toggleTheme} setShowProfile={setShowProfile} />
       ) : null}
       {showAddFriends ? (
         <AddFriends
-          sentFriendRequests={myFriends.sentFriendRequests}
-          receivedFriendRequests={myFriends.receivedFriendRequests}
-          refreshFriendsInformation={refreshFriendsInformation}
+          sentFriendRequests={user ? user.sentFriendRequests : []}
+          receivedFriendRequests={user ? user.receivedFriendRequests : []}
           setShowAddFriends={setShowAddFriends}
         />
       ) : null}

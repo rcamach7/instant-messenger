@@ -10,15 +10,14 @@ import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImageForm from "../forms/ChangeProfileImageForm";
 import LoadingComponents from "./LoadingComponents";
 
-function Profile({ toggleTheme, setStoredJwt, setShowProfile }) {
+function Profile({ toggleTheme, setShowProfile }) {
   const { user, setUser } = useContext(UserContext);
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    setUser(null);
-    setStoredJwt(null);
+    window.location.reload();
   };
 
   useEffect(() => {

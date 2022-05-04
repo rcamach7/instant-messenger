@@ -11,17 +11,12 @@ function MessagesViewport({
   activeFriendChat,
   roomSocket,
   toggleTheme,
-  refreshFriendsInformation,
   setMobileSwapSection,
   setActiveFriendChat,
 }) {
   const messages = activeFriendChat.messages;
   // Manages socket connection based on current active chat.
-  useSocketConnection(
-    roomSocket,
-    refreshFriendsInformation,
-    setActiveFriendChat
-  );
+  useSocketConnection(roomSocket, setActiveFriendChat);
 
   // Sort messages whenever a new one comes in.
   useEffect(() => {
