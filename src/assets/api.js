@@ -77,6 +77,7 @@ export async function acceptFriendRequest(friendId) {
 
     return Promise.resolve(user);
   } catch (error) {
+    console.log(error);
     return Promise.reject(error);
   }
 }

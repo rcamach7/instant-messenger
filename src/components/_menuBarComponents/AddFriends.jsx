@@ -8,11 +8,7 @@ import { UserContext } from "../../RouteSwitch.js";
 
 export default function AddFriends({ setShowAddFriends }) {
   const { user, setUser } = useContext(UserContext);
-  const {
-    sentFriendRequests,
-    receivedFriendRequests,
-    refreshFriendsInformation,
-  } = user;
+  const { sentFriendRequests, receivedFriendRequests } = user;
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
@@ -48,7 +44,7 @@ export default function AddFriends({ setShowAddFriends }) {
               <FriendRequest
                 key={i}
                 receivedRequest={receivedRequest}
-                refreshFriendsInformation={refreshFriendsInformation}
+                setUser={setUser}
               />
             );
           })}
@@ -93,7 +89,7 @@ function FriendRequest({ receivedRequest, setUser }) {
         <div className="actionButtons">
           <button
             className="confirm"
-            onClick={() => handleAcceptRequest(receivedRequest._id)}
+            onClick={() => handleAcceptRequest(receivedRequest._id._id)}
           >
             Accept
           </button>

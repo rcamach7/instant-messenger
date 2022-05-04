@@ -17,7 +17,6 @@ function MenuBar({
   style,
   activeFriendChat,
   toggleTheme,
-  refreshFriendsInformation,
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
@@ -102,7 +101,6 @@ function MenuBar({
         <AddFriends
           sentFriendRequests={user ? user.sentFriendRequests : []}
           receivedFriendRequests={user ? user.receivedFriendRequests : []}
-          refreshFriendsInformation={refreshFriendsInformation}
           setShowAddFriends={setShowAddFriends}
         />
       ) : null}

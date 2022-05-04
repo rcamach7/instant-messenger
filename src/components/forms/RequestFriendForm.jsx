@@ -10,12 +10,13 @@ export default function RequestFriendForm({ setUser }) {
     try {
       // Process friend request
       const user = await requestFriend(friendUsername);
+
       // Upon successful request, we will reset the state fields.
       setErrors([]);
       setFriendUsername("");
       setUser(user);
     } catch (error) {
-      setErrors([error.response.data.msg]);
+      setErrors([error.response.data.message]);
     }
   };
 
