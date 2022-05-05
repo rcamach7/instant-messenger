@@ -11,8 +11,9 @@ function LandingPage() {
     password: "",
   });
   const [loadingUx, setLoadingUx] = useState(false);
-  // Will display error if credentials are not correct
+  // Will control display error if credentials are not correct
   const [errors, setErrors] = useState(false);
+  // Will control display the form to create a new account.
   const [showCreateAccountForm, setCreateAccountForm] = useState(false);
 
   // Upon login - we will save the token we receive (if successful) and store it in local memory.
@@ -32,7 +33,6 @@ function LandingPage() {
       localStorage.setItem("token", token);
       window.location.reload();
     } catch (error) {
-      // Catch and display any login errors from API
       setLoadingUx(false);
       setErrors(true);
     }
@@ -40,6 +40,7 @@ function LandingPage() {
 
   return (
     <div className="LandingPage">
+      {/* Basic site logo and hook */}
       <aside>
         <img src={logo} alt="" />
         <p className="logo-text">

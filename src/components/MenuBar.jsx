@@ -16,7 +16,6 @@ import AddFriends from "./_menuBarComponents/AddFriends";
 function MenuBar({
   style,
   activeFriendChat,
-  toggleTheme,
   setMobileSwapSection,
   setActiveFriendChat,
   setRoomSocket,
@@ -48,7 +47,7 @@ function MenuBar({
   return (
     <aside className="MenuBar" style={style}>
       <nav className="navbar">
-        <ul>
+        <ul className="tabs-buttons">
           <li>
             {
               <FontAwesomeIcon
@@ -71,7 +70,7 @@ function MenuBar({
         </ul>
       </nav>
 
-      {/* Main container that holds all different friends */}
+      {/* Main container that holds all different friends, with recent message preview. */}
       <div className="chatRowsContainer">{chatRows}</div>
 
       {/* Container that holds social icons */}
@@ -93,10 +92,9 @@ function MenuBar({
         </li>
       </ul>
 
-      {/* Hidden Tabs */}
-      {showProfile ? (
-        <Profile toggleTheme={toggleTheme} setShowProfile={setShowProfile} />
-      ) : null}
+      {/* Profile Page Tab */}
+      {showProfile ? <Profile setShowProfile={setShowProfile} /> : null}
+      {/* Friends Tab */}
       {showAddFriends ? (
         <AddFriends
           sentFriendRequests={user ? user.sentFriendRequests : []}

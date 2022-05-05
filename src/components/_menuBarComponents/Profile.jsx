@@ -10,8 +10,8 @@ import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImageForm from "../forms/ChangeProfileImageForm";
 import LoadingComponents from "./LoadingComponents";
 
-function Profile({ toggleTheme, setShowProfile }) {
-  const { user, setUser } = useContext(UserContext);
+function Profile({ setShowProfile }) {
+  const { user, setUser, setTheme } = useContext(UserContext);
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
@@ -70,7 +70,15 @@ function Profile({ toggleTheme, setShowProfile }) {
         <nav className="profileButtons">
           <ul className="buttonList">
             <li>
-              <button onClick={() => toggleTheme()}>Toggle Dark Mode</button>
+              <button
+                onClick={() =>
+                  setTheme((prevState) =>
+                    prevState === "light" ? "dark" : "light"
+                  )
+                }
+              >
+                Toggle Dark Mode
+              </button>
             </li>
             <li>
               <button>Report A Problem</button>

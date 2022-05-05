@@ -1,19 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faMoon } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { v4 } from "uuid";
 import NewMessageForm from "./forms/NewMessageForm";
 import Message from "./_messagesViewportComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
+import { UserContext } from "../RouteSwitch";
 
 function MessagesViewport({
   style,
   activeFriendChat,
   roomSocket,
-  toggleTheme,
   setMobileSwapSection,
   setActiveFriendChat,
 }) {
+  const { setTheme } = useContext(UserContext);
   const messages = activeFriendChat.messages;
   // Manages socket connection based on current active chat.
   useSocketConnection(roomSocket, setActiveFriendChat);
@@ -42,7 +43,11 @@ function MessagesViewport({
             <FontAwesomeIcon
               icon={faMoon}
               className="icon"
-              onClick={() => toggleTheme()}
+              onClick={() =>
+                setTheme((prevState) =>
+                  prevState === "light" ? "dark" : "light"
+                )
+              }
             />
           </li>
         </ul>
