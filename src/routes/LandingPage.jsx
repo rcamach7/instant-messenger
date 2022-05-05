@@ -2,12 +2,15 @@ import { useState } from "react";
 import logo from "../assets/logo.gif";
 import CreateAccountForm from "../components/forms/CreateAccountForm";
 import { getToken } from "../assets/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 function LandingPage() {
   const [account, setAccount] = useState({
     username: "",
     password: "",
   });
+  const [loadingUx, setLoadingUx] = useState(false);
   // Will display error if credentials are not correct
   const [errors, setErrors] = useState(false);
   const [showCreateAccountForm, setCreateAccountForm] = useState(false);
@@ -19,6 +22,7 @@ function LandingPage() {
     try {
       // Checks if we are using a test account or not.
       let token;
+      setLoadingUx(true);
       if (useTestAccount) {
         token = await getToken({ username: "foobar", password: "test" });
       } else {
@@ -29,6 +33,7 @@ function LandingPage() {
       window.location.reload();
     } catch (error) {
       // Catch and display any login errors from API
+      setLoadingUx(false);
       setErrors(true);
     }
   };
@@ -70,7 +75,7 @@ function LandingPage() {
           required
         />
         {errors ? (
-          <p style={{ color: "red" }}>Invalid username or password</p>
+          <p className="form-errors">Invalid username or password</p>
         ) : null}
         <button className="login-btn" type="submit">
           Log In
@@ -86,6 +91,13 @@ function LandingPage() {
         >
           Create new account
         </button>
+
+        {/* UX Loading spinner */}
+        {loadingUx ? (
+          <div className="loadingUx">
+            <FontAwesomeIcon icon={faSpinner} className="loadingIcon" />
+          </div>
+        ) : null}
       </form>
 
       {/* Hidden form component */}
