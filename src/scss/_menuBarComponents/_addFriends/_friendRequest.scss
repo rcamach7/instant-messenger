@@ -1,0 +1,40 @@
+@use "../../variables" as v;
+
+.FriendRequest {
+  padding: 5px;
+
+  border-radius: 10px;
+  border: solid black 1px;
+
+  display: flex;
+  align-items: center;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid black 1px;
+  }
+  .userInfo {
+    flex: 2;
+    padding-left: 5px;
+
+    p {
+      font-weight: bold;
+    }
+    .actionButtons {
+      display: flex;
+      gap: 5px;
+      button {
+        flex: 1;
+        padding: 2.5px 5px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .confirm {
+        color: white;
+        background-color: v.$theme-main;
+      }
+    }
+  }
+}

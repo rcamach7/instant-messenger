@@ -9,8 +9,11 @@
 @import "./_messagesViewportComponents/message";
 @import "./_menuBarComponents/chatRow";
 @import "./_menuBarComponents/profile";
-@import "./_menuBarComponents/addFriends";
 @import "./_menuBarComponents/loadingComponents";
+@import "./_menuBarComponents/_addFriends/addFriends";
+@import "./_menuBarComponents/_addFriends/sentFriendRequest";
+@import "./_menuBarComponents/_addFriends/friendRequest";
+
 // Forms styling
 @import "./forms/createAccountForm";
 @import "./forms/newMessageForm";

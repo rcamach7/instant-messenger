@@ -11,7 +11,7 @@ import {
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import ChatRow from "./menuBarComponents/ChatRow";
 import Profile from "./menuBarComponents/Profile";
-import AddFriends from "./menuBarComponents/AddFriends";
+import AddFriends from "./menuBarComponents/AddFriends/AddFriends";
 
 function MenuBar({
   style,
