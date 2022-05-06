@@ -23,13 +23,14 @@ export default function RequestFriendForm({ setUser }) {
   return (
     <form className="addNewFriend" onSubmit={(e) => handleFriendRequest(e)}>
       <label htmlFor="friendUsername">
-        <p>Add New Friend</p>
+        <p>Request Friend</p>
       </label>
       <input
         type="text"
         id="friendUsername"
         minLength="4"
         autoComplete="off"
+        placeholder="Enter username"
         value={friendUsername}
         onChange={(e) => setFriendUsername(e.target.value)}
         required

@@ -76,6 +76,10 @@ body.dark {
         .titleEmpty {
           border: solid rgb(255, 255, 255) 2px !important;
         }
+        .SentFriendRequest,
+        .FriendRequest {
+          border: solid lightgray 1px;
+        }
       }
     }
 

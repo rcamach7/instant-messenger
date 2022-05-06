@@ -9,9 +9,9 @@ import {
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import ChatRow from "./_menuBarComponents/ChatRow";
-import Profile from "./_menuBarComponents/Profile";
-import AddFriends from "./_menuBarComponents/AddFriends";
+import ChatRow from "./menuBarComponents/ChatRow";
+import Profile from "./menuBarComponents/Profile";
+import AddFriends from "./menuBarComponents/AddFriends";
 
 function MenuBar({
   style,

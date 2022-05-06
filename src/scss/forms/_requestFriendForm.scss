@@ -8,11 +8,14 @@
     font-weight: bold;
   }
   input {
+    padding: 0 5px;
+    width: fit-content;
+    text-align: center;
     border-radius: 10px;
   }
   ul {
     .error {
-      color: red;
+      color: red !important;
       list-style: none;
     }
   }
