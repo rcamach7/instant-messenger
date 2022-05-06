@@ -32,9 +32,7 @@ function MenuBar({
         key={v4()}
         // If this current chat row is the current active one - background will be slightly different.
         activeStyle={
-          activeFriendChat.friendUsername === chat.friend.username
-            ? "activeChat"
-            : ""
+          activeFriendChat.friendId === chat.friend._id ? "activeChat" : ""
         }
         chat={chat}
         setMobileSwapSection={setMobileSwapSection}
