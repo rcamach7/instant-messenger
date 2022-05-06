@@ -11,12 +11,16 @@
     font-weight: bold;
     padding: 6px;
     word-wrap: break-word;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   // Styling based on sender
   .myMessage {
     height: fit-content;
     margin-left: auto;
-    text-align: right;
+    text-align: left;
 
     color: white;
     background-color: rgb(72, 72, 235);
