@@ -2,7 +2,7 @@
 
 Modern full stack web messenger applications that allows users to chat with friends over a real-time connection.
 
-![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1649988013/main-portfolio/projects/messenger_kohrka.png)
+![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1651963604/portfolio/project_demos/demo_do1qox.gif)
 
 <div align="center">
 
@@ -13,39 +13,33 @@ Modern full stack web messenger applications that allows users to chat with frie
 ## Key Features
 
 - User interface built with React, styled with SCSS, and designed with a mobile first approach, making it responsive to all view ports.
-- API was created using Node and Express, which sanitizes and validates any data or request received from our front-end.
-- User authentication and security implemented with PassportJS and JWT Tokens, which were also used to protect routes against un-authenticated users.
-- MongoDB, in conjunction with mongoose, used to store and update user information.
-
-### In depth features
+- Real-time connection established for messaging by having client create a socket connection with server, and communicate anytime a user sends a message.
+- Custom hooks created for user management, along with React hooks such as useContext, useState, and useEffect to build application functionality and features.
+- User authentication and security implemented with JWT Tokens, which were also used to protect routes against un-authenticated users.
+- Form validation and sanitation implemented in each form making an API call.
 
 <details>
-  <summary>Front End (ReactJS)</summary>
+  <summary>...more app features</summary>
   <li>Custom react hooks created to manage key functionality</li>
   <li>Asynchronous javascript utilized using async/await and promise based functions.</li>
-  <li>Form validation and sanitation implemented before making requests to out API</li>
   <li>Destructured component props for easier readability and maintainability</li>
   <li>Light and dark theme implemented and user preference saved for future visits</li>
   <li>Utilized app routing and protection of routes using JWT tokens</li>
 </details>
-<details>
-  <summary>Backend (NodeJS + ExpressJS + MongoDB)</summary>
-  <li>User models created to enforce persistent data documents</li>
-  <li>Endpoints sanitize and validate data before performing any CRUD operations to enforce data models.</li>
-  <li>Password hashing implemented to protect users</li>
-  <li>CORS enabled for all endpoints to allow communication with our front end</li>
-  <li>PassportJS utilized to validate any log in requests</li>
-  <li>Cloudinary utilized to store and set user profile images</li>
-</details>
+<br>
 
-### Built Using
+#### Built Using:
 
-- React: library
-  - axios, uuid, react-router-dom, sass, font awesome icon's, socket-io-client
-- NodeJS: runtime environment
-  - express, express-validator, socket.io, cors, dotenv, passport, passport-local, bcryptjs, jsonwebtoken
-- MongoDB: database system
-  - mongoose, cloudinary
+- react, create-react-app, axios, uuid, react-router-dom, sass, font awesome icon's, socket-io-client, useEffect, useState, useContext, React.Context, axios interceptors, custom hooks, hash router, promise based functions, async/await, custom API, etc...
+
+#### How to install and run?
+
+```bash
+ git clone https://github.com/rcamach7/messenger
+ cd messenger
+ npm install
+ npm start
+```
 
 #### To-Do's
 
