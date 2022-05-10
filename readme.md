@@ -43,4 +43,4 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 #### To-Do's
 
-- Add time stamps to messages to indicate when they were sent
+- Give ability for users to send images.

@@ -13,7 +13,7 @@ function NewMessageForm({ activeFriendChat, roomSocket }) {
   const handleNewMessage = async (e) => {
     e.preventDefault();
     // If user isn't inside a friend chat, let user know. (happens upon first log in)
-    if (activeFriendChat.friendUsername === "") {
+    if (activeFriendChat.friendId === "") {
       alert("Please select a friend to begin a conversation");
       setNewMessage("");
     } else {
