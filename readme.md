@@ -30,7 +30,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 #### Built Using:
 
-- react, create-react-app, axios, uuid, react-router-dom, sass, font awesome icon's, socket-io-client, useEffect, useState, useContext, React.Context, axios interceptors, custom hooks, hash router, promise based functions, async/await, custom API, etc...
+- react, create-react-app, axios, uuid, react-router-dom, sass, font awesome icon's, socket-io-client, useEffect, useState, useContext, React.Context, axios interceptors, custom hooks, hash router, promise based functions, async/await, custom API, moment etc...
 
 #### How to install and run?
 
