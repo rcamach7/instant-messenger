@@ -25,5 +25,5 @@ export default function useSetTheme() {
     }
   }, [theme]);
 
-  return [setTheme];
+  return setTheme;
 }

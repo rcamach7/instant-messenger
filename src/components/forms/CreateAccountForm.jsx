@@ -17,7 +17,6 @@ function CreateAccountForm({ setCreateAccountForm }) {
   const handleCreateAccount = async (e) => {
     e.preventDefault();
     if (account.password !== account.passwordConfirm) {
-      // Display form error
       setBadPasswordError(true);
     } else {
       try {

@@ -27,7 +27,7 @@ export const UserContext = React.createContext();
 const RouteSwitch = () => {
   const [storedJwt, setStoredJwt] = useState(myToken);
   const [user, setUser] = useFetchUser(storedJwt, setStoredJwt);
-  const [setTheme] = useSetTheme("light");
+  const setTheme = useSetTheme("light");
 
   return (
     <HashRouter>

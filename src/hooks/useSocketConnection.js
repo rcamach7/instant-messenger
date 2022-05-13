@@ -47,5 +47,6 @@ export default function useSocketConnection(roomSocket, setActiveFriendChat) {
     socket.on("friend activity", () => {
       fetchUser();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
