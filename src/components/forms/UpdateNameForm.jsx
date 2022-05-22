@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import { UserContext } from "../../RouteSwitch";
+import { useState } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import { updateName } from "../../assets/api";
 
 export default function UpdateNameForm({ setShowEditNameForm }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUserContext();
   const [fullName, setFullName] = useState(user ? user.fullName : "");
 
   const handleNameChange = async (e) => {

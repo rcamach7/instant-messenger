@@ -1,9 +1,8 @@
-import { UserContext } from "../../RouteSwitch";
-import { useContext } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import moment from "moment";
 
 function Message({ message }) {
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
 
   return (
     <li className="Message">

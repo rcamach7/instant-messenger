@@ -6,6 +6,7 @@ import LandingPage from "./routes/LandingPage";
 import Home from "./routes/Home";
 import useFetchUser from "./hooks/useFetchUser";
 import useSetTheme from "./hooks/useSetTheme";
+import { UserContext } from "./hooks/useUserContext";
 
 // Send all requests with our authentication token - if it exists.
 const myToken = localStorage.getItem("token");
@@ -20,9 +21,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-// Export user context to provide to any children components who need it.
-export const UserContext = React.createContext();
 
 const RouteSwitch = () => {
   const [storedJwt, setStoredJwt] = useState(myToken);

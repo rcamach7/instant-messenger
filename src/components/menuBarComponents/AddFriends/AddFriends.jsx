@@ -4,14 +4,13 @@ import {
   faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useContext } from "react";
-import { UserContext } from "../../../RouteSwitch.js";
+import { useUserContext } from "../../../hooks/useUserContext";
 import RequestFriendForm from "../../forms/RequestFriendForm";
 import SentFriendRequest from "./SentFriendRequest";
 import FriendRequest from "./FriendRequest.jsx";
 
 export default function AddFriends({ setShowAddFriends }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUserContext();
   const { sentFriendRequests, receivedFriendRequests } = user;
   return (
     <div className="AddFriendsBackdrop">

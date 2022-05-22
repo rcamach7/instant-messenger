@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 import config from "../assets/config.json";
 import { getUser } from "../assets/api.js";
-import { useEffect, useContext } from "react";
-import { UserContext } from "../RouteSwitch";
+import { useEffect } from "react";
+import { useUserContext } from "./useUserContext";
 
 // Create a live socket connection to our server to listen to events.
 const socket = io.connect(`${config.apiUrl}`, {
@@ -10,7 +10,7 @@ const socket = io.connect(`${config.apiUrl}`, {
 });
 
 export default function useSocketConnection(roomSocket, setActiveFriendChat) {
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useUserContext();
 
   const fetchUser = async () => {
     try {

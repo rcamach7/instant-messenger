@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { UserContext } from "../RouteSwitch";
+import { useState } from "react";
 import { sortFriends } from "../assets/helperFunctions";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +11,7 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import ChatRow from "./menuBarComponents/ChatRow";
 import Profile from "./menuBarComponents/Profile";
 import AddFriends from "./menuBarComponents/AddFriends/AddFriends";
+import { useUserContext } from "../hooks/useUserContext";
 
 function MenuBar({
   style,
@@ -20,7 +20,7 @@ function MenuBar({
   setActiveFriendChat,
   setRoomSocket,
 }) {
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
 

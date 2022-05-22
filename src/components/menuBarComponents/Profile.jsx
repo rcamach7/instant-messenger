@@ -4,14 +4,14 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../RouteSwitch";
+import { useState, useEffect } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImageForm from "../forms/ChangeProfileImageForm";
 import LoadingComponents from "./LoadingComponents";
 
 function Profile({ setShowProfile }) {
-  const { user, setUser, setTheme } = useContext(UserContext);
+  const { user, setUser, setTheme } = useUserContext();
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
   // Deletes token and refreshes the page to log user out.
