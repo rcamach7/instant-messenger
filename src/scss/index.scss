@@ -1,3 +1,4 @@
+@use "./variables" as v;
 @import "./variables";
 // Page styling
 @import "./Home";
@@ -200,7 +201,9 @@ body.dark {
   // Will prevent background color on active chat since it's not relevant in mobile mode.
   body.dark {
     .activeChat {
-      background-color: transparent !important;
+      background-color: rgb(45, 51, 59) !important;
+      border-top: solid white 0.5px;
+      border-bottom: solid white 0.5px;
     }
   }
 }

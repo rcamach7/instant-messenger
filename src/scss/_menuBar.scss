@@ -41,6 +41,8 @@
   .chatRowsContainer {
     .activeChat {
       background-color: rgb(230, 230, 230);
+      border-top: solid black 0.5px;
+      border-bottom: solid black 0.5px;
     }
   }
   .personalSocialsContainer {

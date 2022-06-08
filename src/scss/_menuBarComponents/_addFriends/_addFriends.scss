@@ -85,7 +85,8 @@
     }
 
     .facebookPreview {
-      padding-top: 25px;
+      margin-top: auto;
+      padding-bottom: 25px;
 
       display: flex;
       flex-direction: column;
@@ -108,7 +109,6 @@
     }
 
     .socialsContainer {
-      margin-top: auto;
       padding-bottom: 10px;
 
       display: flex;
