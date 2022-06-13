@@ -20,6 +20,13 @@ Instant Messenger application that allows users to chat with friends over a real
 
 #### Built Using:
 
+<p align="center">
+  <img src="https://res.cloudinary.com/de2ymful4/image/upload/v1648514838/main-portfolio/animated-logos/react-anim_jqtsxo.gif" width="40" height="40" alt="React" />
+  <img src="https://res.cloudinary.com/de2ymful4/image/upload/v1655159498/main-portfolio/tech-skills/socketio_jkkj1u.png" width="40" height="40" alt="SOCKET_IO" />
+  <img src="https://res.cloudinary.com/de2ymful4/image/upload/v1648514837/main-portfolio/animated-logos/js-anim_pxxk0j.gif" width="40" height="40" alt="Javascript" />
+  <img src="https://res.cloudinary.com/de2ymful4/image/upload/v1648515099/main-portfolio/animated-logos/sass-animated_lhind3.gif" width="30" height="35" alt="SASS" />
+</p>
+
 - react, socket-io-client, Context API, axios interceptors, uuid, react-router-dom, sass, font awesome icon's, useEffect, useState, ustom hooks, hash router, promise based functions, async/await, custom API, moment, and more...
 
 #### How to install and run?
