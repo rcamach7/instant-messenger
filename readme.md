@@ -1,6 +1,6 @@
 # Instant Messenger
 
-Modern full stack web messenger applications that allows users to chat with friends over a real-time connection.
+Instant Messenger application that allows users to chat with friends over a real-time socket connection. Uses my custom [**social media api**](https://github.com/rcamach7/social-media-api) for the backend.
 
 ![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1651963604/portfolio/project_demos/demo_do1qox.gif)
 
@@ -12,25 +12,15 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 ## Key Features
 
-- User interface built with React, styled with SCSS, and designed with a mobile first approach, making it responsive to all view ports.
-- Real-time connection established for messaging by having client create a socket connection with server, and communicate anytime a user sends a message.
-- Custom hooks created for user management, along with React hooks such as useContext, useState, and useEffect to build application functionality and features.
-- User authentication and security implemented with JWT Tokens, which were also used to protect routes against un-authenticated users.
-- Form validation and sanitation implemented in each form making an API call.
-
-<details>
-  <summary>...more app features</summary>
-  <li>Custom react hooks created to manage key functionality</li>
-  <li>Asynchronous javascript utilized using async/await and promise based functions.</li>
-  <li>Destructured component props for easier readability and maintainability</li>
-  <li>Light and dark theme implemented and user preference saved for future visits</li>
-  <li>Utilized app routing and protection of routes using JWT tokens</li>
-</details>
-<br>
+- User UI built with React, styled with SCSS, and designed with a mobile first approach, making it responsive to all view ports.
+- Real-time messaging established by creating web socket connections with my [**social media api**](https://github.com/rcamach7/social-media-api) server, enabling instant communication.
+- Custom hooks created for user management, along with React's context API, useState hook, and useEffect hooks to build application functionality and features.
+- User authentication and security implemented with JWT Tokens, which were also used to protect routes against un-authenticated users. Custom form validation and sanitation also implemented before processing requests.
+- Uses my [**social media api**](https://github.com/rcamach7/social-media-api) for the backend to allow users to use my [**facebook clone**](https://github.com/rcamach7/social-media-api) with the exact same credentials, carrying over all user data, like friends, messages, and posts.
 
 #### Built Using:
 
-- react, create-react-app, axios, uuid, react-router-dom, sass, font awesome icon's, socket-io-client, useEffect, useState, useContext, React.Context, axios interceptors, custom hooks, hash router, promise based functions, async/await, custom API, moment etc...
+- react, socket-io-client, Context API, axios interceptors, uuid, react-router-dom, sass, font awesome icon's, useEffect, useState, ustom hooks, hash router, promise based functions, async/await, custom API, moment, and more...
 
 #### How to install and run?
 
