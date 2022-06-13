@@ -31,7 +31,7 @@ const RouteSwitch = () => {
     <HashRouter>
       <Routes>
         <Route
-          path="/messenger"
+          path="/instant-messenger"
           element={
             // Will only allow user to enter path if not authenticated
             <NotAuthenticated storedJwt={storedJwt}>
@@ -40,7 +40,7 @@ const RouteSwitch = () => {
           }
         />
         <Route
-          path="/messenger/home"
+          path="/instant-messenger/home"
           element={
             // Will only allow user to enter path is JWT exists, which means they're authenticated.
             <RequireAuth storedJwt={storedJwt}>
@@ -51,7 +51,7 @@ const RouteSwitch = () => {
           }
         />
         {/* Will re-route any user not in a valid path */}
-        <Route path="*" element={<Navigate to="/messenger" />} />
+        <Route path="*" element={<Navigate to="/instant-messenger" />} />
       </Routes>
     </HashRouter>
   );
@@ -59,7 +59,7 @@ const RouteSwitch = () => {
 
 // Protects routes that require authentication
 function RequireAuth({ children, storedJwt }) {
-  return storedJwt === null ? <Navigate to="/messenger" replace /> : children;
+  return storedJwt === null ? <Navigate to="/instant-messenger" replace /> : children;
 }
 
 // Once authenticated, we don't want our users to continue in the landing page / sign in page.
@@ -67,7 +67,7 @@ function NotAuthenticated({ children, storedJwt }) {
   return storedJwt === null ? (
     children
   ) : (
-    <Navigate to="/messenger/home" replace />
+    <Navigate to="/instant-messenger/home" replace />
   );
 }
 

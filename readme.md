@@ -6,7 +6,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 <div align="center">
 
-[Visit messenger website](https://rcamach7.github.io/messenger/#/messenger)
+[Visit messenger website](https://rcamach7.github.io/instant-messenger/#/instant-messenger)
 
 </div>
 
@@ -35,7 +35,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### How to install and run?
 
 ```bash
- git clone https://github.com/rcamach7/messenger
+ git clone https://github.com/rcamach7/instant-messenger
  cd messenger
  npm install
  npm start
