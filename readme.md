@@ -1,4 +1,4 @@
-# Messenger Web App
+# Instant Messenger
 
 Modern full stack web messenger applications that allows users to chat with friends over a real-time connection.
 
@@ -6,7 +6,7 @@ Modern full stack web messenger applications that allows users to chat with frie
 
 <div align="center">
 
-[Visit messenger website](https://rcamach7.github.io/instant-messenger/#/instant-messenger)
+[Visit Instant-Messenger](https://rcamach7.github.io/instant-messenger/#/instant-messenger)
 
 </div>
 
@@ -44,3 +44,4 @@ Modern full stack web messenger applications that allows users to chat with frie
 #### To-Do's
 
 - Give ability for users to send images.
+- Group chat times together if multiple messages were sent at the same time - only display sent time once.
