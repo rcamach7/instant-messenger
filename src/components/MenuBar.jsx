@@ -13,14 +13,8 @@ import Profile from "./menuBarComponents/Profile";
 import AddFriends from "./menuBarComponents/AddFriends/AddFriends";
 import { useUserContext } from "../context/UserContext";
 
-function MenuBar({
-  style,
-  activeFriendChat,
-  setMobileSwapSection,
-  setActiveFriendChat,
-  setRoomSocket,
-}) {
-  const { user } = useUserContext();
+function MenuBar({ style, setMobileSwapSection, setActiveFriendChat }) {
+  const { user, activeFriendChat } = useUserContext();
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
 
@@ -35,8 +29,6 @@ function MenuBar({
         }
         chat={chat}
         setMobileSwapSection={setMobileSwapSection}
-        setActiveFriendChat={setActiveFriendChat}
-        setRoomSocket={setRoomSocket}
       />
     );
   });

@@ -15,7 +15,14 @@ export const useUserContext = () => {
 export const UserContextProvider = ({ children }) => {
   const [jwtToken, setJwtToken] = useJwtToken();
   const [user, setUser] = useFetchUser(jwtToken, setJwtToken);
+
   const [roomSocket, setRoomSocket] = useState(null);
+  const [activeFriendChat, setActiveFriendChat] = useState({
+    friendId: "",
+    fullName: "",
+    messages: [],
+  });
+
   const setTheme = useSetTheme("light");
 
   return (
@@ -28,6 +35,8 @@ export const UserContextProvider = ({ children }) => {
         setTheme,
         roomSocket,
         setRoomSocket,
+        activeFriendChat,
+        setActiveFriendChat,
       }}
     >
       {children}

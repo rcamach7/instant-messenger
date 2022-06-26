@@ -5,9 +5,11 @@ import {
   faFaceSmile,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
+import { useUserContext } from "../../context/UserContext";
 import { sendMessage } from "../../data/api";
 
-function NewMessageForm({ activeFriendChat, roomSocket }) {
+function NewMessageForm() {
+  const { roomSocket, activeFriendChat } = useUserContext();
   const [newMessage, setNewMessage] = useState("");
 
   const handleNewMessage = async (e) => {

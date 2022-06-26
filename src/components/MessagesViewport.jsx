@@ -7,14 +7,9 @@ import Message from "./messagesViewportComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
 import { useUserContext } from "../context/UserContext";
 
-function MessagesViewport({
-  style,
-  activeFriendChat,
-  roomSocket,
-  setMobileSwapSection,
-  setActiveFriendChat,
-}) {
-  const { setTheme } = useUserContext();
+function MessagesViewport({ style, setMobileSwapSection }) {
+  const { setTheme, roomSocket, activeFriendChat, setActiveFriendChat } =
+    useUserContext();
   const messages = activeFriendChat.messages;
   // Manages socket connection based on current active chat.
   useSocketConnection(roomSocket, setActiveFriendChat);
@@ -65,10 +60,7 @@ function MessagesViewport({
           </ul>
         </div>
 
-        <NewMessageForm
-          activeFriendChat={activeFriendChat}
-          roomSocket={roomSocket}
-        />
+        <NewMessageForm />
       </div>
     </aside>
   );

@@ -1,12 +1,8 @@
 import { getLastMessage } from "../../data/helperFunctions";
+import { useUserContext } from "../../context/UserContext";
 
-function ChatRow({
-  activeStyle,
-  chat,
-  setMobileSwapSection,
-  setActiveFriendChat,
-  setRoomSocket,
-}) {
+function ChatRow({ activeStyle, chat, setMobileSwapSection }) {
+  const { setRoomSocket, setActiveFriendChat } = useUserContext();
   let lastMessage = getLastMessage(chat.messages);
 
   const handleInitiateChat = () => {
