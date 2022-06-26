@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 import NewMessageForm from "./forms/NewMessageForm";
 import Message from "./messagesViewportComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
-import { useUserContext } from "../hooks/useUserContext";
+import { useUserContext } from "../context/UserContext";
 
 function MessagesViewport({
   style,

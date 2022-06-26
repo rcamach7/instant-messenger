@@ -3,8 +3,7 @@ import useJwtToken from "../hooks/useJwtToken";
 import useSetTheme from "../hooks/useSetTheme";
 import useFetchUser from "../hooks/useFetchUser";
 
-const UserContext = createContext(null);
-
+export const UserContext = createContext(null);
 export const useUserContext = () => {
   const userContext = useContext(UserContext);
 

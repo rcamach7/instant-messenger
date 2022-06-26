@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
 import { useState, useEffect } from "react";
-import { useUserContext } from "../../hooks/useUserContext";
+import { useUserContext } from "../../context/UserContext";
 import UpdateNameForm from "../forms/UpdateNameForm";
 import ChangeProfileImageForm from "../forms/ChangeProfileImageForm";
 import LoadingComponents from "./LoadingComponents";

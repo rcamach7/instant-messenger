@@ -4,7 +4,7 @@ import {
   faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faDev } from "@fortawesome/free-brands-svg-icons";
-import { useUserContext } from "../../../hooks/useUserContext";
+import { useUserContext } from "../../../context/UserContext";
 import RequestFriendForm from "../../forms/RequestFriendForm";
 import SentFriendRequest from "./SentFriendRequest";
 import FriendRequest from "./FriendRequest.jsx";
