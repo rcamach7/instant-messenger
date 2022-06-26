@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { requestFriend } from "../../assets/api";
+import { requestFriend } from "../../data/api";
 
 export default function RequestFriendForm({ setUser }) {
   const [friendUsername, setFriendUsername] = useState("");

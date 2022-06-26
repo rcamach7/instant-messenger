@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getUser } from "../assets/api";
+import { getUser } from "../data/api";
 
 export default function useFetchUser(jwtToken, setJwtToken) {
   const [user, setUser] = useState(null);

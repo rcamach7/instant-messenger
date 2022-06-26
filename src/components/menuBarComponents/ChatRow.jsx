@@ -1,4 +1,4 @@
-import { getLastMessage } from "../../assets/helperFunctions";
+import { getLastMessage } from "../../data/helperFunctions";
 
 function ChatRow({
   activeStyle,

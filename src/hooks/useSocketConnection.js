@@ -1,6 +1,6 @@
 import io from "socket.io-client";
-import config from "../assets/config.json";
-import { getUser } from "../assets/api.js";
+import config from "../data/config.json";
+import { getUser } from "../data/api.js";
 import { useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
 

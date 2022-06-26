@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "../assets/logo.gif";
-import CreateAccountForm from "../components/forms/CreateAccountForm";
-import { getToken } from "../assets/api";
+import { CreateAccountForm } from "../components/forms/";
+import { getToken } from "../data/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 

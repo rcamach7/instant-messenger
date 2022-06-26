@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "./config.json";
+import config from "../data/config.json";
 
 // Retrieve current user info
 export async function getUser() {

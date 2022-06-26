@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUserContext } from "../../context/UserContext";
-import { updateName } from "../../assets/api";
+import { updateName } from "../../data/api";
 
 export default function UpdateNameForm({ setShowEditNameForm }) {
   const { user, setUser } = useUserContext();

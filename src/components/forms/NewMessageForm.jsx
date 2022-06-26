@@ -5,7 +5,7 @@ import {
   faFaceSmile,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import { sendMessage } from "../../assets/api";
+import { sendMessage } from "../../data/api";
 
 function NewMessageForm({ activeFriendChat, roomSocket }) {
   const [newMessage, setNewMessage] = useState("");

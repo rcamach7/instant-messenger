@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { updateProfilePicture } from "../../assets/api";
+import { updateProfilePicture } from "../../data/api";
 
 export default function ChangeProfileImageForm({ setUser }) {
   const [profilePicture, setProfilePicture] = useState(null);

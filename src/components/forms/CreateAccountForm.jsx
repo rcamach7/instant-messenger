@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { createUser } from "../../assets/api";
+import { createUser } from "../../data/api";
 
 function CreateAccountForm({ setCreateAccountForm }) {
   const [account, setAccount] = useState({

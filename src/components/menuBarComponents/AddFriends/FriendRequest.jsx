@@ -1,4 +1,4 @@
-import { acceptFriendRequest } from "../../../assets/api";
+import { acceptFriendRequest } from "../../../data/api";
 
 export default function FriendRequest({ receivedRequest, setUser }) {
   // Accept friend request and have API add user to friends.

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sortFriends } from "../assets/helperFunctions";
+import { sortFriends } from "../data/helperFunctions";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
