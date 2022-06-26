@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { v4 } from "uuid";
 import { NewMessageForm } from "./forms/";
 import Message from "./messagesViewportComponents/Message";
-import useSocketConnection from "../hooks/useSocketConnection";
+import { useSocketConnection } from "../hooks/";
 import { useUserContext } from "../context/UserContext";
 
 function MessagesViewport({ style, setMobileSwapSection }) {

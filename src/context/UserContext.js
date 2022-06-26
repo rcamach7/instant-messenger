@@ -1,7 +1,5 @@
 import { useContext, createContext, useState } from "react";
-import useJwtToken from "../hooks/useJwtToken";
-import useSetTheme from "../hooks/useSetTheme";
-import useFetchUser from "../hooks/useFetchUser";
+import { useJwtToken, useSetTheme, useFetchUser } from "../hooks/";
 
 export const UserContext = createContext(null);
 export const useUserContext = () => {
