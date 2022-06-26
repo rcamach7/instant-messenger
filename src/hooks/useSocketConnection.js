@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import config from "../assets/config.json";
 import { getUser } from "../assets/api.js";
 import { useEffect } from "react";
-import { useUserContext } from "./useUserContext";
+import { useUserContext } from "../context/UserContext";
 
 // Create a live socket connection to our server to listen to events.
 const socket = io.connect(`${config.apiUrl}`, {

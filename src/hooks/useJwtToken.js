@@ -16,7 +16,7 @@ export default function useJwtToken() {
         return Promise.reject(error);
       }
     );
-  });
+  }, [jwtToken]);
 
   return [jwtToken, setJwtToken];
 }
