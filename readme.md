@@ -2,13 +2,13 @@
 
 Instant Messenger application that allows users to chat with friends over a real-time socket connection. Uses my custom [**social media api**](https://github.com/rcamach7/social-media-api) for the backend.
 
-![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1651963604/portfolio/project_demos/demo_do1qox.gif)
-
 <div align="center">
 
 [Visit Instant-Messenger](https://rcamach7.github.io/instant-messenger/#/instant-messenger)
 
 </div>
+
+![project_demo](https://res.cloudinary.com/de2ymful4/image/upload/v1651963604/portfolio/project_demos/demo_do1qox.gif)
 
 ## Key Features
 

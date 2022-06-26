@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { v4 } from "uuid";
-import NewMessageForm from "./forms/NewMessageForm";
+import { NewMessageForm } from "./forms/";
 import Message from "./messagesViewportComponents/Message";
 import useSocketConnection from "../hooks/useSocketConnection";
 import { useUserContext } from "../context/UserContext";
