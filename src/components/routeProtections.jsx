@@ -12,7 +12,7 @@ export function RequireAuth({ children }) {
 }
 
 // Once authenticated, we don't want our users to continue in the landing page / sign in page.
-export function NotAuthenticated({ children, storedJwt }) {
+export function NotAuthenticated({ children }) {
   const { jwtToken } = useUserContext();
   return jwtToken === null ? (
     children

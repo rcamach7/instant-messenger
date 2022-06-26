@@ -10,7 +10,7 @@ function ChatRow({
   let lastMessage = getLastMessage(chat.messages);
 
   const handleInitiateChat = () => {
-    // Will this particular friends information to initiate a chatroom with a socket connection.
+    // Will store this particular friends information to initiate a chatroom with a socket connection.
     setActiveFriendChat({
       friendId: chat.friend._id,
       fullName: chat.friend.fullName,
@@ -31,7 +31,6 @@ function ChatRow({
 
   return (
     <section
-      // If this friend is the current active friend - we will apply some styling to distinguish active chat
       className={`ChatRow ${activeStyle}`}
       onClick={() => handleInitiateChat()}
     >

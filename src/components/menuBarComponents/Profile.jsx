@@ -13,14 +13,13 @@ function Profile({ setShowProfile }) {
   const { user, setUser, setTheme } = useUserContext();
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
-  // Deletes token and refreshes the page to log user out.
+
   const handleSignOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
 
   useEffect(() => {
-    // If user hasn't loaded - display a loading UI icon.
     if (user) {
       setLoadingUI(false);
     }
@@ -38,13 +37,13 @@ function Profile({ setShowProfile }) {
         {/* Shows user image along with ability to update their image */}
         <div className="profileInformation">
           <div className="profilePictureContainer">
-            {user ? (
+            {user && (
               <img
                 src={user.profilePicture}
                 alt="profileImage"
                 className="profilePicture"
               />
-            ) : null}
+            )}
             <ChangeProfileImageForm setUser={setUser} />
           </div>
 
@@ -99,7 +98,7 @@ function Profile({ setShowProfile }) {
       </div>
 
       {/* Will show loading screen incase user data is still being fetched */}
-      {loadingUI ? <LoadingComponents /> : null}
+      {loadingUI && <LoadingComponents />}
     </div>
   );
 }

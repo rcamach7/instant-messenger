@@ -1,4 +1,4 @@
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 import useJwtToken from "../hooks/useJwtToken";
 import useSetTheme from "../hooks/useSetTheme";
 import useFetchUser from "../hooks/useFetchUser";
@@ -15,11 +15,20 @@ export const useUserContext = () => {
 export const UserContextProvider = ({ children }) => {
   const [jwtToken, setJwtToken] = useJwtToken();
   const [user, setUser] = useFetchUser(jwtToken, setJwtToken);
+  const [roomSocket, setRoomSocket] = useState(null);
   const setTheme = useSetTheme("light");
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, jwtToken, setJwtToken, setTheme }}
+      value={{
+        user,
+        setUser,
+        jwtToken,
+        setJwtToken,
+        setTheme,
+        roomSocket,
+        setRoomSocket,
+      }}
     >
       {children}
     </UserContext.Provider>

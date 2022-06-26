@@ -89,9 +89,9 @@ function CreateAccountForm({ setCreateAccountForm }) {
           required
         />
         {/* If passwords don't match on submission - ask user to fill again */}
-        {badPasswordError ? (
+        {badPasswordError && (
           <p className="submissionError ">Passwords do not match</p>
-        ) : null}
+        )}
         {/* Prints any errors generated from API */}
         {badRequest.map((submissionError, i) => {
           return (

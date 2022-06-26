@@ -30,7 +30,6 @@ function MenuBar({
     return (
       <ChatRow
         key={v4()}
-        // If this current chat row is the current active one - background will be slightly different.
         activeStyle={
           activeFriendChat.friendId === chat.friend._id ? "activeChat" : ""
         }
@@ -91,15 +90,15 @@ function MenuBar({
       </ul>
 
       {/* Profile Page Tab */}
-      {showProfile ? <Profile setShowProfile={setShowProfile} /> : null}
+      {showProfile && <Profile setShowProfile={setShowProfile} />}
       {/* Friends Tab */}
-      {showAddFriends ? (
+      {showAddFriends && (
         <AddFriends
           sentFriendRequests={user ? user.sentFriendRequests : []}
           receivedFriendRequests={user ? user.receivedFriendRequests : []}
           setShowAddFriends={setShowAddFriends}
         />
-      ) : null}
+      )}
     </aside>
   );
 }
