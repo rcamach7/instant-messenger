@@ -1,4 +1,4 @@
-import { useUserContext } from "../../hooks/useUserContext";
+import { useUserContext } from "../../context/UserContext";
 import moment from "moment";
 
 function Message({ message }) {

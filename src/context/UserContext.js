@@ -3,19 +3,18 @@ import useJwtToken from "../hooks/useJwtToken";
 import useSetTheme from "../hooks/useSetTheme";
 import useFetchUser from "../hooks/useFetchUser";
 
-const UserContext = createContext(null);
-
+export const UserContext = createContext(null);
 export const useUserContext = () => {
   const userContext = useContext(UserContext);
 
-  if (!useContext) throw new Error("No context found");
+  if (!userContext) throw new Error("No context has been found!");
 
   return userContext;
 };
 
 export const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useFetchUser();
   const [jwtToken, setJwtToken] = useJwtToken();
+  const [user, setUser] = useFetchUser(jwtToken, setJwtToken);
   const setTheme = useSetTheme("light");
 
   return (

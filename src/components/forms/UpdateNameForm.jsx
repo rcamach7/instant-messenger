@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserContext } from "../../hooks/useUserContext";
+import { useUserContext } from "../../context/UserContext";
 import { updateName } from "../../assets/api";
 
 export default function UpdateNameForm({ setShowEditNameForm }) {

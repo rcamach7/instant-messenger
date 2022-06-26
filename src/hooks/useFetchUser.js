@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getUser } from "../assets/api";
 
-export default function useFetchUser(storedJwt, setStoredJwt) {
+export default function useFetchUser(jwtToken, setJwtToken) {
   const [user, setUser] = useState(null);
 
   // Get user data if JWT token exists but we haven't requested user data.
@@ -15,14 +15,14 @@ export default function useFetchUser(storedJwt, setStoredJwt) {
         // Token might be expired, or API is down.
         localStorage.removeItem("token");
         setUser(null);
-        setStoredJwt(null);
+        setJwtToken(null);
       }
     };
     // If we have a token stored and user in null, retrieve user from API.
-    if (storedJwt && user === null) {
+    if (jwtToken && user === null) {
       fetchUser();
     }
-  }, [user, storedJwt, setStoredJwt]);
+  }, [user, jwtToken, setJwtToken]);
 
   return [user, setUser];
 }

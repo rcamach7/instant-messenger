@@ -1,14 +1,14 @@
-import React from "react";
+import "./scss/index.scss";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import { UserContextProvider } from "./context/UserContext";
 import RouteSwitch from "./RouteSwitch";
-import "./scss/index.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <UserContextProvider>
       <RouteSwitch />
     </UserContextProvider>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 );
