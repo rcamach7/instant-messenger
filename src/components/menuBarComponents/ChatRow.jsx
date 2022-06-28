@@ -20,9 +20,7 @@ function ChatRow({ activeStyle, chat, setMobileSwapSection }) {
       window.innerWidth || 0
     );
     // If viewport still in mobile size, we will hide one component and display another.
-    if (viewportWidth <= 415) {
-      setMobileSwapSection(true);
-    }
+    if (viewportWidth <= 415) setMobileSwapSection(true);
   };
 
   return (

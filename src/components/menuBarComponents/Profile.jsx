@@ -20,9 +20,7 @@ function Profile({ setShowProfile }) {
   };
 
   useEffect(() => {
-    if (user) {
-      setLoadingUI(false);
-    }
+    if (user) setLoadingUI(false);
   }, [user]);
 
   return (
@@ -51,9 +49,9 @@ function Profile({ setShowProfile }) {
           <section className="profileName">
             {showEditNameForm ? (
               <UpdateNameForm setShowEditNameForm={setShowEditNameForm} />
-            ) : user ? (
-              <p className="userName">{user.fullName}</p>
-            ) : null}
+            ) : (
+              user && <p className="userName">{user.fullName}</p>
+            )}
             {/* Icon to update profile picture */}
             <FontAwesomeIcon
               icon={faPenToSquare}
@@ -61,7 +59,7 @@ function Profile({ setShowProfile }) {
               onClick={() => setShowEditNameForm(!showEditNameForm)}
             />
           </section>
-          {user ? <p>{user.username}</p> : null}
+          {user && <p>{user.username}</p>}
         </div>
 
         {/* Profile Page Buttons */}

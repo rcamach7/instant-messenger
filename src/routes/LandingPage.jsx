@@ -11,23 +11,16 @@ function LandingPage() {
     password: "",
   });
   const [loadingUx, setLoadingUx] = useState(false);
-  // Will control display error if credentials are not correct
   const [errors, setErrors] = useState(false);
-  // Will control display the form to create a new account.
   const [showCreateAccountForm, setCreateAccountForm] = useState(false);
 
   const handleLogin = async (e, useTestAccount) => {
     e.preventDefault();
+    setLoadingUx(true);
     try {
-      // Checks if we are using a test account or not.
-      let token;
-      setLoadingUx(true);
-      if (useTestAccount) {
-        token = await getToken({ username: "foobar", password: "test" });
-      } else {
-        token = await getToken(account);
-      }
-      // Saves new token from log-in, refreshes webpage, and allows app to detect and log in user provided the saved token.
+      let token = getToken(
+        useTestAccount ? { username: "foobar", password: "test" } : account
+      );
       localStorage.setItem("token", token);
       window.location.reload();
     } catch (error) {
@@ -38,7 +31,6 @@ function LandingPage() {
 
   return (
     <div className="LandingPage">
-      {/* Basic site logo and hook */}
       <aside>
         <img src={logo} alt="" />
         <p className="logo-text">
@@ -73,9 +65,7 @@ function LandingPage() {
           autoComplete="off"
           required
         />
-        {errors ? (
-          <p className="form-errors">Invalid username or password</p>
-        ) : null}
+        {errors && <p className="form-errors">Invalid username or password</p>}
         <button className="login-btn" type="submit">
           Log In
         </button>

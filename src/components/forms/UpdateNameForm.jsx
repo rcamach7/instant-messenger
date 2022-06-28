@@ -10,7 +10,6 @@ export default function UpdateNameForm({ setShowEditNameForm }) {
     e.preventDefault(e);
     try {
       const user = await updateName(fullName);
-      // Update our parent component with new user details.
       setUser(user);
       setShowEditNameForm(false);
     } catch (err) {
