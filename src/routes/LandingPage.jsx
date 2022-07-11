@@ -18,9 +18,10 @@ function LandingPage() {
     e.preventDefault();
     setLoadingUx(true);
     try {
-      let token = getToken(
+      let token = await getToken(
         useTestAccount ? { username: "foobar", password: "test" } : account
       );
+      console.log(token);
       localStorage.setItem("token", token);
       window.location.reload();
     } catch (error) {
