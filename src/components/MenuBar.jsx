@@ -13,13 +13,15 @@ import Profile from "./menuBarComponents/Profile";
 import AddFriends from "./menuBarComponents/AddFriends/AddFriends";
 import { useUserContext } from "../context/UserContext";
 
-function MenuBar({ style, setMobileSwapSection, setActiveFriendChat }) {
+function MenuBar({ style, setMobileSwapSection }) {
   const { user, activeFriendChat } = useUserContext();
+
   const [showProfile, setShowProfile] = useState(false);
   const [showAddFriends, setShowAddFriends] = useState(false);
 
   // Generate a collection of chat rows given the users friends.
   const sortedFriends = sortFriends([...(user ? user.friends : [])]);
+  // List of each friend that provides a preview of last message sent.
   const chatRows = sortedFriends.map((chat) => {
     return (
       <ChatRow
@@ -35,6 +37,7 @@ function MenuBar({ style, setMobileSwapSection, setActiveFriendChat }) {
 
   return (
     <aside className="MenuBar" style={style}>
+      {/* Component specific navigation bar for our MenuBar */}
       <nav className="navbar">
         <ul className="tabs-buttons">
           <li>
@@ -81,9 +84,8 @@ function MenuBar({ style, setMobileSwapSection, setActiveFriendChat }) {
         </li>
       </ul>
 
-      {/* Profile Page Tab */}
+      {/* Popup tabs that display over component once triggered by the navbar */}
       {showProfile && <Profile setShowProfile={setShowProfile} />}
-      {/* Friends Tab */}
       {showAddFriends && (
         <AddFriends
           sentFriendRequests={user ? user.sentFriendRequests : []}

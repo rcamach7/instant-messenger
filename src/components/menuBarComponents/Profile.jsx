@@ -11,6 +11,7 @@ import LoadingComponents from "./LoadingComponents";
 
 function Profile({ setShowProfile }) {
   const { user, setUser, setTheme } = useUserContext();
+
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
 
@@ -26,14 +27,16 @@ function Profile({ setShowProfile }) {
   return (
     <div className="ProfileBackdrop">
       <div className="Profile">
+        {/* Close profile component */}
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="iconClose"
           onClick={() => setShowProfile(false)}
         />
 
-        {/* Shows user image along with ability to update their image */}
+        {/* Shows user image, name, and ability to update those fields via forms. */}
         <div className="profileInformation">
+          {/* Display and update user image form */}
           <div className="profilePictureContainer">
             {user && (
               <img
@@ -52,7 +55,6 @@ function Profile({ setShowProfile }) {
             ) : (
               user && <p className="userName">{user.fullName}</p>
             )}
-            {/* Icon to update profile picture */}
             <FontAwesomeIcon
               icon={faPenToSquare}
               className="editNameIcon icon"

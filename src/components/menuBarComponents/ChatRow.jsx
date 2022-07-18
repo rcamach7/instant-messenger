@@ -3,7 +3,6 @@ import { useUserContext } from "../../context/UserContext";
 
 function ChatRow({ activeStyle, chat, setMobileSwapSection }) {
   const { setRoomSocket, setActiveFriendChat } = useUserContext();
-  let lastMessage = getLastMessage(chat.messages);
 
   const handleInitiateChat = () => {
     // Will store this particular friends information to initiate a chatroom with a socket connection.
@@ -35,7 +34,7 @@ function ChatRow({ activeStyle, chat, setMobileSwapSection }) {
       />
       <div className="contactInfo">
         <p className="friendName">{chat.friend.fullName}</p>
-        <p className="messagePreview">{lastMessage}</p>
+        <p className="messagePreview">{getLastMessage(chat.messages)}</p>
       </div>
     </section>
   );

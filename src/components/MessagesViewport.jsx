@@ -11,6 +11,7 @@ function MessagesViewport({ style, setMobileSwapSection }) {
   const { setTheme, roomSocket, activeFriendChat, setActiveFriendChat } =
     useUserContext();
   const messages = activeFriendChat.messages;
+
   // Manages socket connection based on current active chat.
   useSocketConnection(roomSocket, setActiveFriendChat);
 
@@ -25,6 +26,7 @@ function MessagesViewport({ style, setMobileSwapSection }) {
 
   return (
     <aside className="MessagesViewport" style={style}>
+      {/* Navigation bar specific to our messages viewport. */}
       <nav className="navbar">
         <ul>
           <li
@@ -48,6 +50,7 @@ function MessagesViewport({ style, setMobileSwapSection }) {
         </ul>
       </nav>
 
+      {/* Displays all messages between user and active friend. */}
       <div className="chatContainer">
         <div
           className="messagesContainer disable-scrollbars"

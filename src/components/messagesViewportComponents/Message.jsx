@@ -6,6 +6,7 @@ function Message({ message }) {
 
   return (
     <li className="Message">
+      {/* Message content */}
       <span
         className={
           "messageContent " +
@@ -14,6 +15,8 @@ function Message({ message }) {
       >
         {message.message}
       </span>
+
+      {/* Timestamp for message */}
       <span
         className={
           message.from === user._id ? "timeStampRight" : "timeStampLeft"

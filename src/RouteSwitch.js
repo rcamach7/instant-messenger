@@ -14,6 +14,7 @@ const RouteSwitch = () => {
         <Route
           path="/instant-messenger"
           element={
+            // We don't want users already logged in to have access to the login page.
             <OnlyUnauthenticated>
               <LandingPage />
             </OnlyUnauthenticated>

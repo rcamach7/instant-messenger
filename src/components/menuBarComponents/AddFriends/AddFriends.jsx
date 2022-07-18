@@ -12,9 +12,11 @@ import FriendRequest from "./FriendRequest.jsx";
 export default function AddFriends({ setShowAddFriends }) {
   const { user, setUser } = useUserContext();
   const { sentFriendRequests, receivedFriendRequests } = user;
+
   return (
     <div className="AddFriendsBackdrop">
       <div className="AddFriends">
+        {/* Close component button */}
         <FontAwesomeIcon
           onClick={() => setShowAddFriends(false)}
           icon={faCircleXmark}
@@ -77,7 +79,7 @@ export default function AddFriends({ setShowAddFriends }) {
           </ul>
         </div>
 
-        {/* Socials Container */}
+        {/* Socials icon container */}
         <ul className="socialsContainer">
           <li>
             <FontAwesomeIcon icon={faGithub} className="socialIcon" />
