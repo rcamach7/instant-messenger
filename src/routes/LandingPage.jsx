@@ -4,8 +4,11 @@ import { CreateAccountForm } from "../components/forms/";
 import { getToken } from "../data/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useUserContext } from "../context/UserContext";
 
 function LandingPage() {
+  const { setJwtToken } = useUserContext();
+
   const [account, setAccount] = useState({
     username: "",
     password: "",
@@ -21,9 +24,7 @@ function LandingPage() {
       let token = await getToken(
         useTestAccount ? { username: "foobar", password: "test" } : account
       );
-      console.log(token);
-      localStorage.setItem("token", token);
-      window.location.reload();
+      setJwtToken(token);
     } catch (error) {
       setLoadingUx(false);
       setErrors(true);

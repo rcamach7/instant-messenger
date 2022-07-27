@@ -6,17 +6,7 @@ export default function useJwtToken() {
 
   // Updates authorization header anytime our token changes, to keep user validated while making API calls.
   useEffect(() => {
-    axios.interceptors.request.use(
-      (config) => {
-        if (jwtToken) {
-          config.headers.authorization = `Bearer ${jwtToken}`;
-        }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
   }, [jwtToken]);
 
   return [jwtToken, setJwtToken];

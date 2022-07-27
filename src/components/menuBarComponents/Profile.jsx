@@ -10,14 +10,13 @@ import { UpdateNameForm, ChangeProfileImageForm } from "../forms/";
 import LoadingComponents from "./LoadingComponents";
 
 function Profile({ setShowProfile }) {
-  const { user, setUser, setTheme } = useUserContext();
+  const { user, setUser, setTheme, setJwtToken } = useUserContext();
 
   const [loadingUI, setLoadingUI] = useState(true);
   const [showEditNameForm, setShowEditNameForm] = useState(false);
 
   const handleSignOut = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+    setJwtToken(null);
   };
 
   useEffect(() => {
