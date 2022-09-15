@@ -27,18 +27,18 @@ Instant Messenger application that allows users to chat with friends over a real
   <img src="https://res.cloudinary.com/de2ymful4/image/upload/v1648515099/main-portfolio/animated-logos/sass-animated_lhind3.gif" width="30" height="35" alt="SASS" />
 </p>
 
-- react, socket-io-client, Context API, axios interceptors, uuid, react-router-dom, sass, font awesome icon's, useEffect, useState, custom hooks, hash router, promise based functions, async/await, custom API, moment, and more...
+react, socket-io-client, Context API, axios interceptors, uuid, react-router-dom, sass, font awesome icon's, useEffect, useState, custom hooks, hash router, promise based functions, async/await, custom API, moment, and more...
 
 #### How to install and run?
 
 ```bash
- git clone https://github.com/rcamach7/instant-messenger
- cd messenger
- npm install
- npm start
+  # Clone this repository
+  git clone https://github.com/rcamach7/instant-messenger
+  cd messenger
+  npm install
+  npm run use-local-server
+
+  # Clone my social media api and follow the instructions to run it
+  git clone https://github.com/rcamach7/social-media-api
+  cd social-media-api
 ```
-
-#### To-Do's
-
-- Give ability for users to send images.
-- Group chat times together if multiple messages were sent at the same time - only display sent time once.
