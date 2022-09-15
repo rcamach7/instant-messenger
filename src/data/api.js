@@ -1,12 +1,12 @@
 import axios from "axios";
-import config from "../data/config.json";
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 
 // Retrieve current user info
 export async function getUser() {
   try {
     const {
       data: { user },
-    } = await axios.get(`${config.apiUrl}/users/`);
+    } = await axios.get(`/users/`);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);
@@ -18,7 +18,7 @@ export async function createUser(account) {
   try {
     const {
       data: { token },
-    } = await axios.post(`${config.apiUrl}/users/`, {
+    } = await axios.post(`/users/`, {
       fullName: account.fullName,
       username: account.username.toLowerCase(),
       password: account.password,
@@ -33,7 +33,7 @@ export async function getToken(account) {
   try {
     const {
       data: { token },
-    } = await axios.post(`${config.apiUrl}/login`, account);
+    } = await axios.post(`/login`, account);
     return Promise.resolve(token);
   } catch (error) {
     return Promise.reject(error);
@@ -45,7 +45,7 @@ export async function getFriends() {
   try {
     const {
       data: { friends, receivedFriendRequests, sentFriendRequests },
-    } = await axios.get(`${config.apiUrl}/users/friends`);
+    } = await axios.get(`/users/friends`);
     return Promise.resolve({
       friends,
       receivedFriendRequests,
@@ -60,7 +60,7 @@ export async function requestFriend(friendUsername) {
   try {
     const {
       data: { user },
-    } = await axios.put(`${config.apiUrl}/friends/${friendUsername}`);
+    } = await axios.put(`/friends/${friendUsername}`);
 
     return Promise.resolve(user);
   } catch (error) {
@@ -73,7 +73,7 @@ export async function acceptFriendRequest(friendId) {
   try {
     const {
       data: { user },
-    } = await axios.post(`${config.apiUrl}/friends/${friendId}`);
+    } = await axios.post(`/friends/${friendId}`);
 
     return Promise.resolve(user);
   } catch (error) {
@@ -85,7 +85,7 @@ export async function acceptFriendRequest(friendId) {
 // Send a new message to a friend
 export async function sendMessage(friendId, roomSocket, message) {
   try {
-    await axios.post(`${config.apiUrl}/messages/${friendId}`, {
+    await axios.post(`/messages/${friendId}`, {
       message,
       // _id field is passed to emit a socket signal to any users in a room with this identifier.
       _id: roomSocket,
@@ -108,7 +108,7 @@ export async function updateProfilePicture(profilePicture) {
       data: { user },
     } = await axios({
       method: "put",
-      url: `${config.apiUrl}/users/`,
+      url: `/users/`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     });
@@ -123,7 +123,7 @@ export async function updateName(fullName) {
   try {
     const {
       data: { user },
-    } = await axios.put(`${config.apiUrl}/users/`, { fullName });
+    } = await axios.put(`/users/`, { fullName });
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);

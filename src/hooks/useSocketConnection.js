@@ -1,11 +1,10 @@
 import io from "socket.io-client";
-import config from "../data/config.json";
 import { getUser } from "../data/api.js";
 import { useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
 
 // Create a live socket connection to our server to listen to events.
-const socket = io.connect(`${config.apiUrl}`, {
+const socket = io.connect(process.env.REACT_APP_SERVER_URL, {
   transports: ["websocket"],
 });
 
